@@ -1,0 +1,182 @@
+<?php
+
+namespace App\Http\Controllers\User;
+
+use App\Models\User;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+
+class UserController extends Controller
+{
+
+    public function home()
+    {
+        return view('welcome');
+    }
+
+    public function showLoginForm()
+    {
+        return view('auth.login');
+    }
+    function check(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email|exists:users,email',
+            'password' => 'required|min:5|max:30'
+        ], [
+            'email.exists' => 'This email is not exists'
+        ]);
+
+        $creds = $request->only('email', 'password');
+        if (Auth::guard('web')->attempt($creds)) {
+            return redirect()->route('user.dashboard');
+        } else {
+            return redirect()->route('user.login')->with('fail', 'Incorrect credentials');
+        }
+    }
+
+    public function signup(Request $request)
+    {
+        $request->validate([
+            'first_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'document_address' => ['required', 'string'],
+            'address' => ['required', 'string'],
+            'city' => ['required', 'string', 'max:255'],
+            'region' => ['required', 'string', 'max:255'],
+            'postal_or_zip_code' => ['required', 'regex:/^\d{5}$/'],
+            'national_id' => ['required', 'regex:/^[1-9][0-9]{12}$/', 'unique:users'],
+            'country' => ['required', 'string', 'max:255'],
+            'country_code' => ['required'],
+            'phone' => ['required', 'digits:10', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+        if ($request->is_plus_eighteen) {
+            if ($request->is_plus_eighteen == 'on') {
+                $is_plus_eighteen = 1;
+            }
+        } else {
+            $is_plus_eighteen = 0;
+        }
+        $email_verification_code = mt_rand(100000, 999999);
+        $user = User::create([
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'email' => $request->email,
+            'document_address' => $request->document_address,
+            'address' => $request->address,
+            'city' => $request->city,
+            'region' => $request->region,
+            'postal_or_zip_code' => $request->postal_or_zip_code,
+            'is_plus_eighteen' => $is_plus_eighteen,
+            'national_id' => $request->national_id,
+            'email_verification_code' => $email_verification_code,
+            'country' => $request->country,
+            'country_code' => $request->country_code,
+            'phone' => $request->phone,
+            'password' => Hash::make($request->password),
+        ]);
+        Auth::login($user);
+        return redirect()->route('user.email.varify')->with(['message' => 'Email Verification Code Sent On Your Email, Please Check Your Email.']);
+    }
+    public function emailVerify()
+    {
+        return view('dashboard.user.emailverify');
+    }
+
+    public function checkEmailVerify(Request $request)
+    {
+        $request->validate([
+            'email' => ['required', 'string', 'email'],
+            'email_verification_code' => ['required', 'digits:6']
+        ]);
+        $user = User::where('email', '=', $request->email)->first();
+        if ($user->email_verification_code == $request->email_verification_code) {
+            $phone_verification_code = mt_rand(10000, 99999);
+            $user->varify_email = 1;
+            $user->phone_verification_code = $phone_verification_code;
+            $user->update();
+            return redirect()->route('user.phone.varify')->with(['message' => 'Phone Verification Code Sent On Your Phone, Please Check Your Phone.']);
+        } else {
+            return redirect()->back()->with(['fail' => 'Your Code Does not Match, Pleas try again.']);
+        }
+    }
+
+    public function phoneVerify()
+    {
+        return view('dashboard.user.phoneverify');
+    }
+
+    public function checkPhoneVerify(Request $request)
+    {
+        $request->validate([
+            'number' => ['required', 'string'],
+            'phone_verification_code' => ['required', 'digits:5']
+        ]);
+        $user = User::where('phone', '=', $request->number)->first();
+        if ($user->phone_verification_code == $request->phone_verification_code) {
+            $user->varify_phone = 1;
+            $user->update();
+            return redirect()->route('user.dashboard');
+        } else {
+            return redirect()->back()->with(['fail' => 'Your Code Does not Match, Pleas try again.']);
+        }
+    }
+
+    function logout()
+    {
+        Auth::guard('web')->logout();
+        return redirect()->route('index');
+    }
+
+    public function dashboard()
+    {
+        return view('dashboard.user.home');
+    }
+
+    public function showRegisterForm()
+    {
+        return view('auth.register');
+    }
+
+    public function profile()
+    {
+        return view('dashboard.user.profile');
+    }
+
+    public function profileUpdate(Request $request)
+    {
+        $rules = array('first_name' => 'required|min:3|max:50', 'last_name' => 'required|min:3|max:50');
+        $error = Validator::make($request->all(), $rules);
+        if ($error->fails()) {
+            return response()->json([
+                'error'  => $error->errors()->all()
+            ]);
+        }
+        $id = $request->id;
+        $profile = User::find($id);
+        $profile->first_name = $request->first_name;
+        $profile->last_name = $request->last_name;
+        $profile->email = $request->email;
+        if ($request->hasfile('image')) {
+            if (!empty($profile->image) && ($profile->image != "assets/images/userPic.png")) {
+                $image_path = $profile->image;
+                unlink($image_path);
+            }
+            $image = $request->file('image');
+            $name = time() . 'profile' . '.' . $image->getClientOriginalExtension();
+            $destinationPath = 'user_images/';
+            $image->move($destinationPath, $name);
+            $profile->image = 'user_images/' . $name;
+        }
+
+        $profile->update();
+        return response()->json([
+            'success' => 'Profile Updated Successfully!',
+        ]);
+    }
+}

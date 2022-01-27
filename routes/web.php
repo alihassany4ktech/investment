@@ -1,0 +1,80 @@
+<?php
+
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+
+// Admin route 
+
+Route::prefix('admin')->name('admin.')->group(
+    function () {
+        Route::middleware(['guest:admin'])->group(function () {
+            Route::get('/login', [App\Http\Controllers\Admin\AdminController::class, 'showLoginForm'])->name('login');
+            Route::post('/check', [App\Http\Controllers\Admin\AdminController::class, 'login'])->name('check');
+        });
+        Route::middleware(['auth:admin'])->group(
+            function () {
+                Route::get('/', [App\Http\Controllers\Admin\AdminController::class, 'index'])->name('dashboard');
+                Route::post('/logout', [App\Http\Controllers\Admin\AdminController::class, 'logout'])->name('logout');
+                // profile
+                Route::get('/profile', [App\Http\Controllers\Admin\AdminController::class, 'profile'])->name('profile');
+                Route::post('/profile/update', [App\Http\Controllers\Admin\AdminController::class, 'profileUpdate'])->name('profile.update');
+                // plans
+                Route::get('/plans', [App\Http\Controllers\Admin\PlanController::class, 'plans'])->name('plans');
+                Route::get('/create/plan', [App\Http\Controllers\Admin\PlanController::class, 'create'])->name('plan.create');
+                Route::post('/store/plan', [App\Http\Controllers\Admin\PlanController::class, 'store'])->name('plan.store');
+                Route::get('/show/plan/{id}', [App\Http\Controllers\Admin\PlanController::class, 'show'])->name('plan.show');
+                Route::get('/edit/plan/{id}', [App\Http\Controllers\Admin\PlanController::class, 'edit'])->name('plan.edit');
+                Route::post('/update/plan', [App\Http\Controllers\Admin\PlanController::class, 'update'])->name('plan.update');
+                Route::get('/delete/plan/{id}', [App\Http\Controllers\Admin\PlanController::class, 'delete'])->name('plan.delete');
+                // setting
+                Route::get('/setting', [App\Http\Controllers\Admin\SettingController::class, 'setting'])->name('setting');
+                Route::post('/setting/update', [App\Http\Controllers\Admin\SettingController::class, 'settingUpdate'])->name('setting.update');
+            }
+        );
+    }
+);
+
+
+
+// User Route 
+Route::get('/', [App\Http\Controllers\User\UserController::class, 'home'])->name('index');
+Route::prefix('user')->name('user.')->group(function () {
+    Route::middleware(['guest:web',])->group(function () {
+        Route::get('/login', [App\Http\Controllers\User\UserController::class, 'showLoginForm'])->name('login');
+        Route::post('/check', [App\Http\Controllers\User\UserController::class, 'check'])->name('check');
+        Route::get('/register', [App\Http\Controllers\User\UserController::class, 'showRegisterForm'])->name('register');
+        Route::post('/signup', [App\Http\Controllers\User\UserController::class, 'signup'])->name('signup');
+    });
+    Route::middleware(['auth:web',])->group(function () {
+        Route::get('/email/verify', [App\Http\Controllers\User\UserController::class, 'emailVerify'])->name('email.varify');
+        Route::post('/check/email/verify', [App\Http\Controllers\User\UserController::class, 'checkEmailVerify'])->name('check.email.verify');
+        Route::get('/phone/verify', [App\Http\Controllers\User\UserController::class, 'phoneVerify'])->name('phone.varify');
+        Route::post('/check/phone/verify', [App\Http\Controllers\User\UserController::class, 'checkPhoneVerify'])->name('check.phone.verify');
+        Route::get('/dashboard', [App\Http\Controllers\User\UserController::class, 'dashboard'])->name('dashboard');
+        Route::post('/logout', [App\Http\Controllers\User\UserController::class, 'logout'])->name('logout');
+        // profile
+        Route::get('/profile', [App\Http\Controllers\User\UserController::class, 'profile'])->name('profile');
+        Route::post('/profile/update', [App\Http\Controllers\User\UserController::class, 'profileUpdate'])->name('profile.update');
+    });
+});
+
+
+
+
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Auth::routes();
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
