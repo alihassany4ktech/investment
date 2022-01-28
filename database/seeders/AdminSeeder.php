@@ -21,6 +21,7 @@ class AdminSeeder extends Seeder
             [
                 'name'  => 'Admin',
                 'email' => 'admin@gmail.com',
+                'wallet_address' => 'test@gmail.com',
                 'password' => Hash::make('password'),     //password
                 'remember_token' => Str::random(10),
             ]

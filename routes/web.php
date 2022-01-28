@@ -37,6 +37,11 @@ Route::prefix('admin')->name('admin.')->group(
                 Route::get('/edit/plan/{id}', [App\Http\Controllers\Admin\PlanController::class, 'edit'])->name('plan.edit');
                 Route::post('/update/plan', [App\Http\Controllers\Admin\PlanController::class, 'update'])->name('plan.update');
                 Route::get('/delete/plan/{id}', [App\Http\Controllers\Admin\PlanController::class, 'delete'])->name('plan.delete');
+                // plan purchase request
+                Route::get('/plan/requests', [App\Http\Controllers\Admin\RequestController::class, 'requests'])->name('plan.requests');
+                Route::post('/change/plan/status', [App\Http\Controllers\Admin\RequestController::class, 'changeStatus'])->name('change.plan.status');
+                Route::get('/plan/request/detail/{id}', [App\Http\Controllers\Admin\RequestController::class, 'show'])->name('plan.request.show');
+
                 // setting
                 Route::get('/setting', [App\Http\Controllers\Admin\SettingController::class, 'setting'])->name('setting');
                 Route::post('/setting/update', [App\Http\Controllers\Admin\SettingController::class, 'settingUpdate'])->name('setting.update');
@@ -66,6 +71,11 @@ Route::prefix('user')->name('user.')->group(function () {
         // profile
         Route::get('/profile', [App\Http\Controllers\User\UserController::class, 'profile'])->name('profile');
         Route::post('/profile/update', [App\Http\Controllers\User\UserController::class, 'profileUpdate'])->name('profile.update');
+        // plans 
+        ROute::get('/plans', [App\Http\Controllers\User\PlanController::class, 'plans'])->name('plans');
+        Route::get('/purchase/plan/{id}', [App\Http\Controllers\User\PlanController::class, 'purchase'])->name('purchase.plan');
+        Route::post('/purchase/plan/store', [App\Http\Controllers\User\PlanController::class, 'purchaseStore'])->name('plan.purchase.store');
+        Route::get('/plan/purchase/success}', [App\Http\Controllers\User\PlanController::class, 'planPurchaseSuccess'])->name('plan.purchase.success');
     });
 });
 

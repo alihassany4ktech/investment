@@ -51,7 +51,15 @@
                     <ul id="sidebarnav">
                     
                         <li class="{{ $link == route('admin.dashboard')? 'active':'' }}"> <a class="waves-effect waves-dark" href="{{route('admin.dashboard')}}" aria-expanded="false"><i class="mdi mdi-gauge"></i><span class="hide-menu">Dashboards</span></a></li>
-                        <li class="{{ $link == route('admin.plans') || $link == route('admin.plan.create')? 'active':'' }}"><a class="waves-effect waves-dark" href="{{route('admin.plans')}}"  aria-expanded="false"><i class="fa fa-paper-plane" style="font-size: 18px" aria-hidden="true"></i><span class="hide-menu">Plans</span></a></li>
+
+                          <li class="{{ $link == route('admin.plans') || $link == route('admin.plan.create') || $link == route('admin.plan.requests') ? 'active':'' }}"> 
+                            <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fa fa-paper-plane" style="font-size: 18px" aria-hidden="true"></i><span class="hide-menu">Plans</span></a>
+                            <ul aria-expanded="false" class="collapse">
+                                <li><a href="{{route('admin.plans')}}" class="{{ $link == route('admin.plans') ? 'active':'' }}">All Plans</a></li>
+                                <li><a href="{{route('admin.plan.requests')}}" class="{{ $link == route('admin.plan.requests') ? 'active':'' }}">Plan Purchase Requests</a></li>
+                            </ul>
+                        </li>
+
                         <li class="{{ $link == route('admin.setting')? 'active':'' }}"><a class="waves-effect waves-dark" href="{{route('admin.setting')}}"  aria-expanded="false"><i class="ti-settings" style="font-size: 18px" aria-hidden="true"></i><span class="hide-menu">Settings</span></a></li>
                     </ul>
                 </nav>

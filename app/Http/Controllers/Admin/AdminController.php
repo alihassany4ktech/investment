@@ -63,6 +63,7 @@ class AdminController extends Controller
             $profile = Admin::find($id);
             $profile->name = $request->name;
             $profile->email = $request->email;
+            $profile->wallet_address = $request->wallet_address;
             if ($request->hasfile('image')) {
                 if (!empty($profile->image) && ($profile->image != "assets/images/adminPic.png")) {
                     $image_path = $profile->image;

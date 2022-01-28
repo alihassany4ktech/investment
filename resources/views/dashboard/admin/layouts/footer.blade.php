@@ -386,9 +386,7 @@
                 });
             });
     </script>
-
-    
-
+@stack('purchased-plans-requests.script')
      
 </body>
 </html>
