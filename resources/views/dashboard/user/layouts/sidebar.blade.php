@@ -49,6 +49,7 @@
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
                         <li class="{{ $link == route('user.dashboard') ? 'active':'' }}"> <a class="waves-effect waves-dark" href="{{route('user.dashboard')}}" aria-expanded="false"><i class="mdi mdi-gauge"></i><span class="hide-menu">Dashboard </span></a></li>
+                        <li class="{{ $link == route('user.client.area') ||$link == route('user.client.withdrawal')  ? 'active':'' }}"> <a class="waves-effect waves-dark" href="{{route('user.client.area')}}" aria-expanded="false"><i class="mdi mdi-account"></i><span class="hide-menu">Client Area </span></a></li>
                         <li class="{{ $link == route('user.plans') ? 'active':'' }}"> <a class="waves-effect waves-dark" href="{{route('user.plans')}}" aria-expanded="false"><i class="fa fa-paper-plane"></i><span class="hide-menu">Plans </span></a></li>
                     </ul>
                 </nav>

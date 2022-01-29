@@ -71,6 +71,9 @@ Route::prefix('user')->name('user.')->group(function () {
         // profile
         Route::get('/profile', [App\Http\Controllers\User\UserController::class, 'profile'])->name('profile');
         Route::post('/profile/update', [App\Http\Controllers\User\UserController::class, 'profileUpdate'])->name('profile.update');
+        // clent area
+        Route::get('/client/area', [App\Http\Controllers\User\ClientController::class, 'clientArea'])->name('client.area');
+        Route::get('/client/withdrawal', [App\Http\Controllers\User\ClientController::class, 'withdrawal'])->name('client.withdrawal');
         // plans 
         ROute::get('/plans', [App\Http\Controllers\User\PlanController::class, 'plans'])->name('plans');
         Route::get('/purchase/plan/{id}', [App\Http\Controllers\User\PlanController::class, 'purchase'])->name('purchase.plan');

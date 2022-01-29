@@ -193,5 +193,6 @@
     });
 
 </script>
+@stack('clientarea-page-script')
 </body>
 </html>
