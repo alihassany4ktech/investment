@@ -9,8 +9,8 @@
             <div class="col-md-5 col-8 align-self-center">
                 <h3 class="text-themecolor"><a href="{{route('admin.dashboard')}}">Dashboard</a> </h3>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item active">Plans</li>
-                    <li class="breadcrumb-item">All Plans</li>
+                    <li class="breadcrumb-item active">Users</li>
+                    <li class="breadcrumb-item">All Users</li>
                 </ol>
             </div>
         </div>
@@ -20,37 +20,38 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">All Plans</h4>
-                        <a href="{{route('admin.plan.create')}}" type="button"
-                            class="btn btn-outline-success m-t-8 float-right" style="margin-right: 10px;font-size: 12px"><i class="ti-plus" style="font-size: 12px"></i> Add New
-                            Plan</a>
+                        <h4 class="card-title">All Users</h4>
                         <div class="table-responsive m-t-40">
                             <table id="example23" class="display nowrap table table-hover table-striped table-bordered"
                                 cellspacing="0" width="100%">
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Title</th>
-                                        <th>Price</th>
-                                        <th>Return Price</th>
-                                        <th>Commission</th>
-                                        <th>Daily Earning</th>
-                                        <th>WithDrawal</th>
-                                        <th>Referral Commission</th>
+                                        <th>Name</th>
+                                        <th>Image</th>
+                                        <th>Email</th>
+                                        <th>Phone</th>
+                                        <th>Country</th>
+                                        <th>City</th>
+                                        <th>National Id</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($plans as $row)
+                                    @foreach ($users as $row)
                                     <tr>
                                           <td>{{$loop->iteration}}</td>
-                                          <td>{{$row->title}}</td>
-                                          <td>${{$row->price}}</td>
-                                          <td>${{$row->return_price}}</td>
-                                          <td>{{$row->commission}}%</td>
-                                          <td>${{$row->daily_earning}}</td>
-                                          <td>{{$row->withdrawal}} days</td>
-                                          <td>${{$row->referral_commission }}</td>
+                                          <td>{{$row->first_name}} {{$row->last_name}}</td>
+                                          <td>
+                                                 <img data-toggle="tooltip" data-original-title="ucwords({{$row->first_name}} {{$row->last_name}})"
+                                                src="{{asset($row->image) }}" alt="user" class="img-circle" width="30"
+                                                height="30">
+                                          </td>
+                                          <td>{{$row->email}}</td>
+                                          <td>{{$row->phone}}</td>
+                                          <td>{{$row->country}}</td>
+                                          <td>{{$row->city}}</td>
+                                          <td>{{$row->national_id }}</td>
                                                   <td class="">
                                             <div class="dropdown">
                                                 <button class="btn btn-light" type="button" id="dropdownMenuButton"
@@ -59,17 +60,20 @@
                                                 </button>
                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                     <a class="dropdown-item text-dark"
-                                                        href="{{route('admin.plan.show',['id' => $row->id])}}"
+                                                        href="{{route('admin.user.show',['id'=>$row->id])}}"
                                                         type="button" style="font-size: 12px;cursor: pointer"><i
-                                                            class="ti-eye" style="font-size: 12px"></i> View</a>
+                                                            class="ti-eye" style="font-size: 12px"></i> View Details</a>
                                                     <a class="dropdown-item text-dark" type="button"
                                                         style="font-size: 12px; cursor: pointer;"
-                                                        href="{{route('admin.plan.edit',['id' => $row->id])}}"><i
-                                                            class="ti-marker-alt" style="font-size: 12px"></i> Edit</a>
-                        
+                                                        href="{{route('admin.user.ban',['id'=> $row->id])}}"><i
+                                                            class="mdi mdi-account-remove ml-0" style="font-size: 14px"></i> Ban</a>
+                                                    <a class="dropdown-item text-dark" type="button"
+                                                        style="font-size: 12px; cursor: pointer;"
+                                                        href="{{route('admin.user.unban',['id'=> $row->id])}}"><i
+                                                            class="mdi mdi-account-check" style="font-size: 14px"></i> Unban</a>
                                                     <a class="dropdown-item text-dark"
-                                                        href="{{route('admin.plan.delete',['id' => $row->id])}}"
-                                                        type="button" style="font-size: 12px" id="deletePlan"><i class="ti-close"
+                                                        href="{{route('admin.user.delete',['id'=> $row->id])}}"
+                                                        type="button" style="font-size: 12px" id="delete"><i class="ti-close"
                                                             style="font-size: 12px"></i> Delete</a>
                                                 </div>
                                             </div>

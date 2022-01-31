@@ -37,6 +37,16 @@ Route::prefix('admin')->name('admin.')->group(
                 Route::get('/edit/plan/{id}', [App\Http\Controllers\Admin\PlanController::class, 'edit'])->name('plan.edit');
                 Route::post('/update/plan', [App\Http\Controllers\Admin\PlanController::class, 'update'])->name('plan.update');
                 Route::get('/delete/plan/{id}', [App\Http\Controllers\Admin\PlanController::class, 'delete'])->name('plan.delete');
+                // users 
+                Route::get('/users', [App\Http\Controllers\Admin\UserController::class, 'users'])->name('users');
+                Route::get('/show/user/{id}', [App\Http\Controllers\Admin\UserController::class, 'show'])->name('user.show');
+                Route::get('/ban/user/{id}', [App\Http\Controllers\Admin\UserController::class, 'banUser'])->name('user.ban');
+                Route::get('/unban/user/{id}', [App\Http\Controllers\Admin\UserController::class, 'unbanUser'])->name('user.unban');
+                Route::get('/delete/user/{id}', [App\Http\Controllers\Admin\UserController::class, 'deleteUser'])->name('user.delete');
+                // withdrawals
+                Route::get('/withdrawals', [App\Http\Controllers\Admin\WithdrawalController::class, 'withdrawals'])->name('withdrawals');
+                Route::post('/change/withdrawal/status', [App\Http\Controllers\Admin\WithdrawalController::class, 'changeStatus'])->name('change.withdrawal.status');
+
                 // plan purchase request
                 Route::get('/plan/requests', [App\Http\Controllers\Admin\RequestController::class, 'requests'])->name('plan.requests');
                 Route::post('/change/plan/status', [App\Http\Controllers\Admin\RequestController::class, 'changeStatus'])->name('change.plan.status');
@@ -71,6 +81,8 @@ Route::prefix('user')->name('user.')->group(function () {
         // profile
         Route::get('/profile', [App\Http\Controllers\User\UserController::class, 'profile'])->name('profile');
         Route::post('/profile/update', [App\Http\Controllers\User\UserController::class, 'profileUpdate'])->name('profile.update');
+        // withdrawal 
+        Route::post('/withdrawal/store', [App\Http\Controllers\User\ClientController::class, 'withdrawalStore'])->name('withdrawal.store');
         // clent area
         Route::get('/client/area', [App\Http\Controllers\User\ClientController::class, 'clientArea'])->name('client.area');
         Route::get('/client/withdrawal', [App\Http\Controllers\User\ClientController::class, 'withdrawal'])->name('client.withdrawal');

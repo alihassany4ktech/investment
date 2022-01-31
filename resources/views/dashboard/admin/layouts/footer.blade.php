@@ -386,7 +386,18 @@
                 });
             });
     </script>
+      <script>
+        @if(session()->has('success'))
+
+        toastr.options = {
+            "closeButton": true,
+            "progressBar": true
+        }
+        toastr.success("{{ session('success') }}");
+        @endif
+
+    </script>
 @stack('purchased-plans-requests.script')
-     
+@stack('withdrawals-page-script')
 </body>
 </html>

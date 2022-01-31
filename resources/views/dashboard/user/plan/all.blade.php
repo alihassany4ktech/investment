@@ -44,8 +44,8 @@
                                                 <div class="price-table-content">
                                                     <div class="price-row">Return Price: <span class="text-success">${{$row->return_price}}</span></div>
                                                     <div class="price-row">Commission: <span class="text-danger">{{$row->commission}}%</span></div>
-                                                    <div class="price-row">Daily Earning:<span class="text-warning">{{$row->daily_earning}}%</span></div>
-                                                    <div class="price-row">Withdraw: <span class="text-primary">${{$row->withdraw}}</span></div>
+                                                    <div class="price-row">Daily Earning:<span class="text-warning"> ${{$row->daily_earning}}</span></div>
+                                                    <div class="price-row">Withdrawal: <span class="text-primary">{{$row->withdraw}} days</span></div>
                                                     <div class="price-row">Referral Commission: <span class="text-secondary">${{$row->referral_commission}}</span></div>
                                                     <div class="price-row">
                                                          @if(App\Models\PurchasedPlan::where('user_id','=',Auth::guard('web')->user()->id)->where('plan_id','=',$row->id)->where('status','=','Pending')->exists())

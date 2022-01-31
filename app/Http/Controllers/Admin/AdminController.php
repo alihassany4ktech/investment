@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Plan;
+use App\Models\User;
 use App\Models\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\PurchasedPlan;
+use App\Models\Withdrawal;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
@@ -28,7 +32,7 @@ class AdminController extends Controller
         $creds = $request->only('email', 'password');
 
         if (Auth::guard('admin')->attempt($creds)) {
-            return redirect()->route('admin.dashboard');
+            return redirect()->route('admin.dashboard')->with('success', 'Singin Successfully');
         } else {
             return redirect()->route('admin.login')->with('fail', 'Incorrect credentials');
         }
@@ -41,7 +45,12 @@ class AdminController extends Controller
 
     public function index()
     {
-        return view('dashboard.admin.home');
+        $plans = Plan::all();
+        $totalPlans = count($plans);
+        $totalUser = count(User::all());
+        $totalWithdrawal = count(Withdrawal::all());
+        $totalRequests = count(PurchasedPlan::all());
+        return view('dashboard.admin.home', compact('totalPlans', 'totalUser', 'totalWithdrawal', 'totalRequests'));
     }
 
     public function profile()

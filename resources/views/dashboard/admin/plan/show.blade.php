@@ -109,16 +109,16 @@
                                     </div>
                                     <div class="col-md-3 col-xs-6 b-r"> <strong>Daily Earning</strong>
                                         <br>
-                                        <small class="text-danger">{{$plan->daily_earning}}%</small>
+                                        <small class="text-danger">${{$plan->daily_earning}}</small>
                                     </div>
                                 </div>
                                 <hr>
                                 <div class="row">
                                     
-                                    <div class="col-md-3 col-xs-6 b-r"> <strong>Withdraw</strong>
+                                    <div class="col-md-3 col-xs-6 b-r"> <strong>Withdrawal</strong>
                                         <br>
                                         <small
-                                            class="text-success">${{$plan->withdraw}}</small>
+                                            class="text-success">{{$plan->withdraw}} days</small>
                                     </div>
                                     <div class="col-md-3 col-xs-6 b-r"> <strong>Referral Commission</strong>
                                         <br>

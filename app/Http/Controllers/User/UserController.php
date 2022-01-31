@@ -2,15 +2,22 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Models\Plan;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Nexmo\Laravel\Facade\Nexmo;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use App\Notifications\SendEmailVerifivationNotification;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('UserBlock');
+    }
 
     public function home()
     {
@@ -32,7 +39,7 @@ class UserController extends Controller
 
         $creds = $request->only('email', 'password');
         if (Auth::guard('web')->attempt($creds)) {
-            return redirect()->route('user.dashboard');
+            return redirect()->route('user.dashboard')->with('success', 'SignIn Successfully');
         } else {
             return redirect()->route('user.login')->with('fail', 'Incorrect credentials');
         }
@@ -81,6 +88,7 @@ class UserController extends Controller
             'password' => Hash::make($request->password),
         ]);
         Auth::login($user);
+        $user->notify(new SendEmailVerifivationNotification($email_verification_code));
         return redirect()->route('user.email.varify')->with(['message' => 'Email Verification Code Sent On Your Email, Please Check Your Email.']);
     }
     public function emailVerify()
@@ -97,6 +105,13 @@ class UserController extends Controller
         $user = User::where('email', '=', $request->email)->first();
         if ($user->email_verification_code == $request->email_verification_code) {
             $phone_verification_code = mt_rand(10000, 99999);
+            Nexmo::message()->send(
+                [
+                    'to' => '923471416297',
+                    'from' => '111-222-333',
+                    'text' => 'Your OTP is' + $phone_verification_code + 'for email verification'
+                ]
+            );
             $user->varify_email = 1;
             $user->phone_verification_code = $phone_verification_code;
             $user->update();
@@ -121,7 +136,7 @@ class UserController extends Controller
         if ($user->phone_verification_code == $request->phone_verification_code) {
             $user->varify_phone = 1;
             $user->update();
-            return redirect()->route('user.dashboard');
+            return redirect()->route('user.dashboard')->with('success', 'Singup Successfully');
         } else {
             return redirect()->back()->with(['fail' => 'Your Code Does not Match, Pleas try again.']);
         }
@@ -135,7 +150,9 @@ class UserController extends Controller
 
     public function dashboard()
     {
-        return view('dashboard.user.home');
+        $plans = Plan::all();
+        $totalPlans = count($plans);
+        return view('dashboard.user.home', compact('totalPlans'));
     }
 
     public function showRegisterForm()

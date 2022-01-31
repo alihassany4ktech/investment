@@ -29,37 +29,53 @@
                         <div class="table-responsive">
                             <table class="table m-b-0  m-t-30 no-border">
                                 <tbody>
+                                    
                                     <tr>
                                         <td style="width:400px;text-align: center">
                                             <h4 class="card-title  bg-light p-3">Deposit Amount</h4>
                                         </td>
                                         <td style="width:400px;text-align: center">
-                                            <h4 class="card-title bg-light p-3">Amount in
-                                                ${{$purchasedPlan->plan->price}}</h4>
+                                            <h4 class="card-title bg-light p-3">
+                                                ${{$purchasedPlan == null ? '': $purchasedPlan->plan->price}}</h4>
                                         </td>
                                     </tr>
-                                    <tr>
+                                      <tr>
                                         <td style="width:400px;text-align: center">
-                                            <h4 class="card-title bg-light p-3">Daily profit</h4>
+                                            <h4 class="card-title  bg-light p-3">Total Earning Amount</h4>
+                                        </td>
                                         <td style="width:400px;text-align: center">
-                                            <h4 class="card-title bg-light p-3">Amount in
-                                                ${{$purchasedPlan->plan->daily_earning}}</h4>
+                                            <h4 class="card-title bg-light p-3">
+                                                $</h4>
                                         </td>
                                     </tr>
-                                    <tr>
+                                       <tr>
                                         <td style="width:400px;text-align: center">
-                                            <h4 class="card-title bg-light p-3">Count Down</h4>
+                                            <h4 class="card-title  bg-light p-3">Your Received Amount</h4>
+                                        </td>
                                         <td style="width:400px;text-align: center">
-                                            <h4 class="card-title bg-light p-3" id="the-final-countdown"></h4>
+                                            <h4 class="card-title bg-light p-3">
+                                                $</h4>
                                         </td>
                                     </tr>
-                                    <tr>
+                                       <tr>
                                         <td style="width:400px;text-align: center">
-                                            <h4 class="card-title bg-light p-3">Available Balance</h4>
+                                            <h4 class="card-title  bg-light p-3">Eligible Amount for Withdrawal</h4>
+                                        </td>
                                         <td style="width:400px;text-align: center">
-                                            <h4 class="card-title bg-light p-3">$</h4>
+                                            <h4 class="card-title bg-light p-3">
+                                                $</h4>
                                         </td>
                                     </tr>
+                                     <tr>
+                                        <td style="width:400px;text-align: center">
+                                            <h4 class="card-title  bg-light p-3">Balance Amount</h4>
+                                        </td>
+                                        <td style="width:400px;text-align: center">
+                                            <h4 class="card-title bg-light p-3">
+                                                $</h4>
+                                        </td>
+                                    </tr>
+                                   
                                     <tr>
                                         <td style="width:400px;text-align: center">
                                             <h4 class="card-title bg-light p-3">Referral commission </h4>
@@ -67,11 +83,14 @@
                                             <h4 class="card-title bg-light p-3">$</h4>
                                         </td>
                                     </tr>
+                                     <tr>
+                                        <td style="width:400px;text-align: center">
+                                            <h4 class="card-title bg-light p-3">Timer <span id="the-final-countdown"></span></h4>
+                                        
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
-                    </div>
-                    <div>
                     </div>
                     <div class="card-body m-b-20 m-t-10">
                         <div class="row">
@@ -100,20 +119,36 @@
 
 @push('clientarea-page-script')
 <script>
-    $(document).ready(function () {
-        setInterval(function time() {
-            var d = new Date();
-            var hours = 24 - d.getHours();
-            var min = 60 - d.getMinutes();
-            if ((min + '').length == 1) {
-                min = '0' + min;
-            }
-            var sec = 60 - d.getSeconds();
-            if ((sec + '').length == 1) {
-                sec = '0' + sec;
-            }
-            jQuery('#the-final-countdown').html(hours + ':' + min + ':' + sec)
-        }, 1000);
-    });
+// Set the date we're counting down to
+// var countDownDate = new Date("Jan 5, 2024 15:37:25").getTime();
+   var someDate = new Date();
+        var numberOfDaysToAdd = {{$purchasedPlan->plan->withdraw}};
+        var countDownDate = someDate.setDate(someDate.getDate() + numberOfDaysToAdd);
+
+// Update the count down every 1 second
+var x = setInterval(function() {
+     
+  // Get today's date and time
+  var now = new Date().getTime();
+    
+  // Find the distance between now and the count down date
+  var distance = countDownDate - now;
+    
+  // Time calculations for days, hours, minutes and seconds
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    
+  // Output the result in an element with id="the-final-countdown"
+  document.getElementById("the-final-countdown").innerHTML = days + "day: " + hours + "hour: "
+  + minutes + "mint: " + seconds + "sec";
+    
+  // If the count down is over, write some text 
+  if (distance < 0) {
+    clearInterval(x);
+    document.getElementById("the-final-countdown").innerHTML = "EXPIRED";
+  }
+}, 1000);
 </script>
 @endpush

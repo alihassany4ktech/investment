@@ -168,8 +168,8 @@ input[type=number] {
                        
                         <div class="form-row">
                                 <div class="col-md-6 mb-3" id="deadline_div">
-                                    <label for="validationDefault05">Withdraw</label>
-                                    <input type="number"  min="1" name="withdraw" class="form-control" id="validationDefault05"
+                                    <label for="validationDefault05">Withdrawal</label>
+                                    <input type="number"  min="1" max="31" step="1" name="withdraw" class="form-control" id="validationDefault05"
                                         placeholder="100">
                                            @error('withdraw')
                                     <small class="text-danger">{{ $message }}</small>

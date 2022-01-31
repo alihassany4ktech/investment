@@ -27,24 +27,28 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex flex-row">
-                                    <div class="round round-sm align-self-center round-info"><i class="mdi mdi-buffer"></i></div>
+                                    <div class="round round-sm align-self-center round-info"><i class="fa fa-paper-plane"></i></div>
                                     <div class="m-l-10 align-self-center">
-                                        <h3 class="m-b-0 font-light">Total Projects</h3>
-                                        <h5 class="text-muted m-b-0">0</h5></div>
+                                        <h3 class="m-b-0 font-light">Total Plans</h3>
+                                        <h5 class="text-muted m-b-0">{{$totalPlans}}</h5></div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <!-- Column -->
                     <!-- Column -->
+                    <?php
+                            $purchasedPlan = App\Models\PurchasedPlan::where('user_id', '=', Auth::user()->id)->where('status', 'Approved')->get();
+
+                     ?>
                     <div class="col-lg-3 col-md-6">
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex flex-row">
-                                    <div class="round round-sm align-self-center round-warning"><i class="mdi mdi-cellphone-link"></i></div>
+                                    <div class="round round-sm align-self-center round-warning"><i class="fa fa-paper-plane"></i></div>
                                     <div class="m-l-10 align-self-center">
-                                        <h3 class="m-b-0 font-light">Hours Logged</h3>
-                                        <h5 class="text-muted m-b-0">0 hrs</h5></div>
+                                        <h3 class="m-b-0 font-light">Purchased Plan</h3>
+                                        <h5 class="text-muted m-b-0">{{count($purchasedPlan)}}</h5></div>
                                 </div>
                             </div>
                         </div>

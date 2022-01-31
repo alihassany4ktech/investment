@@ -17,49 +17,31 @@ class PlanSeeder extends Seeder
         DB::table('plans')->insert([
             [
                 'title'  => 'Plan 1',
-                'price' => '600',
-                'return_price' => '300',
-                'commission' => '32.12',
-                'daily_earning' => '70.05',
-                'withdraw' => '10000',
-                'referral_commission' => '100'
+                'price' => '70',
+                'return_price' => '108',
+                'commission' => '55',
+                'daily_earning' => '1.8',
+                'withdraw' => '10',
+                'referral_commission' => '16'
             ],
             [
                 'title'  => 'Plan 2',
-                'price' => '700',
-                'return_price' => '200',
-                'commission' => '22.12',
-                'daily_earning' => '70.05',
-                'withdraw' => '20000',
-                'referral_commission' => '1000'
+                'price' => '140',
+                'return_price' => '231',
+                'commission' => '60',
+                'daily_earning' => '3.85',
+                'withdraw' => '8',
+                'referral_commission' => '18'
             ],
             [
                 'title'  => 'Plan 3',
-                'price' => '700',
-                'return_price' => '200',
-                'commission' => '22.12',
-                'daily_earning' => '70.05',
-                'withdraw' => '20000',
-                'referral_commission' => '1000'
-            ],
-            [
-                'title'  => 'Plan 4',
-                'price' => '800',
-                'return_price' => '200',
-                'commission' => '22.12',
-                'daily_earning' => '70.05',
-                'withdraw' => '20000',
-                'referral_commission' => '1000'
-            ],
-            [
-                'title'  => 'Plan 5',
-                'price' => '900',
-                'return_price' => '200',
-                'commission' => '22.12',
-                'daily_earning' => '70.05',
-                'withdraw' => '20000',
-                'referral_commission' => '1000'
-            ],
+                'price' => '210',
+                'return_price' => '367',
+                'commission' => '75',
+                'daily_earning' => '6.11',
+                'withdraw' => '6',
+                'referral_commission' => '20'
+            ]
         ]);
     }
 }

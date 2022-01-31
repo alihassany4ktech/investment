@@ -30,7 +30,7 @@
                             <input type="hidden" name="plan_id" value="{{$plan->id}}">
                             <div class="form-group">
                                 <label class="control-label">Wallet Address</label>
-                                <input type="email" name="wallet_address" value="{{$walletAddress->wallet_address}}" class="form-control" >
+                                <input type="email" name="wallet_address" readonly value="{{$walletAddress->wallet_address}}" class="form-control" >
                                  @error('wallet_address')
                                     <small class="text-danger">{{ $message }}</small>
                               @enderror

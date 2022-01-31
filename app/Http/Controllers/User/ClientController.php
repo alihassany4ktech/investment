@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use Illuminate\Http\Request;
 use App\Models\PurchasedPlan;
 use App\Http\Controllers\Controller;
+use App\Models\Withdrawal;
 use Illuminate\Support\Facades\Auth;
 
 class ClientController extends Controller
@@ -20,5 +21,27 @@ class ClientController extends Controller
     public function withdrawal()
     {
         return view('dashboard.user.client.withdrawal');
+    }
+
+    public function withdrawalStore(Request $request)
+    {
+        $request->validate([
+            'available_balance' => 'required',
+            'wallet_address' => 'required',
+            'request_payment' => 'required',
+        ]);
+
+        $withdrawal = new Withdrawal();
+        $withdrawal->user_id = Auth::guard('web')->user()->id;
+        $withdrawal->plan_id = 1;
+        $withdrawal->available_balance = $request->available_balance;
+        $withdrawal->wallet_address = $request->wallet_address;
+        $withdrawal->request_payment = $request->request_payment;
+        $withdrawal->save();
+        $notification = array(
+            'messege' => 'Submitted Successfully!',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
     }
 }

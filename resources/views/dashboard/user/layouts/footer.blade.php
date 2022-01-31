@@ -193,6 +193,17 @@
     });
 
 </script>
+    <script>
+        @if(session()->has('success'))
+
+        toastr.options = {
+            "closeButton": true,
+            "progressBar": true
+        }
+        toastr.success("{{ session('success') }}");
+        @endif
+
+    </script>
 @stack('clientarea-page-script')
 </body>
 </html>
