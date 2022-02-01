@@ -2,10 +2,11 @@
 
 namespace App\Http\Middleware;
 
-use App\Providers\RouteServiceProvider;
 use Closure;
 use Illuminate\Http\Request;
+use App\Models\PurchasedPlan;
 use Illuminate\Support\Facades\Auth;
+use App\Providers\RouteServiceProvider;
 
 class RedirectIfAuthenticated
 {
@@ -19,6 +20,8 @@ class RedirectIfAuthenticated
      */
     public function handle($request, Closure $next, $guard = null)
     {
+
+
         switch ($guard) {
             case 'admin':
                 if (Auth::guard($guard)->check()) {
@@ -28,7 +31,13 @@ class RedirectIfAuthenticated
             default:
                 if (Auth::guard($guard)->check()) {
                     if (Auth::guard($guard)->check()) {
-                        return redirect(RouteServiceProvider::HOME);
+                        $purchasedPlan = PurchasedPlan::where('user_id', '=', Auth::guard('web')->user()->id)->first();
+                        if ($purchasedPlan->status == 'Approved') {
+                            return redirect()->route('user.client.area');
+                        } else {
+                            return redirect()->route('user.plans');
+                        }
+                        // return redirect(RouteServiceProvider::HOME);
                     }
                 }
                 break;
