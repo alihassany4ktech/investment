@@ -33,6 +33,23 @@ class UserSeeder extends Seeder
                 'email' => 'doe@gmail.com',
                 'password' => Hash::make('password'),     //password
                 'remember_token' => Str::random(10),
+            ],
+            [
+                'first_name'  => 'Hamza',
+                'last_name'  => 'Ali',
+                'document_address'  => '71 Pilgrim Avenue Chevy Chase, MD 20815',
+                'address'  => '71 Pilgrim Avenue Chevy Chase, MD 20815',
+                'city'  => 'Lahore',
+                'region'  => 'Punjab',
+                'postal_or_zip_code'  => '12345',
+                'country'  => 'Pakistan',
+                'country_code'  => 'pk',
+                'phone'  => '1112223330',
+                'is_plus_eighteen'  => 1,
+                'national_id'  => '1234512345120',
+                'email' => 'hamza@gmail.com',
+                'password' => Hash::make('password'),     //password
+                'remember_token' => Str::random(10),
             ]
         ]);
     }

@@ -58,6 +58,21 @@
                                     @enderror
                                             </td>
                                         </tr>
+                                           <tr>
+                                            <td style="text-align: center">
+                                                <h4 class="card-title bg-light p-2">Payment Method</h4>
+                                            <td style="width:400px;text-align: center">
+                                                  <select class="select2 form-control"  style="width: 100%" name="payment_method" >
+                                    <option value="">Select Method</option>
+                                    @foreach ($paymentMethods as $row)
+                                        <option value="{{$row->name}}">{{$row->name}}</option>
+                                    @endforeach
+                                </select>
+                                 @error('payment_method')
+                                    <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                         </div>

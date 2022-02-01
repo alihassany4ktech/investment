@@ -117,7 +117,7 @@ input[type=number] {
                                 <div class="col-md-4 mb-4 mt-1">
                                     <label for="validationDefault01">Title <small class="text-danger">*</small></label>
                                    <input type="text" name="title" class="form-control" id="validationDefault01"
-                                        placeholder="enter title" >
+                                        placeholder="Enter Title" >
                                     @error('title')
                                     <small class="text-danger">{{ $message }}</small>
                                     @enderror
@@ -126,7 +126,7 @@ input[type=number] {
                                    <label for="validationDefault02">Price <small
                                             class="text-danger">*</small></label>
                                       <input type="number" min="1" name="price" class="form-control" id="validationDefault02"
-                                        placeholder="enter price" >
+                                        placeholder="Enter Price" >
                                          @error('price')
                                     <small class="text-danger">{{ $message }}</small>
                                     @enderror
@@ -136,7 +136,7 @@ input[type=number] {
                                    <label for="validationDefault02">Return Price <small
                                             class="text-danger">*</small></label>
                                       <input type="number" min="1" name="return_price" class="form-control" id="validationDefault02"
-                                        placeholder="enter return price" >
+                                        placeholder="Enter Return Price" >
                                          @error('return_price')
                                     <small class="text-danger">{{ $message }}</small>
                                     @enderror
@@ -170,7 +170,7 @@ input[type=number] {
                                 <div class="col-md-6 mb-3" id="deadline_div">
                                     <label for="validationDefault05">Withdrawal</label>
                                     <input type="number"  min="1" max="31" step="1" name="withdraw" class="form-control" id="validationDefault05"
-                                        placeholder="100">
+                                        placeholder="1-31">
                                            @error('withdraw')
                                     <small class="text-danger">{{ $message }}</small>
                                     @enderror
@@ -178,8 +178,8 @@ input[type=number] {
                                 <div class="col-md-6 mb-3" id="deadline_div">
                                     <label for="validationDefault06">Referral Commission <small
                                             class="text-danger">*</small></label>
-                                    <input type="number" min="1" name="referral_commission" class="form-control" id="validationDefault06"
-                                        placeholder="200">
+                                    <input type="number" min="00.01" max="100.00" step="0.01" name="referral_commission" class="form-control" id="validationDefault06"
+                                         placeholder="%16">
                                               @error('referral_commission')
                                     <small class="text-danger">{{ $message }}</small>
                                     @enderror

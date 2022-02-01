@@ -45,12 +45,20 @@
                     </div>
                 </div>
                 <!-- End User profile text-->
+                <?php
+                    $addproved = App\Models\PurchasedPlan::where('user_id', '=', Auth::user()->id)->where('status', 'Approved')->exists();
+                 ?>
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
                         <li class="{{ $link == route('user.dashboard') ? 'active':'' }}"> <a class="waves-effect waves-dark" href="{{route('user.dashboard')}}" aria-expanded="false"><i class="mdi mdi-gauge"></i><span class="hide-menu">Dashboard </span></a></li>
-                        <li class="{{ $link == route('user.client.area') ||$link == route('user.client.withdrawal')  ? 'active':'' }}"> <a class="waves-effect waves-dark" href="{{route('user.client.area')}}" aria-expanded="false"><i class="mdi mdi-account"></i><span class="hide-menu">Client Area </span></a></li>
+                        @if ($addproved == true)
+                            <li class="{{ $link == route('user.client.area') ||$link == route('user.client.withdrawal')  ? 'active':'' }}"> <a class="waves-effect waves-dark" href="{{route('user.client.area')}}" aria-expanded="false"><i class="mdi mdi-account"></i><span class="hide-menu">Client Area </span></a></li>
+                        @endif
                         <li class="{{ $link == route('user.plans') ? 'active':'' }}"> <a class="waves-effect waves-dark" href="{{route('user.plans')}}" aria-expanded="false"><i class="fa fa-paper-plane"></i><span class="hide-menu">Plans </span></a></li>
+                        @if(Auth::guard('web')->user()->refferal_code !=null)
+                        <li class="{{ $link == route('user.refferal.code') ? 'active':'' }}"> <a class="waves-effect waves-dark" href="{{route('user.refferal.code')}}" aria-expanded="false"><i class="fa fa-key"></i><span class="hide-menu">Refferal Code</span></a></li>
+                        @endif
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
@@ -58,8 +66,6 @@
             <!-- End Sidebar scroll-->
             <!-- Bottom points-->
             <div class="sidebar-footer">
-                <!-- item--><a href="#" class="link" data-toggle="tooltip" title="Settings"><i class="ti-settings"></i></a>
-                <!-- item--><a href="#" class="link" data-toggle="tooltip" title="Email"><i class="mdi mdi-gmail"></i></a>
                 <!-- item--><a href="{{ route('user.logout') }}" data-toggle="tooltip" title="Logout" onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i class="mdi mdi-power"></i></a>
                             <form action="{{ route('user.logout') }}" id="logout-form" method="post">@csrf</form>
 

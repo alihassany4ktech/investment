@@ -27,7 +27,6 @@ class PlanController extends Controller
         $request->validate([
             'wallet_address' => 'required',
             'transaction_url' => 'required',
-            'referral_code' => 'required',
             'screenshot' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4098',
             'term_and_condition' => 'required'
         ]);

@@ -41,11 +41,10 @@
         {{-- <h3>Dear, Faisal khan</h3> --}}
         <p style="font-size:20px;color:#5C5C5C;">Details are submitted please stay touch with your mail 
                         once all the details are confirm we will notify you with 
-                        the mail with password and access</p>
+                        the mail.</p>
       
-            <a type="button" href="{{ url()->previous() }}" class="btn btn-sm btn-success">Go Back</a>
+            <a type="button" href="{{route('user.plans') }}" class="btn btn-sm btn-success">Go To Dashboard</a>
         </div>
-        
 	</div>
 </div>
   

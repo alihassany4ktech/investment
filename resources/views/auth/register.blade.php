@@ -16,7 +16,7 @@
                         <div class="form-row">
                             <div class="form-group col-md-6">
                             <label for="inputEmail4">First Name</label>
-                             <input  id="first_name" placeholder="first name" type="text"
+                             <input  id="first_name" placeholder="First Name" type="text"
                                             class="form-control @error('first_name') is-invalid @enderror"
                                             name="first_name"  autocomplete="first_name" autofocus>
                                         @error('first_name')
@@ -27,7 +27,7 @@
                             </div>
                             <div class="form-group col-md-6">
                             <label for="inputPassword4">Last Name</label>
-                             <input  id="last_name" placeholder="first name" type="text"
+                             <input  id="last_name" placeholder="Last Name" type="text"
                                             class="form-control @error('last_name') is-invalid @enderror"
                                             name="last_name"  autocomplete="last_name" autofocus>
                                         @error('last_name')
@@ -40,7 +40,7 @@
                         <div class="form-row">
                             <div class="form-group col-md-12">
                             <label for="inputEmail4">Email</label>
-                              <input  id="email" placeholder="email" type="email"
+                              <input  id="email" placeholder="Email" type="email"
                                             class="form-control @error('email') is-invalid @enderror" name="email"
                                              autocomplete="email" autofocus>
                                         @error('email')
@@ -52,7 +52,7 @@
                         </div>
                         <div class="form-group">
                             <label for="inputAddress">Document Address</label>
-                             <input  id="document_address" placeholder="address as per the documents "
+                             <input  id="document_address" placeholder="Address As Per The Documents "
                                             type="text"
                                             class="form-control @error('document_address') is-invalid @enderror"
                                             name="document_address"  autocomplete="document_address" autofocus>
@@ -64,7 +64,7 @@
                         </div>
                         <div class="form-group">
                             <label for="inputAddress2">Address</label>
-                              <input  id="address" placeholder="address" type="text"
+                              <input  id="address" placeholder="Address" type="text"
                                             class="form-control @error('address') is-invalid @enderror" name="address"
                                              autocomplete="address" autofocus>
                                         @error('address')
@@ -76,7 +76,7 @@
                         <div class="form-row">
                             <div class="form-group col-md-4">
                             <label for="inputCity">City</label>
-                             <input  id="city" placeholder="city" type="text"
+                             <input  id="city" placeholder="City" type="text"
                                             class="form-control @error('city') is-invalid @enderror" name="city"
                                              autocomplete="city" autofocus>
                                         @error('city')
@@ -87,7 +87,7 @@
                             </div>
                             <div class="form-group col-md-4">
                             <label for="inputState">Region</label>
-                             <input  id="region" placeholder="region" type="text"
+                             <input  id="region" placeholder="Region" type="text"
                                             class="form-control @error('region') is-invalid @enderror" name="region"
                                              autocomplete="region" autofocus>
                                         @error('region')
@@ -98,7 +98,7 @@
                             </div>
                             <div class="form-group col-md-4">
                             <label for="inputZip">Zip/Postal Code </label>
-                               <input  id="postal_or_zip_code" placeholder="Five digit" type="text" 
+                               <input  id="postal_or_zip_code" placeholder="Five Digit" type="text" 
                                             class="form-control @error('postal_or_zip_code') is-invalid @enderror"
                                             name="postal_or_zip_code"  autocomplete="postal_or_zip_code"
                                             autofocus>
@@ -113,7 +113,7 @@
                         <div class="form-row mb-4">
                                <div class="col-md-4">
                                      <label for="inputZip">Country </label>
-                                        <input  id="country" placeholder="country" type="text"
+                                        <input  id="country" placeholder="Country" type="text"
                                             class="form-control @error('country') is-invalid @enderror" name="country"
                                              autocomplete="country" autofocus>
                                         @error('country')
@@ -125,7 +125,7 @@
 
                                     <div class="col-md-4">
                                      <label for="inputZip">Country Code</label>
-                                        <input  id="country_code" placeholder="country_code" type="text"
+                                        <input  id="country_code" placeholder="Country Code" type="text"
                                             class="form-control @error('country_code') is-invalid @enderror" name="country_code"
                                              autocomplete="country_code" autofocus>
                                         @error('country_code')
@@ -136,7 +136,7 @@
                                     </div>
                                     <div class="col-md-4 ">
                                          <label for="inputZip">Number</label>
-                                        <input  id="phone" placeholder="number" type="text"
+                                        <input  id="phone" placeholder="Number" type="text"
                                             class="form-control @error('phone') is-invalid @enderror" name="phone"
                                              autocomplete="phone" autofocus>
                                         @error('phone')
@@ -170,7 +170,7 @@
                         <div class="form-row mb-4">
                                             <div class="col-md-4 ">
                                                 <label for="inputZip">Password</label>
-                                        <input  id="password" placeholder="password" type="password"
+                                        <input  id="password" placeholder="password" type="Password"
                                             class="form-control @error('password') is-invalid @enderror" name="password" 
                                             autocomplete="current-password">
 
@@ -183,7 +183,7 @@
 
                                        <div class="col-md-4">
                                            <label for="inputZip">Confirm Password</label>
-                                    <input  id="password_confirmation" placeholder="retype password" type="password"
+                                    <input  id="password_confirmation" placeholder="Retype Password" type="password"
                                         name="password_confirmation" class="form-control"  autocomplete="new-password">
                                 </div>
                                 

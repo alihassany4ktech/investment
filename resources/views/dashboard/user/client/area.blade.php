@@ -45,7 +45,7 @@
                                         </td>
                                         <td style="width:400px;text-align: center">
                                             <h4 class="card-title bg-light p-3">
-                                                $</h4>
+                                                ${{$purchasedPlan == null ? '': (($purchasedPlan->plan->price*$purchasedPlan->plan->commission)/100)+$purchasedPlan->plan->price}}</h4>
                                         </td>
                                     </tr>
                                        <tr>
@@ -78,9 +78,11 @@
                                    
                                     <tr>
                                         <td style="width:400px;text-align: center">
-                                            <h4 class="card-title bg-light p-3">Referral commission </h4>
+                                            <h4 class="card-title bg-light p-3">Referral commission {{$purchasedPlan == null ? '': $purchasedPlan->plan->referral_commission}}% </h4>
                                         <td style="width:400px;text-align: center">
-                                            <h4 class="card-title bg-light p-3">$</h4>
+                                            <h4 class="card-title bg-light p-3">
+                                                ${{$purchasedPlan == null ? '': (($purchasedPlan->plan->price*$purchasedPlan->plan->referral_commission)/100)}}
+                                            </h4>
                                         </td>
                                     </tr>
                                      <tr>
@@ -123,11 +125,19 @@
 // var countDownDate = new Date("Jan 5, 2024 15:37:25").getTime();
    var someDate = new Date();
         var numberOfDaysToAdd = {{$purchasedPlan->plan->withdraw}};
-        var countDownDate = someDate.setDate(someDate.getDate() + numberOfDaysToAdd);
+        if(localStorage.getItem('remaining_time'))
+        {
+            var countDownDate = localStorage.getItem('remaining_time');
+
+        }else{
+            var countDownDate = someDate.setDate(someDate.getDate() + numberOfDaysToAdd);
+        }
+        
 
 // Update the count down every 1 second
-var x = setInterval(function() {
-     
+function countDownTimer(){
+     var remaining_time = countDownDate-1;
+     localStorage.setItem('remaining_time',remaining_time);
   // Get today's date and time
   var now = new Date().getTime();
     
@@ -149,6 +159,7 @@ var x = setInterval(function() {
     clearInterval(x);
     document.getElementById("the-final-countdown").innerHTML = "EXPIRED";
   }
-}, 1000);
+};
+setInterval("countDownTimer()",1000);
 </script>
 @endpush

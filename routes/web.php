@@ -91,6 +91,8 @@ Route::prefix('user')->name('user.')->group(function () {
         Route::get('/purchase/plan/{id}', [App\Http\Controllers\User\PlanController::class, 'purchase'])->name('purchase.plan');
         Route::post('/purchase/plan/store', [App\Http\Controllers\User\PlanController::class, 'purchaseStore'])->name('plan.purchase.store');
         Route::get('/plan/purchase/success}', [App\Http\Controllers\User\PlanController::class, 'planPurchaseSuccess'])->name('plan.purchase.success');
+        // refferal code 
+        ROute::get('/refferal-code', [App\Http\Controllers\User\UserController::class, 'refferalCode'])->name('refferal.code');
     });
 });
 

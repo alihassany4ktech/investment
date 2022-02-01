@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Nexmo\Laravel\Facade\Nexmo;
 use App\Http\Controllers\Controller;
+use App\Models\PurchasedPlan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -39,7 +40,12 @@ class UserController extends Controller
 
         $creds = $request->only('email', 'password');
         if (Auth::guard('web')->attempt($creds)) {
-            return redirect()->route('user.dashboard')->with('success', 'SignIn Successfully');
+            $purchasedPlan = PurchasedPlan::where('user_id', '=', Auth::guard('web')->user()->id)->first();
+            if ($purchasedPlan->status == 'Approved') {
+                return redirect()->route('user.client.area')->with('success', 'SignIn Successfully');
+            } else {
+                return redirect()->route('user.plans')->with('success', 'SignIn Successfully');
+            }
         } else {
             return redirect()->route('user.login')->with('fail', 'Incorrect credentials');
         }
@@ -105,13 +111,13 @@ class UserController extends Controller
         $user = User::where('email', '=', $request->email)->first();
         if ($user->email_verification_code == $request->email_verification_code) {
             $phone_verification_code = mt_rand(10000, 99999);
-            Nexmo::message()->send(
-                [
-                    'to' => '923471416297',
-                    'from' => '111-222-333',
-                    'text' => 'Your OTP is' + $phone_verification_code + 'for email verification'
-                ]
-            );
+            // Nexmo::message()->send(
+            //     [
+            //         'to' => $user->phone,
+            //         'from' => 'investment',
+            //         'text' => 'Your OTP is' + $phone_verification_code + 'for email verification'
+            //     ]
+            // );
             $user->varify_email = 1;
             $user->phone_verification_code = $phone_verification_code;
             $user->update();
@@ -136,7 +142,7 @@ class UserController extends Controller
         if ($user->phone_verification_code == $request->phone_verification_code) {
             $user->varify_phone = 1;
             $user->update();
-            return redirect()->route('user.dashboard')->with('success', 'Singup Successfully');
+            return redirect()->route('user.plans')->with('success', 'SignIn Successfully');
         } else {
             return redirect()->back()->with(['fail' => 'Your Code Does not Match, Pleas try again.']);
         }
@@ -195,5 +201,16 @@ class UserController extends Controller
         return response()->json([
             'success' => 'Profile Updated Successfully!',
         ]);
+    }
+
+    // refferalCode 
+
+    public function refferalCode()
+    {
+        $plans = PurchasedPlan::where('referral_code', '=', Auth::guard('web')->user()->refferal_code)->get();
+        $purchasedPlan = PurchasedPlan::where('user_id', '=', Auth::guard('web')->user()->id)->first();
+        $commission = $purchasedPlan->plan->referral_commission;
+        $refferalAmount = ($purchasedPlan->plan->price * $purchasedPlan->plan->referral_commission) / 100;
+        return view('dashboard.user.refferalcode.show', compact('plans', 'commission', 'refferalAmount'));
     }
 }

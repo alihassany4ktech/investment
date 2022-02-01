@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Notifications\UserNotification;
 
 class UserController extends Controller
 {
@@ -26,6 +27,8 @@ class UserController extends Controller
         if ($banUser->status == 1) {
             $banUser->status = 0;
             $banUser->update();
+            $message = 'Admin Ban Your Account, Pleas Contact To Admin.';
+            $banUser->notify(new UserNotification($message));
             $notification = array(
                 'messege' => 'User Banned Successfully',
                 'alert-type' => 'error'
@@ -46,6 +49,8 @@ class UserController extends Controller
         if ($banUser->status == 0) {
             $banUser->status = 1;
             $banUser->update();
+            $message = 'Admin UnBan Your Account.';
+            $banUser->notify(new UserNotification($message));
             $notification = array(
                 'messege' => 'User Unbanned Successfully',
                 'alert-type' => 'success'
@@ -64,6 +69,8 @@ class UserController extends Controller
     {
         $user = User::find($id);
         $user->delete();
+        $message = 'Admin Delete Your Account, Pleas Contact To Admin..';
+        $user->notify(new UserNotification($message));
         $notification = array(
             'messege' => 'User Deleted Successfully',
             'alert-type' => 'error'

@@ -21,7 +21,7 @@ class CreatePlansTable extends Migration
             $table->double('commission', 4, 2)->nullable();
             $table->double('daily_earning', 4, 2)->nullable();
             $table->bigInteger('withdraw')->nullable();
-            $table->bigInteger('referral_commission')->nullable();
+            $table->double('referral_commission', 4, 2)->nullable();
             $table->timestamps();
         });
     }

@@ -66,7 +66,14 @@
                                 <div class="row">
                                     <div class="col-md-3 col-xs-6 b-r"> <strong>Status</strong>
                                         <br>
-                                        <p class="text-muted">{{$planRequest->status}}</p>
+                                        <p class="text-muted">
+                                            {{-- {{$planRequest->status}} --}}
+                                              <select id="{{$planRequest->id}}" class="form-control bg-light statusChange" name="status">
+                                                <option value="Approved" {{$planRequest->status == 'Approved'? 'selected': ''}}>Approved</option>
+                                                <option value="Pending" {{$planRequest->status == 'Pending'? 'selected': ''}}>Pending</option>
+                                                <option value="Rejected" {{$planRequest->status == 'Rejected'? 'selected': ''}}>Rejected</option>
+                                          </select>
+                                        </p>
                                     </div>
                                     <div class="col-md-9 col-xs-6 b-r"> <strong>Transaction Url</strong>
                                         <br>
@@ -94,4 +101,36 @@
 </div>
 <!-- End Page wrapper  -->
 @endsection
+@push('purchased-plans-requests.script')
+<script>
+    $(document).ready(function () {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $('.statusChange').change(function () {
+            var status = $(this).val();
+            var id = $(this).attr('id');
+             $.ajax({
+                url: "{{ route('admin.change.plan.status') }}",
+                method: "POST",
+                dataType: "json",
 
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    status: status,
+                    id: id,
+                },
+
+                success: function (data) {
+                    toastr.success(data.success);
+                }
+            });
+        });
+
+
+    });
+
+</script>
+@endpush

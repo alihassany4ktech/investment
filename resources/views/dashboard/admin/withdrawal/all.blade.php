@@ -41,9 +41,11 @@
                                           <td>{{$loop->iteration}}</td>
                                           <td>
                                                 
-                                                 <img data-toggle="tooltip" data-original-title="{{$row->user->first_name}} {{$row->user->last_name}}"
+                                                 <a href="{{route('admin.user.show',['id'=>$row->id])}}">
+                                                     <img data-toggle="tooltip" data-original-title="{{$row->user->first_name}} {{$row->user->last_name}}"
                                                 src="{{asset($row->user->image) }}" alt="user" class="img-circle" width="30"
                                                 height="30">
+                                                 </a>
                                           </td>
                                           <td>{{$row->plan->title}}</td>
                                           <td>${{$row->available_balance}}</td>

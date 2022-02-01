@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('last_name');
             $table->string('status')->default(1);
             $table->string('email')->unique();
+            $table->string('refferal_code')->unique()->nullable();
             $table->string('image')->default('assets/images/userPic.png');
             $table->mediumText('document_address');
             $table->mediumText('address');

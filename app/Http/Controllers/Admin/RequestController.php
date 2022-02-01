@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Models\PurchasedPlan;
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\PurchasedPlan;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use App\Notifications\PlanRequestNotification;
 
 class RequestController extends Controller
 {
@@ -17,9 +20,26 @@ class RequestController extends Controller
     public function changeStatus(Request $request)
     {
         if ($request->ajax()) {
+
             $plan = PurchasedPlan::find($request->id);
             $plan->status = $request->status;
             $plan->update();
+            if ($request->status == "Approved") {
+                $user = User::find($plan->user_id);
+                $refferal_code = '2EC' . $user->id . '-' . mt_rand(10000, 99999);
+                $msg = 'And Your Refferal Code is ' . $refferal_code;
+                $user->refferal_code = $refferal_code;
+                $user->update();
+                $message = 'Admin Approved Your Plan Purchase Request ';
+            } elseif ($request->status == "Pending") {
+                $msg = null;
+                $message = 'Admin put Your Plan Purchase Request in pending';
+            } else {
+                $msg = null;
+                $message = 'Admin Reject Your Plan Purchase Request.';
+            }
+            $user = Auth::guard('web')->user();
+            $user->notify(new PlanRequestNotification($message, $msg));
             return response()->json(['success' => 'Status Changed Successfully!']);
         }
     }

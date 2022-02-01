@@ -23,6 +23,7 @@ class CreateWithdrawalsTable extends Migration
             $table->bigInteger('available_balance')->nullable();
             $table->string('wallet_address')->nullable();
             $table->string('request_payment')->nullable();
+            $table->string('payment_method')->nullable();
             $table->timestamps();
         });
     }

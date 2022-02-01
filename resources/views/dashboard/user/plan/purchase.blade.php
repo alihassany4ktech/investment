@@ -38,7 +38,7 @@
                              
                             <div class="form-group">
                                 <label class="control-label">Transaction URL</label>
-                                <input type="text" name="transaction_url" class="form-control"
+                                <input type="url" pattern="https://.*" size="30" name="transaction_url" class="form-control"
                                     placeholder="https://">
                               @error('transaction_url')
                                     <small class="text-danger">{{ $message }}</small>
@@ -46,7 +46,7 @@
                             </div>
                             <div class="form-group">
                                 <label class="control-label">Referral Code</label>
-                                <input type="text" name="referral_code" class="form-control" placeholder="enter code">
+                                <input type="text" name="referral_code" class="form-control" placeholder="Optional">
                                  @error('referral_code')
                                     <small class="text-danger">{{ $message }}</small>
                               @enderror
