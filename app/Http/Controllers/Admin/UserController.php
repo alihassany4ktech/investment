@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\PurchasedPlan;
 use App\Http\Controllers\Controller;
 use App\Notifications\UserNotification;
 
@@ -76,5 +77,13 @@ class UserController extends Controller
             'alert-type' => 'error'
         );
         return redirect()->back()->with($notification);
+    }
+
+    // members 
+
+    public function members()
+    {
+        $members = PurchasedPlan::where('status', '=', 'Approved')->get();
+        return view('dashboard.admin.member.all', compact('members'));
     }
 }

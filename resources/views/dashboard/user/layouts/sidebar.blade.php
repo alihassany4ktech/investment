@@ -56,6 +56,9 @@
                             <li class="{{ $link == route('user.client.area') ||$link == route('user.client.withdrawal')  ? 'active':'' }}"> <a class="waves-effect waves-dark" href="{{route('user.client.area')}}" aria-expanded="false"><i class="mdi mdi-account"></i><span class="hide-menu">Client Area </span></a></li>
                         @endif
                         <li class="{{ $link == route('user.plans') ? 'active':'' }}"> <a class="waves-effect waves-dark" href="{{route('user.plans')}}" aria-expanded="false"><i class="fa fa-paper-plane"></i><span class="hide-menu">Plans </span></a></li>
+                        {{-- history --}}
+                        <li class="{{ $link == route('user.transaction.history') ? 'active':'' }}"> <a class="waves-effect waves-dark" href="{{route('user.transaction.history')}}" aria-expanded="false"><i class="fa fa-history"></i><span class="hide-menu">Transaction History</span></a></li>
+
                         @if(Auth::guard('web')->user()->refferal_code !=null)
                         <li class="{{ $link == route('user.refferal.code') ? 'active':'' }}"> <a class="waves-effect waves-dark" href="{{route('user.refferal.code')}}" aria-expanded="false"><i class="fa fa-key"></i><span class="hide-menu">Refferal Code</span></a></li>
                         @endif

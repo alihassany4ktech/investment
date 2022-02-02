@@ -19,19 +19,19 @@
     <!--stickey kit -->
     <script src="{{asset('assets/plugins/sticky-kit-master/dist/sticky-kit.min.js')}}"></script>
     <script src="{{asset('assets/plugins/sparkline/jquery.sparkline.min.js')}}"></script>
-    <!--stickey kit -->
-    <script src="{{asset('assets/plugins/sticky-kit-master/dist/sticky-kit.min.js')}}"></script>
-    <script src="{{asset('assets/plugins/sparkline/jquery.sparkline.min.js')}}"></script>
-    <script src="{{asset('assets/plugins/sparkline/jquery.sparkline.min.js')}}"></script>
     <!--Custom JavaScript -->
     <script src="{{asset('assets/js/custom.min.js')}}"></script>
     <!-- ============================================================== -->
     <!-- This page plugins -->
+            <!-- Magnific popup JavaScript -->
+    <script src="{{asset('assets/plugins/Magnific-Popup-master/dist/jquery.magnific-popup.min.js')}}"></script>
+    <script src="{{asset('assets/plugins/Magnific-Popup-master/dist/jquery.magnific-popup-init.js')}}"></script>
       <!-- jQuery file upload -->
     <script src="{{asset('assets/plugins/dropify/dist/js/dropify.min.js')}}"></script>
        <!-- This is data table -->
     <script src="{{asset('assets/plugins/datatables/datatables.min.js')}}"></script>
     <!-- ============================================================== -->
+
     <!-- chartist chart -->
     <script src="{{asset('assets/plugins/chartist-js/dist/chartist.min.js')}}"></script>
     <script src="{{asset('assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.min.js')}}"></script>
@@ -205,5 +205,6 @@
 
     </script>
 @stack('clientarea-page-script')
+@stack('refferal-code-page-script')
 </body>
 </html>

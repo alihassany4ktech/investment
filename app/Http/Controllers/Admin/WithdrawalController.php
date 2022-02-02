@@ -12,7 +12,7 @@ class WithdrawalController extends Controller
 {
     public function withdrawals()
     {
-        $withdrawals = Withdrawal::all();
+        $withdrawals = Withdrawal::where('status', '!=', 'Approved')->get();
         return view('dashboard.admin.withdrawal.all', compact('withdrawals'));
     }
 

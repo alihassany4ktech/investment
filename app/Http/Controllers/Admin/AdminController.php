@@ -8,6 +8,7 @@ use App\Models\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\PurchasedPlan;
+use App\Models\Visitor;
 use App\Models\Withdrawal;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -50,7 +51,8 @@ class AdminController extends Controller
         $totalUser = count(User::all());
         $totalWithdrawal = count(Withdrawal::all());
         $totalRequests = count(PurchasedPlan::all());
-        return view('dashboard.admin.home', compact('totalPlans', 'totalUser', 'totalWithdrawal', 'totalRequests'));
+        $totalVisitors = count(Visitor::all());
+        return view('dashboard.admin.home', compact('totalPlans', 'totalUser', 'totalWithdrawal', 'totalRequests', 'totalVisitors'));
     }
 
     public function profile()

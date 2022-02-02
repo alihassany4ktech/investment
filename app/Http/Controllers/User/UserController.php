@@ -4,10 +4,11 @@ namespace App\Http\Controllers\User;
 
 use App\Models\Plan;
 use App\Models\User;
+use App\Models\Visitor;
 use Illuminate\Http\Request;
+use App\Models\PurchasedPlan;
 use Nexmo\Laravel\Facade\Nexmo;
 use App\Http\Controllers\Controller;
-use App\Models\PurchasedPlan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -22,6 +23,13 @@ class UserController extends Controller
 
     public function home()
     {
+        $ip =  request()->ip();
+        $guest = Visitor::where('ip', '=', $ip)->first();
+        if ($guest == null) {
+            $visitor = new Visitor();
+            $visitor->ip = $ip;
+            $visitor->save();
+        }
         return view('welcome');
     }
 
@@ -35,13 +43,13 @@ class UserController extends Controller
             'email' => 'required|email|exists:users,email',
             'password' => 'required|min:5|max:30'
         ], [
-            'email.exists' => 'This email is not exists'
+            'email.exists' => 'This email is not exists',
         ]);
 
         $creds = $request->only('email', 'password');
         if (Auth::guard('web')->attempt($creds)) {
             $purchasedPlan = PurchasedPlan::where('user_id', '=', Auth::guard('web')->user()->id)->first();
-            if ($purchasedPlan->status == 'Approved') {
+            if ($purchasedPlan != null  && $purchasedPlan->status == 'Approved') {
                 return redirect()->route('user.client.area')->with('success', 'SignIn Successfully');
             } else {
                 return redirect()->route('user.plans')->with('success', 'SignIn Successfully');

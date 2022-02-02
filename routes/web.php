@@ -43,10 +43,14 @@ Route::prefix('admin')->name('admin.')->group(
                 Route::get('/ban/user/{id}', [App\Http\Controllers\Admin\UserController::class, 'banUser'])->name('user.ban');
                 Route::get('/unban/user/{id}', [App\Http\Controllers\Admin\UserController::class, 'unbanUser'])->name('user.unban');
                 Route::get('/delete/user/{id}', [App\Http\Controllers\Admin\UserController::class, 'deleteUser'])->name('user.delete');
+                // members
+                Route::get('/members', [App\Http\Controllers\Admin\UserController::class, 'members'])->name('members');
+
                 // withdrawals
                 Route::get('/withdrawals', [App\Http\Controllers\Admin\WithdrawalController::class, 'withdrawals'])->name('withdrawals');
                 Route::post('/change/withdrawal/status', [App\Http\Controllers\Admin\WithdrawalController::class, 'changeStatus'])->name('change.withdrawal.status');
-
+                // transaction history
+                ROute::get('/transaction-history', [App\Http\Controllers\Admin\TransactionHistoryController::class, 'history'])->name('transaction.history');
                 // plan purchase request
                 Route::get('/plan/requests', [App\Http\Controllers\Admin\RequestController::class, 'requests'])->name('plan.requests');
                 Route::post('/change/plan/status', [App\Http\Controllers\Admin\RequestController::class, 'changeStatus'])->name('change.plan.status');
@@ -93,6 +97,8 @@ Route::prefix('user')->name('user.')->group(function () {
         Route::get('/plan/purchase/success}', [App\Http\Controllers\User\PlanController::class, 'planPurchaseSuccess'])->name('plan.purchase.success');
         // refferal code 
         ROute::get('/refferal-code', [App\Http\Controllers\User\UserController::class, 'refferalCode'])->name('refferal.code');
+        // transaction history
+        ROute::get('/transaction-history', [App\Http\Controllers\User\TransactionHistoryController::class, 'history'])->name('transaction.history');
     });
 });
 

@@ -31,7 +31,7 @@ class RedirectIfAuthenticated
             default:
                 if (Auth::guard($guard)->check()) {
                     $purchasedPlan = PurchasedPlan::where('user_id', '=', Auth::guard('web')->user()->id)->first();
-                    if ($purchasedPlan->status == 'Approved') {
+                    if ($purchasedPlan != null  && $purchasedPlan->status == 'Approved') {
                         return redirect()->route('user.client.area');
                     } else {
                         return redirect()->route('user.plans');

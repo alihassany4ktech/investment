@@ -13,7 +13,7 @@ class RequestController extends Controller
 {
     public function requests()
     {
-        $planRequests = PurchasedPlan::all();
+        $planRequests = PurchasedPlan::where('status', '!=', 'Approved')->get();
         return view('dashboard.admin.planrequest.all', compact('planRequests'));
     }
 

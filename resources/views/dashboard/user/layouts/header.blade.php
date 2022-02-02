@@ -10,8 +10,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
+       <?php
+        $setting = App\Models\Setting::where('id','=',1)->first();
+    ?>
     <!-- Favicon icon -->
-      <link rel="icon" type="image/png" sizes="16x16" href="{{asset('assets/images/crmLogo.png')}}" >
+      <link rel="icon" type="image/png" sizes="16x16" href="{{asset($setting->company_favicon)}}" >
     <title>User | Dashboard</title>
     <!-- Bootstrap Core CSS -->
     <link href="{{asset('assets/plugins/bootstrap/css/bootstrap.min.css')}}"  rel="stylesheet">
@@ -26,8 +29,14 @@
     <link href="{{asset('assets/plugins/c3-master/c3.min.css')}}"  rel="stylesheet">
     <!-- Vector CSS -->
     <link href="{{asset('assets/plugins/vectormap/jquery-jvectormap-2.0.2.css')}}"  rel="stylesheet" />
+         <!-- Popup CSS -->
+    <link
+      href="{{asset('assets/plugins/Magnific-Popup-master/dist/magnific-popup.css')}}"
+      rel="stylesheet"
+    />
     <!-- Custom CSS -->
     <link href="{{asset('assets/css/style.css')}}" rel="stylesheet">
+ 
     <!-- You can change the theme colors from here -->
     <link href="{{asset('assets/css/colors/default-dark.css')}}" id="theme" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -65,7 +74,7 @@
                         <b>
                             <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                             <!-- Dark Logo icon -->
-                            <img src="{{asset('assets/images/crmLogo.png')}}" style="width: 35px;height:30px" alt="homepage" class="dark-logo" />
+                            <img src="{{asset($setting->company_logo)}}" style="width: 35px;height:30px" alt="homepage" class="dark-logo" />
                             <!-- Light Logo icon -->
                             <img src="{{asset('assets/images/logo-light-icon.png')}}" alt="homepage" class="light-logo" />
                         </b>

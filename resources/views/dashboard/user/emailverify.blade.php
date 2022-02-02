@@ -10,8 +10,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
+          <?php
+        $setting = App\Models\Setting::where('id','=',1)->first();
+    ?>
     <!-- Favicon icon -->
-  <link rel="icon" type="image/png" sizes="16x16" href="{{asset('assets/images/favicontest.png')}}" >
+  <link rel="icon" type="image/png" sizes="16x16" href="{{asset($setting->company_favicon)}}" >
     <title>User Email Verify</title>
     <!-- Bootstrap Core CSS -->
     <link href="{{asset('assets/plugins/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">

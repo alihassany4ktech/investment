@@ -7,7 +7,8 @@
         <!-- Bread crumb and right sidebar toggle -->
         <div class="row page-titles">
             <div class="col-md-5 col-8 align-self-center">
-                <h3 class="text-themecolor"><a href="{{route('user.dashboard')}}">Dashboard</a></h3>
+               <h3 class="text-themecolor">{{Auth::guard('web')->user()->first_name}} {{Auth::guard('web')->user()->last_name}}</h3>
+                <h4 class="text-themecolor"><a href="{{route('user.dashboard')}}">Dashboard</a></h4>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item "><a href="{{route('user.client.area')}}">Client Area</a></li>
                     <li class="breadcrumb-item active">Withdrawal</li>
@@ -93,9 +94,12 @@
         <!-- End PAge Content -->
     </div>
     <!-- footer -->
-    <footer class="footer">
-        © 2022 Webfabricant
-    </footer>
+                    <?php
+                        $setting = App\Models\Setting::where('id','=',1)->first();
+                    ?>
+            <footer class="footer">
+                © 2022 {{$setting->company_name}}
+            </footer>
     <!-- End footer -->
 </div>
 <!-- End Page wrapper  -->

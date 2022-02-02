@@ -1,5 +1,51 @@
 @extends('dashboard.admin.layouts.includes')
 @section('content')
+<style>
+    /*Hidden class for adding and removing*/
+    .lds-dual-ring.hidden {
+        display: none;
+    }
+ 
+    /*Add an overlay to the entire page blocking any further presses to buttons or other elements.*/
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 50%;
+        height: 50vh;
+        /* background: rgba(0,0,0,.8); */
+        z-index: 999;
+        opacity: 1;
+        transition: all 0.5s;
+    }
+     
+    /*Spinner Styles*/
+    .lds-dual-ring {
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+    }
+    .lds-dual-ring:after {
+        content: " ";
+        display: block;
+        width: 50px;
+        height: 50px;
+        margin: 5% auto;
+        border-radius: 50%;
+        border: 6px solid rgb(236, 8, 8);
+        border-color: rgb(236, 8, 8) transparent rgb(236, 8, 8) transparent;
+        animation: lds-dual-ring 1.2s linear infinite;
+    }
+    @keyframes lds-dual-ring {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+</style>
+ 
 <!-- Page wrapper  -->
 <div class="page-wrapper">
     <!-- Container fluid  -->
@@ -43,7 +89,10 @@
                                           <td>{{$row->plan->title}}</td>
                                           <td>{{$row->transaction_url}}</td>
                                            <td>
-                                          <img src="{{asset($row->screenshot) }}"  alt="Screenshot"  width="50" height="50">
+                                               <a href="{{asset($row->screenshot)}}" target="__blanck">
+                                                                                      <img src="{{asset($row->screenshot) }}"  alt="Screenshot"  width="50" height="50">
+</a>
+
                                           </td>
                                           <td style="width:15%">
                                             <select id="{{$row->id}}" class="form-control bg-light statusChange" name="status">
@@ -73,11 +122,25 @@
             </div>
         </div>
         <!-- End PAge Content -->
+         <div class="">
+                  <button
+                    class="
+                      right-side-toggle
+                      waves-effect waves-light
+                       btn btn-circle btn-lg
+                      
+                      m-l-10
+                    "><div id="loader" class="lds-dual-ring hidden overlay"></div>
+                  </button>
+                </div>
     </div>
     <!-- footer -->
-    <footer class="footer">
-        © 2022 Webfabricant
-    </footer>
+                    <?php
+                        $setting = App\Models\Setting::where('id','=',1)->first();
+                    ?>
+            <footer class="footer">
+                © 2022 {{$setting->company_name}}
+            </footer>
     <!-- End footer -->
 </div>
 <!-- End Page wrapper  -->
@@ -98,15 +161,19 @@
                 url: "{{ route('admin.change.plan.status') }}",
                 method: "POST",
                 dataType: "json",
-
                 data: {
                     _token: "{{ csrf_token() }}",
                     status: status,
                     id: id,
                 },
+                beforeSend: function () { // Before we send the request, remove the .hidden class from the spinner and default to inline-block.
+                $('#loader').removeClass('hidden')
+                },
 
                 success: function (data) {
+                    $('#loader').addClass('hidden');
                     toastr.success(data.success);
+                    
                 }
             });
         });

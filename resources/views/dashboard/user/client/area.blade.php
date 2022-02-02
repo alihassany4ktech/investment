@@ -24,12 +24,13 @@
             <!-- Column -->
             <div class="col-lg-12 col-xlg-9 col-md-7">
                 <div class="card">
+                    {{-- <input type="text" value="{{$purchasedPlan->updated_at->format('d-m-Y h i s')}}" id="updatedDate"> --}}
                     <div class="card-body">
                         <h3 class="card-title bg-success p-3 text-white" style="text-align: center">Client Area</h3>
                         <div class="table-responsive">
                             <table class="table m-b-0  m-t-30 no-border">
                                 <tbody>
-                                    
+                                    {{-- {{dd($purchasedPlan->updated_at->timestamp)}} --}}
                                     <tr>
                                         <td style="width:400px;text-align: center">
                                             <h4 class="card-title  bg-light p-3">Deposit Amount</h4>
@@ -109,9 +110,12 @@
     </div>
     <!-- footer -->
 
-    <footer class="footer">
-        © 2022 Webfabricant
-    </footer>
+                    <?php
+                        $setting = App\Models\Setting::where('id','=',1)->first();
+                    ?>
+            <footer class="footer">
+                © 2022 {{$setting->company_name}}
+            </footer>
 
     <!-- End footer -->
 
@@ -123,8 +127,11 @@
 <script>
 // Set the date we're counting down to
 // var countDownDate = new Date("Jan 5, 2024 15:37:25").getTime();
-   var someDate = new Date();
+//    var someDate = new Date();
+//    alert(someDate);
         var numberOfDaysToAdd = {{$purchasedPlan->plan->withdraw}};
+        // var someDate =  $('#updatedDate').val();
+        // alert(someDate);
         if(localStorage.getItem('remaining_time'))
         {
             var countDownDate = localStorage.getItem('remaining_time');

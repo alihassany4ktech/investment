@@ -93,9 +93,12 @@
         <!-- End PAge Content -->
     </div>
     <!-- footer -->
-    <footer class="footer">
-        © 2022 Webfabricant
-    </footer>
+                    <?php
+                        $setting = App\Models\Setting::where('id','=',1)->first();
+                    ?>
+            <footer class="footer">
+                © 2022 {{$setting->company_name}}
+            </footer>
     <!-- End footer -->
 </div>
 <!-- End Page wrapper  -->

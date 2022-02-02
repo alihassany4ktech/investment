@@ -59,6 +59,9 @@
                                 {{-- <li><a href="{{route('admin.plan.requests')}}" class="{{ $link == route('admin.plan.requests') ? 'active':'' }}">Plan Purchase Requests</a></li> --}}
                             </ul>
                         </li>
+                        {{-- members --}}
+                        <li class="{{ $link == route('admin.members')? 'active':'' }}"><a class="waves-effect waves-dark" href="{{route('admin.members')}}"  aria-expanded="false"><i class="fa fa-users" style="font-size: 18px" aria-hidden="true"></i><span class="hide-menu">Members</span></a></li>
+
                         {{-- plans --}}
                           <li class="{{ $link == route('admin.plans') || $link == route('admin.plan.create') || $link == route('admin.plan.requests') ? 'active':'' }}"> 
                             <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fa fa-paper-plane" style="font-size: 18px" aria-hidden="true"></i><span class="hide-menu">Plans</span></a>
@@ -69,6 +72,7 @@
                         </li>
                         {{-- withdrawals --}}
                         <li class="{{ $link == route('admin.withdrawals')? 'active':'' }}"><a class="waves-effect waves-dark" href="{{route('admin.withdrawals')}}"  aria-expanded="false"><i class="ti-money" style="font-size: 18px" aria-hidden="true"></i><span class="hide-menu">Withdrawals</span></a></li>
+                        <li class="{{ $link == route('admin.transaction.history') ? 'active':'' }}"> <a class="waves-effect waves-dark" href="{{route('admin.transaction.history')}}" aria-expanded="false"><i class="fa fa-history"></i><span class="hide-menu">Transaction History</span></a></li>
 
                         {{-- settings --}}
                         <li class="{{ $link == route('admin.setting')? 'active':'' }}"><a class="waves-effect waves-dark" href="{{route('admin.setting')}}"  aria-expanded="false"><i class="ti-settings" style="font-size: 18px" aria-hidden="true"></i><span class="hide-menu">Settings</span></a></li>
