@@ -89,12 +89,12 @@ Route::prefix('user')->name('user.')->group(function () {
         Route::post('/withdrawal/store', [App\Http\Controllers\User\ClientController::class, 'withdrawalStore'])->name('withdrawal.store');
         // clent area
         Route::get('/client/area', [App\Http\Controllers\User\ClientController::class, 'clientArea'])->name('client.area');
-        Route::get('/client/withdrawal', [App\Http\Controllers\User\ClientController::class, 'withdrawal'])->name('client.withdrawal');
+        Route::get('/client/withdrawal/', [App\Http\Controllers\User\ClientController::class, 'withdrawal'])->name('client.withdrawal');
         // plans 
         ROute::get('/plans', [App\Http\Controllers\User\PlanController::class, 'plans'])->name('plans');
         Route::get('/purchase/plan/{id}', [App\Http\Controllers\User\PlanController::class, 'purchase'])->name('purchase.plan');
         Route::post('/purchase/plan/store', [App\Http\Controllers\User\PlanController::class, 'purchaseStore'])->name('plan.purchase.store');
-        Route::get('/plan/purchase/success}', [App\Http\Controllers\User\PlanController::class, 'planPurchaseSuccess'])->name('plan.purchase.success');
+        Route::get('/plan/purchase/success', [App\Http\Controllers\User\PlanController::class, 'planPurchaseSuccess'])->name('plan.purchase.success');
         // refferal code 
         ROute::get('/refferal-code', [App\Http\Controllers\User\UserController::class, 'refferalCode'])->name('refferal.code');
         // transaction history

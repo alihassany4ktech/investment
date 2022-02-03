@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Withdrawal;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\PurchasedPlan;
 use App\Notifications\WithdrawalNotification;
 use Illuminate\Support\Facades\Auth;
 
@@ -22,6 +23,13 @@ class WithdrawalController extends Controller
             $plan = Withdrawal::find($request->id);
             $plan->status = $request->status;
             $plan->update();
+            $purchasedPlan = PurchasedPlan::where('user_id', '=', $plan->user->id)->first();
+            $withdrawals = Withdrawal::where('user_id', '=', $plan->user->id)->where('status', '=', 'Approved')->get();
+            $totalWithdrawals = count($withdrawals);
+            if ($totalWithdrawals == 6) {
+                $purchasedPlan->status = 'Pending';
+                $purchasedPlan->update();
+            }
             if ($request->status == "Approved") {
                 $message = 'Admin Approved Your Withdrawal.';
             } elseif ($request->status == "Pending") {

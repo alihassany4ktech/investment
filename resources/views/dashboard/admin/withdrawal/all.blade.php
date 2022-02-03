@@ -76,6 +76,7 @@
                                         <th>Available Balance</th>
                                         <th>Wallet Address</th>
                                         <th>Request Payment</th>
+                                        <th>Date</th>
                                         <th>Status</th>
                                         {{-- <th>Action</th> --}}
                                     </tr>
@@ -96,6 +97,7 @@
                                           <td>${{$row->available_balance}}</td>
                                           <td>{{$row->wallet_address}}</td>
                                           <td>{{$row->request_payment}}</td>
+                                          <td>{{$row->created_at->format('d-m-Y')}}</td>
                                           <td>
                                                 <select id="{{$row->id}}" class="form-control bg-light statusChange" name="status">
                                                 <option value="Approved" {{$row->status == 'Approved'? 'selected': ''}}>Approved</option>
@@ -187,6 +189,7 @@
                 success: function (data) {
                     $('#loader').addClass('hidden');
                     toastr.success(data.success);
+                     window.location.reload();
                 }
             });
         });

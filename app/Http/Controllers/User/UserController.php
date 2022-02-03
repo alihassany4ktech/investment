@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\PurchasedPlan;
 use Nexmo\Laravel\Facade\Nexmo;
 use App\Http\Controllers\Controller;
+use App\Models\Withdrawal;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -176,7 +177,8 @@ class UserController extends Controller
 
     public function profile()
     {
-        return view('dashboard.user.profile');
+        $user = Auth::guard('web')->user();
+        return view('dashboard.user.profile', compact('user'));
     }
 
     public function profileUpdate(Request $request)

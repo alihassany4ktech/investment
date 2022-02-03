@@ -24,13 +24,32 @@
             <!-- Column -->
             <div class="col-lg-12 col-xlg-9 col-md-7">
                 <div class="card">
-                    {{-- <input type="text" value="{{$purchasedPlan->updated_at->format('d-m-Y h i s')}}" id="updatedDate"> --}}
+                    <?php
+                        $profit = ($purchasedPlan->plan->price*$purchasedPlan->plan->commission)/100;
+                        $totalDays = $purchasedPlan->plan->withdraw * 6;
+                        $dailyProfit = ($profit + $purchasedPlan->plan->price) / $totalDays;
+                        $availabeAmountForWithdrawal = $dailyProfit * $purchasedPlan->plan->withdraw;
+                        $totalAmount = ($purchasedPlan->plan->price + $profit);
+                        $date = Carbon\Carbon::parse( $purchasedPlan->updated_at)->addDays($purchasedPlan->plan->withdraw) 
+                    ?>
+                    {{-- {{dd($dailyProfit)}} --}}
+{{-- {                 --}}
+                    {{-- <input type="text" value="{{$date}}" id="updatedDate"> --}}
                     <div class="card-body">
                         <h3 class="card-title bg-success p-3 text-white" style="text-align: center">Client Area</h3>
                         <div class="table-responsive">
                             <table class="table m-b-0  m-t-30 no-border">
                                 <tbody>
                                     {{-- {{dd($purchasedPlan->updated_at->timestamp)}} --}}
+                                      <tr>
+                                        <td style="width:400px;text-align: center">
+                                            <h4 class="card-title  bg-light p-3">{{$purchasedPlan->user->first_name}} {{$purchasedPlan->user->last_name}}</h4>
+                                        </td>
+                                        <td style="width:400px;text-align: center">
+                                            <h4 class="card-title bg-light p-3">
+                                                {{$purchasedPlan->plan->title}}</h4>
+                                        </td>
+                                    </tr>
                                     <tr>
                                         <td style="width:400px;text-align: center">
                                             <h4 class="card-title  bg-light p-3">Deposit Amount</h4>
@@ -40,31 +59,47 @@
                                                 ${{$purchasedPlan == null ? '': $purchasedPlan->plan->price}}</h4>
                                         </td>
                                     </tr>
+                                     <tr>
+                                        <td style="width:400px;text-align: center" >
+                                            <h4 class="card-title  bg-light p-3">Earning or Profit</h4>
+                                        </td>
+                                        <td style="width:400px;text-align: center">
+                                            <h4 class="card-title bg-light p-3">
+                                               ${{$profit}} </h4>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:500px;text-align: center" colspan="2">
+                                            <h4 class="card-title bg-light p-3">Count Down <span id="the-final-countdown"></span></h4>
+                                           </td>
+                                        
+                                    </tr>
+                                        <tr>
+                                        <td style="width:400px;text-align: center">
+                                            <h4 class="card-title  bg-light p-3">Available amount for withdrawal </h4>
+                                        </td>
+                                        <td style="width:400px;text-align: center">
+                                            <h4 class="card-title bg-light p-3">
+                                                ${{round($availabeAmountForWithdrawal)}}</h4>
+                                        </td>
+                                    </tr>
                                       <tr>
                                         <td style="width:400px;text-align: center">
-                                            <h4 class="card-title  bg-light p-3">Total Earning Amount</h4>
+                                            <h4 class="card-title  bg-light p-3">Total Amount</h4>
                                         </td>
                                         <td style="width:400px;text-align: center">
                                             <h4 class="card-title bg-light p-3">
-                                                ${{$purchasedPlan == null ? '': (($purchasedPlan->plan->price*$purchasedPlan->plan->commission)/100)+$purchasedPlan->plan->price}}</h4>
+                                                ${{$totalAmount}}</h4>
                                         </td>
                                     </tr>
+                                   
                                        <tr>
                                         <td style="width:400px;text-align: center">
-                                            <h4 class="card-title  bg-light p-3">Your Received Amount</h4>
+                                            <h4 class="card-title  bg-light p-3">Withdrawal Amount</h4>
                                         </td>
                                         <td style="width:400px;text-align: center">
                                             <h4 class="card-title bg-light p-3">
-                                                $</h4>
-                                        </td>
-                                    </tr>
-                                       <tr>
-                                        <td style="width:400px;text-align: center">
-                                            <h4 class="card-title  bg-light p-3">Eligible Amount for Withdrawal</h4>
-                                        </td>
-                                        <td style="width:400px;text-align: center">
-                                            <h4 class="card-title bg-light p-3">
-                                                $</h4>
+                                                ${{$withdraAmount}}</h4>
                                         </td>
                                     </tr>
                                      <tr>
@@ -73,7 +108,8 @@
                                         </td>
                                         <td style="width:400px;text-align: center">
                                             <h4 class="card-title bg-light p-3">
-                                                $</h4>
+                                                ${{$totalAmount-$withdraAmount}} 
+</h4>
                                         </td>
                                     </tr>
                                    
@@ -82,15 +118,11 @@
                                             <h4 class="card-title bg-light p-3">Referral commission {{$purchasedPlan == null ? '': $purchasedPlan->plan->referral_commission}}% </h4>
                                         <td style="width:400px;text-align: center">
                                             <h4 class="card-title bg-light p-3">
-                                                ${{$purchasedPlan == null ? '': (($purchasedPlan->plan->price*$purchasedPlan->plan->referral_commission)/100)}}
+                                                ${{$purchasedPlan == null ? '': round(($purchasedPlan->plan->price*$purchasedPlan->plan->referral_commission)/100)}}
                                             </h4>
                                         </td>
                                     </tr>
-                                     <tr>
-                                        <td style="width:400px;text-align: center">
-                                            <h4 class="card-title bg-light p-3">Timer <span id="the-final-countdown"></span></h4>
-                                        
-                                    </tr>
+                                     
                                 </tbody>
                             </table>
                         </div>
@@ -98,7 +130,7 @@
                     <div class="card-body m-b-20 m-t-10">
                         <div class="row">
                             <div class="col-12 align-self-center text-center">
-                                <a type="button" href="{{route('user.client.withdrawal')}}" class="btn btn-success">Withdrawal</a>
+                                <a type="button" href="{{route('user.client.withdrawal')}}"  style="font-size: 16px" class="btn btn-lg btn-light">Withdrawal</a>
                             </div>
                         </div>
                     </div>
@@ -127,11 +159,10 @@
 <script>
 // Set the date we're counting down to
 // var countDownDate = new Date("Jan 5, 2024 15:37:25").getTime();
-//    var someDate = new Date();
+   var someDate = new Date();
 //    alert(someDate);
         var numberOfDaysToAdd = {{$purchasedPlan->plan->withdraw}};
         // var someDate =  $('#updatedDate').val();
-        // alert(someDate);
         if(localStorage.getItem('remaining_time'))
         {
             var countDownDate = localStorage.getItem('remaining_time');
@@ -158,8 +189,8 @@ function countDownTimer(){
   var seconds = Math.floor((distance % (1000 * 60)) / 1000);
     
   // Output the result in an element with id="the-final-countdown"
-  document.getElementById("the-final-countdown").innerHTML = days + "day: " + hours + "hour: "
-  + minutes + "mint: " + seconds + "sec";
+  document.getElementById("the-final-countdown").innerHTML = days + "Day: " + hours + "HourS: "
+  + minutes + "Mints: " + seconds + "Sec";
     
   // If the count down is over, write some text 
   if (distance < 0) {

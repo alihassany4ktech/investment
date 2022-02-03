@@ -32,6 +32,7 @@
                                         <th>Wallet Address</th>
                                           <th>Request Payment</th>
                                           <th>Payment Method</th>
+                                          <th>Date</th>
                                           <th>Status</th>
                                     </tr>
                                 </thead>
@@ -47,10 +48,11 @@
                                                  </a>
                                           </td>
                                           <td>{{$row->plan->title}}</td>
-                                          <td>${{$row->available_balance}}</td>
+                                             <td>${{$row->available_balance - $row->request_payment}}</td>
                                           <td>{{$row->wallet_address}}</td>
-                                          <td>{{$row->request_payment}}</td>
+                                          <td>${{$row->request_payment}}</td>
                                           <td>{{$row->payment_method}}</td>
+                                           <td>{{$row->updated_at->format('d-m-Y')}}</td>
                                           <td>{{$row->status}}</td>
                                     </tr>
                                     @endforeach

@@ -1,5 +1,18 @@
 @extends('dashboard.user.layouts.includes')
 @section('content')
+<style>
+        /* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+</style>
 <!-- Page wrapper  -->
 <div class="page-wrapper">
     <!-- Container fluid  -->
@@ -22,7 +35,8 @@
             <div class="col-lg-7 col-xlg-9 col-md-7">
                 <div class="card">
                     <div class="card-body">
-                        <h3 class="card-title bg-success p-3" style="text-align: center">Withdrawal</h3>
+                        <h3 class="card-title bg-success p-3" style="text-align: center">Withdrawal <br> <small class="text-danger">{{$totalWithdrawals}} Out Of 6</small></h3>
+                             
                         <div class="table-responsive">
                             <form action="{{route('user.withdrawal.store')}}" method="POST">
                                 @csrf
@@ -33,8 +47,8 @@
                                                 <h4 class="card-title  bg-light p-2">Available Balance </h4>
                                             </td>
                                             <td style="width:400px;text-align: center">
-                                                <input type="number" min="0" name="available_balance" class="form-control">
-                             @error('available_balance')
+                                                <input type="number" readonly value="{{$availabeBalanceForWithdrawal}}" min="0" name="available_balance" class="form-control">
+                                    @error('available_balance')
                                     <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                             </td>
@@ -43,7 +57,7 @@
                                             <td style="text-align: center">
                                                 <h4 class="card-title  bg-light p-2">Wallet Address </h4>
                                             <td style="width:400px;text-align: center">
-                                                <input type="text" name="wallet_address" class="form-control">
+                                                <input type="email" name="wallet_address" class="form-control">
                                 @error('wallet_address')
                                     <small class="text-danger">{{ $message }}</small>
                                     @enderror
@@ -53,10 +67,13 @@
                                             <td style="text-align: center">
                                                 <h4 class="card-title bg-light p-2">Request Payment</h4>
                                             <td style="width:400px;text-align: center">
-                                                <input type="text" name="request_payment" class="form-control">
+                                                <input type="number" min="0" name="request_payment" class="form-control">
                                  @error('request_payment')
                                     <small class="text-danger">{{ $message }}</small>
                                     @enderror
+                                    @if(Session::has('message'))
+                              <small class="text-warning">{{ Session::get('message') }}</small>
+                            @endif
                                             </td>
                                         </tr>
                                            <tr>

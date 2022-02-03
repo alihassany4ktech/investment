@@ -13,16 +13,28 @@ class ClientController extends Controller
 {
     public function clientArea()
     {
-        $purchasedPlan = PurchasedPlan::where('user_id', '=', Auth::guard('web')->user()->id)
-            ->where('status', '=', 'Approved')
-            ->first();
-        return view('dashboard.user.client.area', compact('purchasedPlan'));
+        $purchasedPlan = PurchasedPlan::where('user_id', '=', Auth::guard('web')->user()->id)->first();
+        $withdraAmount = round(Withdrawal::where('user_id', '=', Auth::guard('web')->user()->id)->sum('request_payment'));
+        return view('dashboard.user.client.area', compact('purchasedPlan', 'withdraAmount'));
     }
 
     public function withdrawal()
     {
         $paymentMethods = PaymentMethod::all();
-        return view('dashboard.user.client.withdrawal', compact('paymentMethods'));
+        $withdrawals = Withdrawal::where('user_id', '=', Auth::guard('web')->user()->id)->where('status', '=', 'Approved')->get();
+        $totalWithdrawals = count($withdrawals);
+
+
+        $purchasedPlan = PurchasedPlan::where('user_id', '=', Auth::guard('web')->user()->id)->first();
+
+        $profit = ($purchasedPlan->plan->price * $purchasedPlan->plan->commission) / 100;
+        $totalDays = $purchasedPlan->plan->withdraw * 6;
+        $dailyProfit = ($profit + $purchasedPlan->plan->price) / $totalDays;
+        $availabeAmountForWithdrawal = $dailyProfit * $purchasedPlan->plan->withdraw;
+        $withdraAmount = round(Withdrawal::where('user_id', '=', Auth::guard('web')->user()->id)->sum('request_payment'));
+        $refferalUser = count(PurchasedPlan::where('referral_code', '=', Auth::guard('web')->user()->refferal_code)->get());
+        $availabeBalanceForWithdrawal = round(($availabeAmountForWithdrawal + ($refferalUser * round(($purchasedPlan->plan->price * $purchasedPlan->plan->referral_commission) / 100)))) - $withdraAmount;
+        return view('dashboard.user.client.withdrawal', compact('paymentMethods', 'totalWithdrawals', 'availabeBalanceForWithdrawal'));
     }
 
     public function withdrawalStore(Request $request)
@@ -33,6 +45,10 @@ class ClientController extends Controller
             'request_payment' => 'required',
             'payment_method' => 'required'
         ]);
+
+        if ($request->available_balance < $request->request_payment) {
+            return redirect()->back()->with(['message' => 'Request Payment Should Be Less Then Available Balance']);
+        }
 
         $withdrawal = new Withdrawal();
         $withdrawal->user_id = Auth::guard('web')->user()->id;
@@ -46,6 +62,6 @@ class ClientController extends Controller
             'messege' => 'Submitted Successfully!',
             'alert-type' => 'success'
         );
-        return redirect()->back()->with($notification);
+        return redirect()->route('user.dashboard')->with($notification);
     }
 }
