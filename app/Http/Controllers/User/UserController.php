@@ -4,12 +4,13 @@ namespace App\Http\Controllers\User;
 
 use App\Models\Plan;
 use App\Models\User;
+use App\Models\Country;
 use App\Models\Visitor;
+use App\Models\Withdrawal;
 use Illuminate\Http\Request;
 use App\Models\PurchasedPlan;
 use Nexmo\Laravel\Facade\Nexmo;
 use App\Http\Controllers\Controller;
-use App\Models\Withdrawal;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -74,8 +75,9 @@ class UserController extends Controller
             'national_id' => ['required', 'regex:/^[1-9][0-9]{12}$/', 'unique:users'],
             'country' => ['required', 'string', 'max:255'],
             'country_code' => ['required'],
-            'phone' => ['required', 'digits:10', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'phone' => ['required', 'unique:users'],
+            'phone_code' => ['required'],
+            'password' => ['required', 'string', 'min:8', 'confirmed']
         ]);
         if ($request->is_plus_eighteen) {
             if ($request->is_plus_eighteen == 'on') {
@@ -99,7 +101,7 @@ class UserController extends Controller
             'email_verification_code' => $email_verification_code,
             'country' => $request->country,
             'country_code' => $request->country_code,
-            'phone' => $request->phone,
+            'phone' => $request->phone_code . $request->phone,
             'password' => Hash::make($request->password),
         ]);
         Auth::login($user);
@@ -120,13 +122,13 @@ class UserController extends Controller
         $user = User::where('email', '=', $request->email)->first();
         if ($user->email_verification_code == $request->email_verification_code) {
             $phone_verification_code = mt_rand(10000, 99999);
-            // Nexmo::message()->send(
-            //     [
-            //         'to' => $user->phone,
-            //         'from' => 'investment',
-            //         'text' => 'Your OTP is' + $phone_verification_code + 'for email verification'
-            //     ]
-            // );
+            Nexmo::message()->send(
+                [
+                    'to' => $user->phone,
+                    'from' => 'investment',
+                    'text' => 'Your OTP is' + $phone_verification_code + 'for email verification'
+                ]
+            );
             $user->varify_email = 1;
             $user->phone_verification_code = $phone_verification_code;
             $user->update();
@@ -172,7 +174,8 @@ class UserController extends Controller
 
     public function showRegisterForm()
     {
-        return view('auth.register');
+        $countries = Country::all();
+        return view('auth.register', compact('countries'));
     }
 
     public function profile()
