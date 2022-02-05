@@ -25,18 +25,20 @@
             <div class="col-lg-12 col-xlg-9 col-md-7">
                 <div class="card">
                     <?php
-                        $profit = ($purchasedPlan->plan->price*$purchasedPlan->plan->commission)/100;
-                        $totalDays = $purchasedPlan->plan->withdraw * 6;
-                        $dailyProfit = ($profit + $purchasedPlan->plan->price) / $totalDays;
+                        $profit = ($purchasedPlan->plan->price*$purchasedPlan->plan->commission)/100; //ok
+                        $totalDays = $purchasedPlan->plan->withdraw * 6; //ok
+                        $dailyProfit = ($profit + $purchasedPlan->plan->price) / $totalDays; //ok
                         $availabeAmountForWithdrawal = $dailyProfit * $purchasedPlan->plan->withdraw;
                         $totalAmount = ($purchasedPlan->plan->price + $profit);
-                        $date = Carbon\Carbon::parse( $purchasedPlan->updated_at)->addDays($purchasedPlan->plan->withdraw) 
+
+                        $date = Carbon\Carbon::parse( $purchasedPlan->updated_at)->addDays($purchasedPlan->plan->withdraw)
                     ?>
                     {{-- {{dd($dailyProfit)}} --}}
 {{-- {                 --}}
                     {{-- <input type="text" value="{{$date}}" id="updatedDate"> --}}
                     <div class="card-body">
                         <h3 class="card-title bg-success p-3 text-white" style="text-align: center">Client Area</h3>
+
                         <div class="table-responsive">
                             <table class="table m-b-0  m-t-30 no-border">
                                 <tbody>
@@ -66,13 +68,14 @@
                                         <td style="width:400px;text-align: center">
                                             <h4 class="card-title bg-light p-3">
                                                ${{$profit}} </h4>
+                                            <p></p>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td style="width:500px;text-align: center" colspan="2">
                                             <h4 class="card-title bg-light p-3">Count Down <span id="the-final-countdown"></span></h4>
                                            </td>
-                                        
+
                                     </tr>
                                         <tr>
                                         <td style="width:400px;text-align: center">
@@ -80,7 +83,11 @@
                                         </td>
                                         <td style="width:400px;text-align: center">
                                             <h4 class="card-title bg-light p-3">
-                                                ${{round($availabeAmountForWithdrawal)}}</h4>
+                                                $0
+                                            </h4>
+{{--                                            <h4 class="card-title bg-light p-3">--}}
+                                            {{--                                                ${{round($availabeAmountForWithdrawal)}}--}}
+                                            {{--                                            </h4>  need to fix this balance show after count down finish--}}
                                         </td>
                                     </tr>
                                       <tr>
@@ -92,7 +99,7 @@
                                                 ${{$totalAmount}}</h4>
                                         </td>
                                     </tr>
-                                   
+
                                        <tr>
                                         <td style="width:400px;text-align: center">
                                             <h4 class="card-title  bg-light p-3">Withdrawal Amount</h4>
@@ -108,21 +115,22 @@
                                         </td>
                                         <td style="width:400px;text-align: center">
                                             <h4 class="card-title bg-light p-3">
-                                                ${{$totalAmount-$withdraAmount}} 
+                                                ${{$totalAmount-$withdraAmount}}
 </h4>
                                         </td>
                                     </tr>
-                                   
+
                                     <tr>
                                         <td style="width:400px;text-align: center">
                                             <h4 class="card-title bg-light p-3">Referral commission {{$purchasedPlan == null ? '': $purchasedPlan->plan->referral_commission}}% </h4>
                                         <td style="width:400px;text-align: center">
                                             <h4 class="card-title bg-light p-3">
-                                                ${{$purchasedPlan == null ? '': round(($purchasedPlan->plan->price*$purchasedPlan->plan->referral_commission)/100)}}
+                                                ${{count($plans)*round($refferalAmount)}}
+
                                             </h4>
                                         </td>
                                     </tr>
-                                     
+
                                 </tbody>
                             </table>
                         </div>
@@ -170,7 +178,7 @@
         }else{
             var countDownDate = someDate.setDate(someDate.getDate() + numberOfDaysToAdd);
         }
-        
+
 
 // Update the count down every 1 second
 function countDownTimer(){
@@ -178,21 +186,21 @@ function countDownTimer(){
      localStorage.setItem('remaining_time',remaining_time);
   // Get today's date and time
   var now = new Date().getTime();
-    
+
   // Find the distance between now and the count down date
   var distance = countDownDate - now;
-    
+
   // Time calculations for days, hours, minutes and seconds
   var days = Math.floor(distance / (1000 * 60 * 60 * 24));
   var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
   var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
   var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-    
+
   // Output the result in an element with id="the-final-countdown"
   document.getElementById("the-final-countdown").innerHTML = days + "Day: " + hours + "HourS: "
   + minutes + "Mints: " + seconds + "Sec";
-    
-  // If the count down is over, write some text 
+
+  // If the count down is over, write some text
   if (distance < 0) {
     clearInterval(x);
     document.getElementById("the-final-countdown").innerHTML = "EXPIRED";

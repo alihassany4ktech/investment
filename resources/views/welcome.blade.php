@@ -35,21 +35,9 @@
 
     A few goodies that make Repeat special are the typewriter effect, animated statistics, scrolling effects and drop-down menu. Pricing tables, testimonials and a working contact form are also part of the bundle for you to work with. Present your firm on the internet in the best possible light with Repeat.
         </p>
-         <p>
-          Do your thing in the online space and grow your business with Repeat. A free website template gets the ball going strong with its stunning layouts and useful features. Also, Repeat has a pretty distinct design, although keeping things on the minimal side. See it for yourself.
-
-    A few goodies that make Repeat special are the typewriter effect, animated statistics, scrolling effects and drop-down menu. Pricing tables, testimonials and a working contact form are also part of the bundle for you to work with. Present your firm on the internet in the best possible light with Repeat.
-        </p>
-            <p>
-          Do your thing in the online space and grow your business with Repeat. A free website template gets the ball going strong with its stunning layouts and useful features. Also, Repeat has a pretty distinct design, although keeping things on the minimal side. See it for yourself.
-
-    A few goodies that make Repeat special are the typewriter effect, animated statistics, scrolling effects and drop-down menu. Pricing tables, testimonials and a working contact form are also part of the bundle for you to work with. Present your firm on the internet in the best possible light with Repeat.
-        </p>
-         <p>
-          Do your thing in the online space and grow your business with Repeat. A free website template gets the ball going strong with its stunning layouts and useful features. Also, Repeat has a pretty distinct design, although keeping things on the minimal side. See it for yourself.
-
-    A few goodies that make Repeat special are the typewriter effect, animated statistics, scrolling effects and drop-down menu. Pricing tables, testimonials and a working contact form are also part of the bundle for you to work with. Present your firm on the internet in the best possible light with Repeat.
-        </p>
+         <div >
+             <br><br><br><br><br><br><br><br><br><br>
+         </div>
       </div>
     </section>
   </main><!-- End #main -->

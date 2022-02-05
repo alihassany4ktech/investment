@@ -25,7 +25,7 @@ class PlanController extends Controller
     public function purchaseStore(Request $request)
     {
         $request->validate([
-            'wallet_address' => 'required',
+
             'transaction_url' => 'required',
             'screenshot' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4098',
             'term_and_condition' => 'required'

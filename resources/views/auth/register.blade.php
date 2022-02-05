@@ -73,18 +73,7 @@
                                         @enderror
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="inputAddress">Document Address</label>
-                             <input  id="document_address" placeholder="Address As Per The Documents "
-                                            type="text"
-                                            class="form-control @error('document_address') is-invalid @enderror"
-                                            name="document_address"  autocomplete="document_address" autofocus>
-                                        @error('document_address')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                        @enderror
-                        </div>
+
                         <div class="form-group">
                             <label for="inputAddress2">Address</label>
                               <input  id="address" placeholder="Address" type="text"
@@ -121,7 +110,7 @@
                             </div>
                             <div class="form-group col-md-4">
                             <label for="inputZip">Zip/Postal Code </label>
-                               <input  id="postal_or_zip_code" placeholder="Five Digit" type="text" 
+                               <input  id="postal_or_zip_code" placeholder="Five Digit" type="text"
                                             class="form-control @error('postal_or_zip_code') is-invalid @enderror"
                                             name="postal_or_zip_code"  autocomplete="postal_or_zip_code"
                                             autofocus>
@@ -133,43 +122,7 @@
                             </div>
                         </div>
 
-                        <div class="form-row mb-4">
-                               <div class="col-md-6">
-                                     <label for="inputZip">Country </label>
-                                        <input  id="country" placeholder="Country" type="text"
-                                            class="form-control @error('country') is-invalid @enderror" name="country"
-                                             autocomplete="country" autofocus>
-                                        @error('country')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                        @enderror
-                                    </div>
 
-                                    <div class="col-md-6">
-                                     <label for="inputZip">Country Code</label>
-                                        <input  id="country_code" placeholder="Country Code" type="text"
-                                            class="form-control @error('country_code') is-invalid @enderror" name="country_code"
-                                             autocomplete="country_code" autofocus>
-                                        @error('country_code')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                        @enderror
-                                    </div>
-                                   
-                                    {{-- <div class="col-md-4 ">
-                                         <label for="phone">Number</label>
-                                        <input  id="phone" placeholder="Number" type="text"
-                                            class="form-control @error('phone') is-invalid @enderror" name="phone"
-                                             autocomplete="phone" autofocus>
-                                        @error('phone')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                        @enderror
-                                    </div> --}}
-                        </div>
                         <div class="form-row mb4">
                              <div class="col-md-12">
                                           <label for="validationDefault02">Number</label>
@@ -192,7 +145,7 @@
                                 <div class="form-check" style="margin-top: 35px">
                                  <input class="form-check-input" name="is_plus_eighteen" type="checkbox" id="gridCheck">
                             <label class="form-check-label" for="gridCheck">
-                                Age
+                               Yes! I'm 18+
                             </label>
                             </div>
                             </div>
@@ -212,7 +165,7 @@
                                             <div class="col-md-4 ">
                                                 <label for="inputZip">Password</label>
                                         <input  id="password" placeholder="password" type="Password"
-                                            class="form-control @error('password') is-invalid @enderror" name="password" 
+                                            class="form-control @error('password') is-invalid @enderror" name="password"
                                             autocomplete="current-password">
 
                                         @error('password')
@@ -227,7 +180,7 @@
                                     <input  id="password_confirmation" placeholder="Retype Password" type="password"
                                         name="password_confirmation" class="form-control"  autocomplete="new-password">
                                 </div>
-                                
+
                         </div>
                             <a href="{{route('user.login')}}"><small class="mt-3">already i have an account</small></a>
                         <button type="submit" class="btn btn-primary float-right">Next</button>
@@ -355,10 +308,10 @@
 
 
     <script src="{{asset('assets/plugins/styleswitcher/jQuery.style.switcher.js')}}"></script>
-     
-     
 
-      
+
+
+
 
 
 
@@ -432,7 +385,7 @@
                 class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
 
             <div class="col-md-6">
-                <input  id="password-confirm" type="password" class="form-control" name="password_confirmation" 
+                <input  id="password-confirm" type="password" class="form-control" name="password_confirmation"
                     autocomplete="new-password">
             </div>
         </div>

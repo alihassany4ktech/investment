@@ -20,13 +20,11 @@ class UserSeeder extends Seeder
             [
                 'first_name'  => 'Marknar',
                 'last_name'  => 'Doe',
-                'document_address'  => '71 Pilgrim Avenue Chevy Chase, MD 20815',
                 'address'  => '71 Pilgrim Avenue Chevy Chase, MD 20815',
                 'city'  => 'Lahore',
                 'region'  => 'Punjab',
                 'postal_or_zip_code'  => '12345',
-                'country'  => 'Pakistan',
-                'country_code'  => 'pk',
+
                 'phone'  => '1112223334',
                 'is_plus_eighteen'  => 1,
                 'national_id'  => '1234512345123',
@@ -37,13 +35,10 @@ class UserSeeder extends Seeder
             [
                 'first_name'  => 'Hamza',
                 'last_name'  => 'Ali',
-                'document_address'  => '71 Pilgrim Avenue Chevy Chase, MD 20815',
                 'address'  => '71 Pilgrim Avenue Chevy Chase, MD 20815',
                 'city'  => 'Lahore',
                 'region'  => 'Punjab',
                 'postal_or_zip_code'  => '12345',
-                'country'  => 'Pakistan',
-                'country_code'  => 'pk',
                 'phone'  => '1112223330',
                 'is_plus_eighteen'  => 1,
                 'national_id'  => '1234512345120',

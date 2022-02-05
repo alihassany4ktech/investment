@@ -15,7 +15,12 @@ class ClientController extends Controller
     {
         $purchasedPlan = PurchasedPlan::where('user_id', '=', Auth::guard('web')->user()->id)->first();
         $withdraAmount = round(Withdrawal::where('user_id', '=', Auth::guard('web')->user()->id)->sum('request_payment'));
-        return view('dashboard.user.client.area', compact('purchasedPlan', 'withdraAmount'));
+        $plans = PurchasedPlan::where('referral_code', '=', Auth::guard('web')->user()->refferal_code)->get();
+        $refferalAmount = ($purchasedPlan->plan->price * $purchasedPlan->plan->referral_commission) / 100;
+
+
+
+        return view('dashboard.user.client.area', compact('purchasedPlan', 'withdraAmount', 'plans' , 'refferalAmount'));
     }
 
     public function withdrawal()

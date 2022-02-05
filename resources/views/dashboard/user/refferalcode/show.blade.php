@@ -19,14 +19,14 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Users Using Your Refferal Code</h4>
+                        <h4 class="card-title">Users Using Your Referral Code</h4>
                         <button type="button" data-toggle="tooltip" data-original-title="Copy" onclick="copyToClipboard(this)"  id="{{Auth::guard('web')->user()->refferal_code == null? '': Auth::guard('web')->user()->refferal_code}}"
-                            class="btn btn-outline-danger m-t-8 float-right myBtn" style="margin-right: 10px;font-size: 12px"></i> 
-                              {{Auth::guard('web')->user()->refferal_code == null? '': 'Your Refferal Code: ' .Auth::guard('web')->user()->refferal_code}}    
+                            class="btn btn-outline-danger m-t-8 float-right myBtn" style="margin-right: 10px;font-size: 12px"></i>
+                              {{Auth::guard('web')->user()->refferal_code == null? '': 'Your Refferal Code: ' .Auth::guard('web')->user()->refferal_code}}
                         </button>
                         <button type="button"
-                            class="btn btn-outline-warning m-t-8 float-right" style="margin-right: 10px;font-size: 12px"></i> 
-                              Total RafferalAmount ${{count($plans)*round($refferalAmount)}}    
+                            class="btn btn-outline-warning m-t-8 float-right" style="margin-right: 10px;font-size: 12px"></i>
+                              Total Referral Amount ${{count($plans)*round($refferalAmount)}}
                         </button>
                         <div class="table-responsive m-t-40">
                             <table id="example23" class="display nowrap table table-hover table-striped table-bordered"

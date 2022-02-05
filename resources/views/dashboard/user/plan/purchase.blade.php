@@ -30,12 +30,12 @@
                             <input type="hidden" name="plan_id" value="{{$plan->id}}">
                             <div class="form-group">
                                 <label class="control-label">Wallet Address</label>
-                                <input type="email" name="wallet_address" readonly value="{{$walletAddress->wallet_address}}" class="form-control" >
+                                <input type="email" name="wallet_address" value="{{$walletAddress->wallet_address}}" class="form-control" >
                                  @error('wallet_address')
                                     <small class="text-danger">{{ $message }}</small>
                               @enderror
                             </div>
-                             
+
                             <div class="form-group">
                                 <label class="control-label">Transaction URL</label>
                                 <input type="url" pattern="https://.*" size="30" name="transaction_url" class="form-control"
@@ -51,7 +51,7 @@
                                     <small class="text-danger">{{ $message }}</small>
                               @enderror
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="input-file-now-custom-3">Upload The Screenshot </label>
                                 <input type="file" name="screenshot" id="input-file-now-custom-3" class="dropify"
@@ -70,7 +70,7 @@
                               @enderror
                               </div>
                              </div>
-                              
+
                             <div>
                                 <button type="submit" class="btn btn-info float-right">Next</button>
                             </div>

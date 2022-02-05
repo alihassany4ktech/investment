@@ -21,13 +21,10 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('refferal_code')->unique()->nullable();
             $table->string('image')->default('assets/images/userPic.png');
-            $table->mediumText('document_address');
             $table->mediumText('address');
             $table->string('city');
             $table->string('region');
-            $table->integer('postal_or_zip_code');
-            $table->string('country');
-            $table->string('country_code');
+            $table->string('postal_or_zip_code');
             $table->string('phone');
             $table->string('is_plus_eighteen');
             $table->string('national_id');

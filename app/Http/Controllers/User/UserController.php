@@ -67,14 +67,12 @@ class UserController extends Controller
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'document_address' => ['required', 'string'],
+
             'address' => ['required', 'string'],
             'city' => ['required', 'string', 'max:255'],
             'region' => ['required', 'string', 'max:255'],
-            'postal_or_zip_code' => ['required', 'regex:/^\d{5}$/'],
-            'national_id' => ['required', 'regex:/^[1-9][0-9]{12}$/', 'unique:users'],
-            'country' => ['required', 'string', 'max:255'],
-            'country_code' => ['required'],
+//            'postal_or_zip_code' => ['required', 'regex:/^\d{5}$/'],
+            'national_id' => ['required', 'unique:users'],
             'phone' => ['required', 'unique:users'],
             'phone_code' => ['required'],
             'password' => ['required', 'string', 'min:8', 'confirmed']
@@ -91,7 +89,6 @@ class UserController extends Controller
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'email' => $request->email,
-            'document_address' => $request->document_address,
             'address' => $request->address,
             'city' => $request->city,
             'region' => $request->region,
@@ -99,8 +96,6 @@ class UserController extends Controller
             'is_plus_eighteen' => $is_plus_eighteen,
             'national_id' => $request->national_id,
             'email_verification_code' => $email_verification_code,
-            'country' => $request->country,
-            'country_code' => $request->country_code,
             'phone' => $request->phone_code . $request->phone,
             'password' => Hash::make($request->password),
         ]);
@@ -216,7 +211,7 @@ class UserController extends Controller
         ]);
     }
 
-    // refferalCode 
+    // refferalCode
 
     public function refferalCode()
     {

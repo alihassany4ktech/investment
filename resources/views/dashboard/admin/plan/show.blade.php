@@ -114,7 +114,7 @@
                                 </div>
                                 <hr>
                                 <div class="row">
-                                    
+
                                     <div class="col-md-3 col-xs-6 b-r"> <strong>Withdrawal</strong>
                                         <br>
                                         <small
@@ -122,12 +122,12 @@
                                     </div>
                                     <div class="col-md-3 col-xs-6 b-r"> <strong>Referral Commission</strong>
                                         <br>
-                                        <small class="text-success">${{$plan->referral_commission}}</small>
+                                        <small class="text-success">%{$plan->referral_commission}}</small>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                     
+
                     </div>
                 </div>
             </div>

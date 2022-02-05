@@ -35,7 +35,7 @@
                                                           <p class="price-lable text-white bg-warning"> Pending</p>
                                                           @elseif(App\Models\PurchasedPlan::where('user_id','=',Auth::guard('web')->user()->id)->where('plan_id','=',$row->id)->where('status','=','Approved')->exists())
                                                            <p class="price-lable text-white bg-success"> Purchased</p>
-                                                           @elseif(App\Models\PurchasedPlan::where('user_id','=',Auth::guard('web')->user()->id)->where('plan_id','=',$row->id)->where('status','=','Rejected')->exists()) 
+                                                           @elseif(App\Models\PurchasedPlan::where('user_id','=',Auth::guard('web')->user()->id)->where('plan_id','=',$row->id)->where('status','=','Rejected')->exists())
                                                            <p class="price-lable text-white bg-danger"> Rejected</p>
                                                       @endif
                                                     <h4 class="text-center">{{$row->title}}</h4>
@@ -46,16 +46,16 @@
                                                     <div class="price-row">Commission: <span class="text-danger">{{$row->commission}}%</span></div>
                                                     <div class="price-row">Daily Earning:<span class="text-warning"> ${{$row->daily_earning}}</span></div>
                                                     <div class="price-row">Withdrawal: <span class="text-primary">{{$row->withdraw}} days</span></div>
-                                                    <div class="price-row">Referral Commission: <span class="text-secondary">${{$row->referral_commission}}</span></div>
+                                                    <div class="price-row">Referral Commission: <span class="text-secondary">%{{$row->referral_commission}}</span></div>
                                                     <div class="price-row">
                                                          @if(App\Models\PurchasedPlan::where('user_id','=',Auth::guard('web')->user()->id)->where('plan_id','=',$row->id)->where('status','=','Pending')->exists())
                                                         <a type="button"    data-toggle="tooltip" title="Already Pending" class="btn text-white btn-sm btn-warning waves-effect waves-light m-t-10">Purchase</a>
                                                           @elseif(App\Models\PurchasedPlan::where('user_id','=',Auth::guard('web')->user()->id)->where('plan_id','=',$row->id)->where('status','=','Approved')->exists())
                                                             <a type="button" href="{{route('user.purchase.plan',['id'=>$row->id])}}" class="btn btn-sm btn-success waves-effect waves-light m-t-10">Purchase</a>
-                                                           @elseif(App\Models\PurchasedPlan::where('user_id','=',Auth::guard('web')->user()->id)->where('plan_id','=',$row->id)->where('status','=','Rejected')->exists()) 
+                                                           @elseif(App\Models\PurchasedPlan::where('user_id','=',Auth::guard('web')->user()->id)->where('plan_id','=',$row->id)->where('status','=','Rejected')->exists())
                                                             <a type="button"    data-toggle="tooltip" title="Already Rejected" class="btn btn-sm text-white  btn-danger waves-effect waves-light m-t-10">Purchase</a>
 
-                                                           @else 
+                                                           @else
                                                             <a type="button" href="{{route('user.purchase.plan',['id'=>$row->id])}}" class="btn btn-sm btn-success waves-effect waves-light m-t-10">Purchase</a>
 
                                                       @endif
@@ -64,7 +64,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                    @endforeach
                                 </div>
                             </div>
