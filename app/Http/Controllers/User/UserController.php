@@ -162,8 +162,13 @@ class UserController extends Controller
 
     public function dashboard()
     {
+        $purchasedPlan = PurchasedPlan::where('user_id', '=', Auth::guard('web')->user()->id)->first();
         $plans = Plan::all();
         $totalPlans = count($plans);
+        if ($purchasedPlan->plan != Null){
+            return redirect()->route('user.client.area');
+        }
+
         return view('dashboard.user.home', compact('totalPlans'));
     }
 
@@ -215,7 +220,8 @@ class UserController extends Controller
 
     public function refferalCode()
     {
-        $plans = PurchasedPlan::where('referral_code', '=', Auth::guard('web')->user()->refferal_code)->get();
+        $plans = PurchasedPlan::where('referral_code', '=', Auth::guard('web')->user()->refferal_code)->
+        where('referral_payment_status', '=',  1)->get();
         $purchasedPlan = PurchasedPlan::where('user_id', '=', Auth::guard('web')->user()->id)->first();
         $commission = $purchasedPlan->plan->referral_commission;
         $refferalAmount = ($purchasedPlan->plan->price * $purchasedPlan->plan->referral_commission) / 100;

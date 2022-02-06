@@ -25,18 +25,25 @@ class WithdrawalController extends Controller
             $plan->update();
             $purchasedPlan = PurchasedPlan::where('user_id', '=', $plan->user->id)->first();
             $withdrawals = Withdrawal::where('user_id', '=', $plan->user->id)->where('status', '=', 'Approved')->get();
+//            $referral_amount_status = PurchasedPlan::where('referral_code', '=', $plan->user->id->refferal_code)->
+//            where('referral_payment_status', '=',  1)->get();
+//            $referral_amount_status->referral_payment_status =  0;
+//            $referral_amount_status->update();
             $totalWithdrawals = count($withdrawals);
             if ($totalWithdrawals == 6) {
                 $purchasedPlan->status = 'Pending';
                 $purchasedPlan->update();
             }
             if ($request->status == "Approved") {
+
                 $message = 'Admin Approved Your Withdrawal.';
+
             } elseif ($request->status == "Pending") {
                 $message = 'Admin put  Your Withdrawal in pending';
             } else {
                 $message = 'Admin Reject Your Withdrawal.';
             }
+
             $user = Auth::guard('web')->user();
             $user->notify(new WithdrawalNotification($message));
             return response()->json(['success' => 'Status Changed Successfully!']);

@@ -36,7 +36,7 @@ input[type=number] {
                 <div class="card">
                     <div class="card-body">
                         <h3 class="card-title bg-success p-3" style="text-align: center">Withdrawal <br> <small class="text-danger">{{$totalWithdrawals}} Out Of 6</small></h3>
-                             
+
                         <div class="table-responsive">
                             <form action="{{route('user.withdrawal.store')}}" method="POST">
                                 @csrf
@@ -53,19 +53,10 @@ input[type=number] {
                                     @enderror
                                             </td>
                                         </tr>
+
                                         <tr>
                                             <td style="text-align: center">
-                                                <h4 class="card-title  bg-light p-2">Wallet Address </h4>
-                                            <td style="width:400px;text-align: center">
-                                                <input type="email" name="wallet_address" class="form-control">
-                                @error('wallet_address')
-                                    <small class="text-danger">{{ $message }}</small>
-                                    @enderror
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align: center">
-                                                <h4 class="card-title bg-light p-2">Request Payment</h4>
+                                                <h4 class="card-title bg-light p-2">Withdrawal Amount</h4>
                                             <td style="width:400px;text-align: center">
                                                 <input type="number" min="0" name="request_payment" class="form-control">
                                  @error('request_payment')
@@ -89,6 +80,17 @@ input[type=number] {
                                  @error('payment_method')
                                     <small class="text-danger">{{ $message }}</small>
                                     @enderror
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center">
+                                                <h4 class="card-title  bg-light p-2">Additional Information </h4>
+                                            <td style="width:400px;text-align: center">
+{{--                                                <input type="text" name="wallet_address" class="form-control">--}}
+                                                <textarea name="wallet_address" class="form-control" id="" cols="30" rows="10"></textarea>
+                                                @error('wallet_address')
+                                                <small class="text-danger">{{ $message }}</small>
+                                                @enderror
                                             </td>
                                         </tr>
                                     </tbody>

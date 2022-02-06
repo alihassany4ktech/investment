@@ -23,6 +23,7 @@ class CreatePurchasedPlansTable extends Migration
             $table->string('wallet_address')->nullable();
             $table->string('transaction_url')->nullable();
             $table->string('referral_code')->nullable();
+            $table->boolean('referral_payment_status')->default(0);
             $table->string('screenshot')->nullable();
             $table->boolean('term_and_condition')->nullable();
             $table->timestamps();

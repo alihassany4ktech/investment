@@ -71,7 +71,7 @@
                                 <div class="checkbox checkbox-primary p-t-0">
                                     <input id="checkbox-signup" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
                                     <label for="checkbox-signup"> Remember me </label>
-                                </div> 
+                                </div>
                             </div>
                         </div>
                         <div class="form-group text-center m-t-20">
@@ -109,7 +109,7 @@
     <!-- Style switcher -->
     <!-- ============================================================== -->
     <script src="{{asset('assets/plugins/styleswitcher/jQuery.style.switcher.js')}}"></script>
-    
+
 </body>
 <!-- Mirrored from www.wrappixel.com/demos/admin-templates/material-pro/minisidebar/pages-login.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 11 Feb 2019 11:15:51 GMT -->
 </html>

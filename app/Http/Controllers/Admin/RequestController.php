@@ -23,6 +23,7 @@ class RequestController extends Controller
 
             $plan = PurchasedPlan::find($request->id);
             $plan->status = $request->status;
+            $plan->referral_payment_status = 1;
             $plan->update();
             if ($request->status == "Approved") {
                 $user = User::find($plan->user_id);

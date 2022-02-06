@@ -36,7 +36,7 @@
     />
     <!-- Custom CSS -->
     <link href="{{asset('assets/css/style.css')}}" rel="stylesheet">
- 
+
     <!-- You can change the theme colors from here -->
     <link href="{{asset('assets/css/colors/default-dark.css')}}" id="theme" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -74,17 +74,17 @@
                         <b>
                             <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                             <!-- Dark Logo icon -->
-                            <img src="{{asset($setting->company_logo)}}" style="width: 35px;height:30px" alt="homepage" class="dark-logo" />
+{{--                            <img src="{{asset($setting->company_logo)}}" style="width: 35px;height:30px" alt="homepage" class="dark-logo" />--}}
                             <!-- Light Logo icon -->
-                            <img src="{{asset('assets/images/logo-light-icon.png')}}" alt="homepage" class="light-logo" />
+{{--                            <img src="{{asset('assets/images/logo-light-icon.png')}}" alt="homepage" class="light-logo" />--}}
                         </b>
                         <!--End Logo icon -->
                         <!-- Logo text -->
                         <span>
                             <!-- dark Logo text -->
-                            <span   alt="homepage" class="dark-logo" style="margin-left: 10px" >myCRM</span>
+                            <span   alt="homepage" class="dark-logo" style="margin-left: 10px" >2easy.cash</span>
                             <!-- Light Logo text -->
-                            <img src="{{asset('assets/images/logo-light-text.png')}}" class="light-logo" alt="homepage" /></span>
+{{--                            <img src="{{asset('assets/images/logo-light-text.png')}}" class="light-logo" alt="homepage" /></span>--}}
                     </a>
                 </div>
                 <!-- ============================================================== -->
@@ -101,11 +101,11 @@
                         <!-- ============================================================== -->
                         <!-- Search -->
                         <!-- ============================================================== -->
-                        <li class="nav-item hidden-sm-down search-box">
-                            <a class="nav-link hidden-sm-down text-muted waves-effect waves-dark" href="javascript:void(0)"><i class="ti-search"></i></a>
-                            <form class="app-search">
-                                <input type="text" class="form-control" placeholder="Search & enter"> <a class="srh-btn"><i class="ti-close"></i></a> </form>
-                        </li>
+{{--                        <li class="nav-item hidden-sm-down search-box">--}}
+{{--                            <a class="nav-link hidden-sm-down text-muted waves-effect waves-dark" href="javascript:void(0)"><i class="ti-search"></i></a>--}}
+{{--                            <form class="app-search">--}}
+{{--                                <input type="text" class="form-control" placeholder="Search & enter"> <a class="srh-btn"><i class="ti-close"></i></a> </form>--}}
+{{--                        </li>--}}
                     </ul>
                     <!-- ============================================================== -->
                     <!-- User profile and search -->
@@ -114,7 +114,7 @@
                         <!-- Profile -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                               
+
                                 @if (Auth::guard('web')->user()->image == '0')
                                 <img src="{{asset('assets/images/users/1.jpg')}}" alt="user" class="profile-pic" />
                                 @else
@@ -127,7 +127,7 @@
                                     <li>
                                         <div class="dw-user-box">
                                             <div class="u-img">
-                                            
+
                                                  @if (Auth::guard('web')->user()->image == '0')
                                                 <img src="{{asset('assets/images/users/1.jpg')}}" alt="user"  />
                                                 @else
@@ -143,7 +143,7 @@
                                         </div>
                                     </li>
                                     <li role="separator" class="divider"></li>
-                  
+
                                     <li> <a href="{{ route('user.logout') }}" class="dropdown-item"
                                             onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i
                                                 class="fa fa-power-off"></i> Logout</a>
