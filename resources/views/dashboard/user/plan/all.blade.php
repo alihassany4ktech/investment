@@ -39,7 +39,11 @@
                                                            <p class="price-lable text-white bg-danger"> Rejected</p>
                                                       @endif
                                                     <h4 class="text-center">{{$row->title}}</h4>
-                                                    <h2 class="text-center"><span class="price-sign">$</span>{{$row->price}}</h2>
+                                                          @if($row->price == 500)
+                                                    <h2 class="text-center"><span class="price-sign">$</span>500+</h2>
+                                                          @else
+                                                              <h2 class="text-center"><span class="price-sign">$</span>{{$row->price}}</h2>
+                                                              @endif
                                                 </div>
                                                 <div class="price-table-content">
                                                     <div class="price-row">Return Price: <span class="text-success">${{$row->return_price}}</span></div>
