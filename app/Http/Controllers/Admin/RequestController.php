@@ -48,6 +48,11 @@ class RequestController extends Controller
     public function show($id)
     {
         $planRequest = PurchasedPlan::find($id);
+        if($planRequest->referral_code != Null){
+            $plans = PurchasedPlan::where('referral_code', '=', $planRequest->user->refferal_code)->get();
+        }
+
+
         return view('dashboard.admin.planrequest.show', compact('planRequest'));
     }
 }

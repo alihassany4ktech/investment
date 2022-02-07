@@ -16,10 +16,10 @@ class CreatePlansTable extends Migration
         Schema::create('plans', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title')->nullable();
-            $table->bigInteger('price')->nullable();
-            $table->bigInteger('return_price')->nullable();
+            $table->string('price')->nullable();
+            $table->string('return_price')->nullable();
             $table->double('commission', 4, 2)->nullable();
-            $table->double('daily_earning', 4, 2)->nullable();
+            $table->string('daily_earning')->nullable();
             $table->bigInteger('withdraw')->nullable();
             $table->double('referral_commission', 4, 2)->nullable();
             $table->timestamps();

@@ -27,12 +27,12 @@ input[type=number] {
             <div class="col-md-5 col-8 align-self-center">
                  <h3 class="text-themecolor"><a href="{{route('admin.dashboard')}}">Dashboard</a> </h3>
                 <ol class="breadcrumb">
-                  
+
                     <li class="breadcrumb-item"><a href="{{route('admin.plans')}}">Plans</a></li>
                     <li class="breadcrumb-item active">Add New Plan</li>
                 </ol>
             </div>
-      
+
         </div>
 
         <!-- End Bread crumb and right sidebar toggle -->
@@ -123,25 +123,25 @@ input[type=number] {
                                     @enderror
                                 </div>
                                 <div class="col-md-4 mb-4 mt-1">
-                                   <label for="validationDefault02">Price <small
+                                   <label for="validationDefault02">Price<small
                                             class="text-danger">*</small></label>
-                                      <input type="number" min="1" name="price" class="form-control" id="validationDefault02"
+                                      <input type="text"  name="price" class="form-control" id="validationDefault02"
                                         placeholder="Enter Price" >
                                          @error('price')
                                     <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                 </div>
-                            
+
                                  <div class="col-md-4 mb-4 mt-1">
                                    <label for="validationDefault02">Return Price <small
                                             class="text-danger">*</small></label>
-                                      <input type="number" min="1" name="return_price" class="form-control" id="validationDefault02"
+                                      <input type="text" min="1" name="return_price" class="form-control" id="validationDefault02"
                                         placeholder="Enter Return Price" >
                                          @error('return_price')
                                     <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                 </div>
-                                  
+
                             </div>
                             <div class="form-row">
                                      <div class="col-md-6 mb-4">
@@ -155,17 +155,17 @@ input[type=number] {
                                 <div class="col-md-6 mb-4">
                                     <label for="validationDefault04">Daily Earning <small
                                             class="text-danger">*</small></label>
-                                      <input type="number" min="00.01" max="100.00" step="0.01" name="daily_earning" class="form-control" id="validationDefault04"
+                                      <input type="text" min="00.01" max="100.00" step="0.01" name="daily_earning" class="form-control" id="validationDefault04"
                                         placeholder="%15.10" >
                                          @error('daily_earning')
                                     <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                 </div>
-                                
 
-                              
+
+
                             </div>
-                       
+
                         <div class="form-row">
                                 <div class="col-md-6 mb-3" id="deadline_div">
                                     <label for="validationDefault05">Withdrawal</label>
@@ -185,8 +185,8 @@ input[type=number] {
                                     @enderror
                                 </div>
                         </div>
-                          
-                         
+
+
                             <br>
                             <button class="btn btn-success" type="submit"><i class="ti-check"></i> Save</button>
                             <button type="reset" class="btn btn-info">Rest</button>

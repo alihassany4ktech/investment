@@ -113,7 +113,7 @@
                         <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#withdrawal"
                                 role="tab">Withdrawals</a> </li>
                         <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#refferalUser"
-                                role="tab">Refferal Users</a> </li>
+                                role="tab">Referral Users</a> </li>
                     </ul>
                     <!-- Tab overview -->
                     <div class="tab-content">
@@ -152,7 +152,7 @@
                                         <div class="el-card-item">
                                             <div class="el-card-avatar el-overlay-1">
                                                 <a class="image-popup-vertical-fit"
-                                                    href="{{asset($planRequest->screenshot)}}" target="__blanck">
+                                                    href="{{asset($planRequest->screenshot)}}" target="_blanck">
                                                     <img src="{{asset($planRequest->screenshot)}}" alt="user" />
                                                 </a>
                                             </div>
@@ -168,14 +168,14 @@
 
                         {{-- withdrawal --}}
                         <?php
-                                $withdrawals = App\Models\Withdrawal::where('user_id', '=', Auth::guard('web')->user()->id)->where('status', '=', 'Approved')->get();
-                                $plans = App\Models\PurchasedPlan::where('referral_code', '=', Auth::guard('web')->user()->refferal_code)->get();
+                                $withdrawals = App\Models\Withdrawal::where('user_id', '=', $planRequest->user->id)->where('status', '=', 'Approved')->get();
+                                $plans = App\Models\PurchasedPlan::where('referral_code', '=', $planRequest->user->refferal_code)->get();
                                  ?>
                         <div class="tab-pane" id="withdrawal" role="tabpanel">
                             <div class="card-body">
                                 <div class="row justify-content-center prjectDiv">
-                                    <div class="col-md-3 col-xs-6 mb-2"><span
-                                            class="btn btn-circle  btn-success text-white">{{count($withdrawals)}}</span>
+                                    <div class="col-md-3 col-xs-6 mb-2">
+                                        <span class="btn btn-circle  btn-success text-white">{{count($withdrawals)}}</span>
                                         <strong>Total Withdrawals</strong>
 
                                     </div>
@@ -255,7 +255,7 @@
                                                 <td>{{$row->user->first_name}} {{$row->user->last_name}}</td>
                                                 <td>{{$row->user->email}}</td>
                                                 <td>{{$row->user->phone}}</td>
-                                                <td>${{round($refferalAmount)}} ({{$commission}})% </td>
+{{--                                                <td>${{round($refferalAmount)}} ({{$commission}})% </td>--}}
                                             </tr>
                                             @endforeach
                                             @endif
@@ -280,7 +280,7 @@
                       right-side-toggle
                       waves-effect waves-light
                        btn btn-circle btn-lg
-                      
+
                       m-l-10
                     ">
                 <div id="loader" class="lds-dual-ring hidden overlay"></div>
