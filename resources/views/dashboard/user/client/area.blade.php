@@ -33,9 +33,9 @@
 
                         $date = Carbon\Carbon::parse( $purchasedPlan->updated_at)->addDays($purchasedPlan->plan->withdraw)
                     ?>
-                    {{-- {{dd($dailyProfit)}} --}}
+                    {{-- {{dd($date)}} --}}
 {{-- {                 --}}
-                    {{-- <input type="text" value="{{$date}}" id="updatedDate"> --}}
+                    <input type="hidden" value="{{$date}}" id="updatedDate">
                     <div class="card-body">
                         <h3 class="card-title bg-success p-3 text-white" style="text-align: center">Client Area</h3>
 
@@ -116,7 +116,7 @@
                                         <td style="width:400px;text-align: center">
                                             <h4 class="card-title bg-light p-3">
                                                 ${{$totalAmount-$withdraAmount}}
-</h4>
+                                            </h4>
                                         </td>
                                     </tr>
 
@@ -165,21 +165,17 @@
 
 @push('clientarea-page-script')
 <script>
-// Set the date we're counting down to
-// var countDownDate = new Date("Jan 5, 2024 15:37:25").getTime();
-   var someDate = new Date();
-//    alert(someDate);
+
+        var someDate =  $('#updatedDate').val();
         var numberOfDaysToAdd = {{$purchasedPlan->plan->withdraw}};
-        // var someDate =  $('#updatedDate').val();
         if(localStorage.getItem('remaining_time'))
         {
             var countDownDate = localStorage.getItem('remaining_time');
 
         }else{
-            var countDownDate = someDate.setDate(someDate.getDate() + numberOfDaysToAdd);
+            var updated = someDate;
+            var countDownDate = new Date(updated).getTime();
         }
-
-
 // Update the count down every 1 second
 function countDownTimer(){
      var remaining_time = countDownDate-1;

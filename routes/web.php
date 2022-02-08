@@ -78,9 +78,9 @@ Route::prefix('user')->name('user.')->group(function () {
     Route::middleware(['auth:web',])->group(function () {
         Route::get('/email/verify', [App\Http\Controllers\User\UserController::class, 'emailVerify'])->name('email.varify');
         Route::post('/check/email/verify', [App\Http\Controllers\User\UserController::class, 'checkEmailVerify'])->name('check.email.verify');
-        Route::get('/phone/verify', [App\Http\Controllers\User\UserController::class, 'phoneVerify'])->name('phone.varify');
+        Route::get('/phone/verify', [App\Http\Controllers\User\UserController::class, 'phoneVerify'])->name('phone.varify')->middleware('EmailVerify');
         Route::post('/check/phone/verify', [App\Http\Controllers\User\UserController::class, 'checkPhoneVerify'])->name('check.phone.verify');
-        Route::get('/dashboard', [App\Http\Controllers\User\UserController::class, 'dashboard'])->name('dashboard');
+        Route::get('/dashboard', [App\Http\Controllers\User\UserController::class, 'dashboard'])->name('dashboard')->middleware('EmailVerify', 'PhoneVerify');
         Route::post('/logout', [App\Http\Controllers\User\UserController::class, 'logout'])->name('logout');
         // profile
         Route::get('/profile', [App\Http\Controllers\User\UserController::class, 'profile'])->name('profile');
