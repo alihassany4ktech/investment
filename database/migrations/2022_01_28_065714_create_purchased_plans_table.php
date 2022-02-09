@@ -18,6 +18,7 @@ class CreatePurchasedPlansTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->integer('plan_id')->unsigned();
+            $table->bigInteger('price')->nullable();
             $table->foreign('plan_id')->references('id')->on('plans');
             $table->string('status')->default('Pending');
             $table->string('wallet_address')->nullable();

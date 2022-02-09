@@ -11,15 +11,17 @@ class SendEmailVerifivationNotification extends Notification
 {
     use Queueable;
     public $email_verification_code;
+    public $first_name;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($email_verification_code)
+    public function __construct($first_name, $email_verification_code)
     {
         $this->email_verification_code  = $email_verification_code;
+        $this->first_name  = $first_name;
     }
 
     /**
@@ -41,10 +43,16 @@ class SendEmailVerifivationNotification extends Notification
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)
-            ->line('The introduction to the notification.Email Verification')
-            ->line('Your Emal Verification Email Verification Code is.' . $this->email_verification_code)
-            ->line('Thank you for using our application!');
+        $first_name = $this->first_name;
+        $email_verification_code = $this->email_verification_code;
+        return (new MailMessage)->view('emailVerifyNotification', compact('first_name', 'email_verification_code'));
+        // return (new MailMessage)
+        // ->greeting('Hello! ' . $this->first_name)
+        // ->line('Thank you for singing up with 2easy.cash')
+        // ->line('As an extra security precaution please verify your mail by using the following Verification code')
+        // ->line('Email Verification Code is.' . $this->email_verification_code)
+        // ->line('Thank you for using our application!')
+        // ->line('Anitra Brown');
     }
 
     /**

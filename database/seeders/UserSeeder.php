@@ -31,6 +31,8 @@ class UserSeeder extends Seeder
                 'email' => 'doe@gmail.com',
                 'password' => Hash::make('password'),     //password
                 'remember_token' => Str::random(10),
+                'varify_email' => 1,
+                'varify_phone' => 1
             ],
             [
                 'first_name'  => 'Hamza',
@@ -45,6 +47,8 @@ class UserSeeder extends Seeder
                 'email' => 'hamza@gmail.com',
                 'password' => Hash::make('password'),     //password
                 'remember_token' => Str::random(10),
+                'varify_email' => 1,
+                'varify_phone' => 1
             ]
         ]);
     }

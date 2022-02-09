@@ -19,24 +19,28 @@
   <!-- ======= Header ======= -->
   <header id="header" class="fixed-top header-inner-pages">
     <div class="container d-flex align-items-center justify-content-lg-between">
-      <h1 class="logo me-auto me-lg-0"><a href="/">logo<span>.</span></a></h1>
+      <h1 class="logo me-auto me-lg-0 p-2" style="font-size: 44px"><a href="/">logo<span>.</span></a></h1>
       <!-- Uncomment below if you prefer to use an image logo -->
       <!-- <a href="index.html" class="logo me-auto me-lg-0"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
       <nav id="navbar" class="d-flex flex-row-reverse bd-highlight">
- <a href="{{ route('user.register') }}" class="p-2 bd-highlight">Register</a>
-      <a href="{{ route('user.login') }}" class="p-2 bd-highlight" >login</a>
+ <a href="{{ route('user.register') }}" class="p-2 bd-highlight" style="font-size: 20px">Register</a>
+      <a href="{{ route('user.login') }}" class="p-2 bd-highlight" style="font-size: 20px">login</a>
     </div>
   </header><!-- End Header -->
   <main id="main">
     <section class="inner-page">
       <div class="container">
-        <p>
+        <p class="mt-5">
           Do your thing in the online space and grow your business with Repeat. A free website template gets the ball going strong with its stunning layouts and useful features. Also, Repeat has a pretty distinct design, although keeping things on the minimal side. See it for yourself.
 
     A few goodies that make Repeat special are the typewriter effect, animated statistics, scrolling effects and drop-down menu. Pricing tables, testimonials and a working contact form are also part of the bundle for you to work with. Present your firm on the internet in the best possible light with Repeat.
         </p>
+        <p>
+            We offer Partnership Plans for Non-Expert traders and investors, 100% earning with 0% loss short term plan opportunity for everyone. We Registered in US, UK, China, India & Pakistan
+
+        </p>
          <div >
-             <br><br><br><br><br><br><br><br><br><br>
+             <br><br><br><br><br><br><br>
          </div>
       </div>
     </section>
@@ -48,7 +52,7 @@
         <div class="row">
           <div class="col-lg-8 col-md-6">
             <div class="footer-info">
-              <h3>company details<span>.</span></h3>
+              <h3 class="mt-4">company details<span>.</span></h3>
               <p>demmo address<br>house num<br><br>
                 <strong>Phone :</strong> +92-322-2222222<br>
                 <strong>Email :</strong> demo@example.com<br>
@@ -56,7 +60,7 @@
             </div>
           </div>
           <div class="col-lg-4 col-md-6 footer-newsletter">
-            <h4>Our Newsletter</h4>
+            <h4 class="mt-4">Our Newsletter</h4>
             <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
             <!-- <form action="" method="post">
               <input type="email" name="email"><input type="submit" value="Subscribe">
@@ -65,9 +69,13 @@
         </div>
       </div>
     </div>
+           <?php
+        $setting = App\Models\Setting::where('id','=',1)->first();
+    ?>
     <div class="container">
       <div class="copyright">
-        &copy; Copyright <strong><span>Webfabricant</span></strong>. All Rights Reserved
+        &copy; Copyright <strong><span>{{$setting->company_name}}</span></strong>. All Rights Reserved
+        <a href="" style="float: right">Contact Us</a>
       </div>
     </div>
   </footer><!-- End Footer -->

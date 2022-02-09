@@ -30,6 +30,11 @@ class PlanController extends Controller
             'screenshot' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4098',
             'term_and_condition' => 'required'
         ]);
+        if ($request->plan_id = 4) {
+            $request->validate([
+                'price' => 'required',
+            ]);
+        }
         $addproved = PurchasedPlan::where('user_id', '=', Auth::user()->id)->where('status', 'Approved')->exists();
         if ($addproved == true) {
             $notification = array(
@@ -40,6 +45,9 @@ class PlanController extends Controller
         } else {
             $purchasedPlan = new PurchasedPlan();
             $purchasedPlan->user_id = Auth::guard('web')->user()->id;
+            if ($request->price) {
+                $purchasedPlan->price = $request->price;
+            }
             $purchasedPlan->plan_id = $request->plan_id;
             $purchasedPlan->wallet_address = $request->wallet_address;
             $purchasedPlan->transaction_url = $request->transaction_url;

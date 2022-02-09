@@ -41,6 +41,15 @@ class PlanSeeder extends Seeder
                 'daily_earning' => '6.11',
                 'withdraw' => '6',
                 'referral_commission' => '20'
+            ],
+            [
+                'title'  => 'Plan 4',
+                'price' => '501',
+                'return_price' => '0',
+                'commission' => '85',
+                'daily_earning' => '0',
+                'withdraw' => '4',
+                'referral_commission' => '22'
             ]
         ]);
     }

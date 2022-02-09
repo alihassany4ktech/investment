@@ -71,7 +71,7 @@ class UserController extends Controller
             'address' => ['required', 'string'],
             'city' => ['required', 'string', 'max:255'],
             'region' => ['required', 'string', 'max:255'],
-//            'postal_or_zip_code' => ['required', 'regex:/^\d{5}$/'],
+            //            'postal_or_zip_code' => ['required', 'regex:/^\d{5}$/'],
             'national_id' => ['required', 'unique:users'],
             'phone' => ['required', 'unique:users'],
             'phone_code' => ['required'],
@@ -100,7 +100,7 @@ class UserController extends Controller
             'password' => Hash::make($request->password),
         ]);
         Auth::login($user);
-        $user->notify(new SendEmailVerifivationNotification($email_verification_code));
+        $user->notify(new SendEmailVerifivationNotification($request->first_name, $email_verification_code));
         return redirect()->route('user.email.varify')->with(['message' => 'Email Verification Code Sent On Your Email, Please Check Your Email.']);
     }
     public function emailVerify()
@@ -165,7 +165,7 @@ class UserController extends Controller
         $purchasedPlan = PurchasedPlan::where('user_id', '=', Auth::guard('web')->user()->id)->first();
         $plans = Plan::all();
         $totalPlans = count($plans);
-        if ($purchasedPlan->plan != Null){
+        if ($purchasedPlan->plan != Null) {
             return redirect()->route('user.client.area');
         }
 
@@ -220,8 +220,7 @@ class UserController extends Controller
 
     public function refferalCode()
     {
-        $plans = PurchasedPlan::where('referral_code', '=', Auth::guard('web')->user()->refferal_code)->
-        where('referral_payment_status', '=',  1)->get();
+        $plans = PurchasedPlan::where('referral_code', '=', Auth::guard('web')->user()->refferal_code)->where('referral_payment_status', '=',  1)->get();
         $purchasedPlan = PurchasedPlan::where('user_id', '=', Auth::guard('web')->user()->id)->first();
         $commission = $purchasedPlan->plan->referral_commission;
         $refferalAmount = ($purchasedPlan->plan->price * $purchasedPlan->plan->referral_commission) / 100;

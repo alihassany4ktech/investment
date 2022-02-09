@@ -39,18 +39,36 @@
                                                            <p class="price-lable text-white bg-danger"> Rejected</p>
                                                       @endif
                                                     <h4 class="text-center">{{$row->title}}</h4>
-                                                          @if($row->price == 500)
+                                                          @if($row->price >= 500)
                                                     <h2 class="text-center"><span class="price-sign">$</span>500+</h2>
                                                           @else
                                                               <h2 class="text-center"><span class="price-sign">$</span>{{$row->price}}</h2>
                                                               @endif
                                                 </div>
                                                 <div class="price-table-content">
-                                                    <div class="price-row">Return Price: <span class="text-success">${{$row->return_price}}</span></div>
+                                                    <div class="price-row">Return Price: <span class="text-success">
+                                                        @if ($row->id == 4)
+                                                            depend on amount
+                                                        @else
+                                                            ${{$row->return_price}}
+                                                        @endif
+                                                        
+                                                    </span></div>
                                                     <div class="price-row">Commission: <span class="text-danger">{{$row->commission}}%</span></div>
-                                                    <div class="price-row">Daily Earning:<span class="text-warning"> ${{$row->daily_earning}}</span></div>
+                                                    <div class="price-row">Daily Earning:<span class="text-warning">
+                                                        @if ($row->id == 4)
+                                                            depend on amount
+                                                        @else
+                                                          ${{$row->daily_earning}}
+                                                        @endif
+                                                         
+                                                        </span></div>
                                                     <div class="price-row">Withdrawal: <span class="text-primary">{{$row->withdraw}} days</span></div>
-                                                    <div class="price-row">Referral Commission: <span class="text-secondary">%{{$row->referral_commission}}</span></div>
+                                                    <div class="price-row">Referral Commission: <span class="text-secondary">
+                                                        %{{$row->referral_commission}} @if ($row->id == 4)
+                                                            (depend on amount)
+                                                        @endif
+                                                    </span></div>
                                                     <div class="price-row">
                                                          @if(App\Models\PurchasedPlan::where('user_id','=',Auth::guard('web')->user()->id)->where('plan_id','=',$row->id)->where('status','=','Pending')->exists())
                                                         <a type="button"    data-toggle="tooltip" title="Already Pending" class="btn text-white btn-sm btn-warning waves-effect waves-light m-t-10">Purchase</a>

@@ -80,7 +80,7 @@ Route::prefix('user')->name('user.')->group(function () {
         Route::post('/check/email/verify', [App\Http\Controllers\User\UserController::class, 'checkEmailVerify'])->name('check.email.verify');
         Route::get('/phone/verify', [App\Http\Controllers\User\UserController::class, 'phoneVerify'])->name('phone.varify')->middleware('EmailVerify');
         Route::post('/check/phone/verify', [App\Http\Controllers\User\UserController::class, 'checkPhoneVerify'])->name('check.phone.verify');
-        Route::get('/dashboard', [App\Http\Controllers\User\UserController::class, 'dashboard'])->name('dashboard')->middleware('EmailVerify', 'PhoneVerify');
+        Route::get('/dashboard', [App\Http\Controllers\User\UserController::class, 'dashboard'])->name('dashboard');
         Route::post('/logout', [App\Http\Controllers\User\UserController::class, 'logout'])->name('logout');
         // profile
         Route::get('/profile', [App\Http\Controllers\User\UserController::class, 'profile'])->name('profile');
@@ -91,7 +91,7 @@ Route::prefix('user')->name('user.')->group(function () {
         Route::get('/client/area', [App\Http\Controllers\User\ClientController::class, 'clientArea'])->name('client.area');
         Route::get('/client/withdrawal/', [App\Http\Controllers\User\ClientController::class, 'withdrawal'])->name('client.withdrawal');
         // plans 
-        ROute::get('/plans', [App\Http\Controllers\User\PlanController::class, 'plans'])->name('plans');
+        ROute::get('/plans', [App\Http\Controllers\User\PlanController::class, 'plans'])->name('plans')->middleware('EmailVerify', 'PhoneVerify');
         Route::get('/purchase/plan/{id}', [App\Http\Controllers\User\PlanController::class, 'purchase'])->name('purchase.plan');
         Route::post('/purchase/plan/store', [App\Http\Controllers\User\PlanController::class, 'purchaseStore'])->name('plan.purchase.store');
         Route::get('/plan/purchase/success', [App\Http\Controllers\User\PlanController::class, 'planPurchaseSuccess'])->name('plan.purchase.success');

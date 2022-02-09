@@ -165,19 +165,27 @@
 
 @push('clientarea-page-script')
 <script>
+    // localStorage.clear();
+// limit = 0
+        // $newlimit = localStorage.getItem('limit');
+        // console.log('newlimit');
 
         var someDate =  $('#updatedDate').val();
         var numberOfDaysToAdd = {{$purchasedPlan->plan->withdraw}};
         if(localStorage.getItem('remaining_time'))
         {
             var countDownDate = localStorage.getItem('remaining_time');
+            console.log('old');
 
         }else{
+             console.log('new');
             var updated = someDate;
             var countDownDate = new Date(updated).getTime();
+            // var countDownDate = new Date("February 09 2022 10:21:00").getTime();
+
         }
 // Update the count down every 1 second
-function countDownTimer(){
+ function countDownTimer(){
      var remaining_time = countDownDate-1;
      localStorage.setItem('remaining_time',remaining_time);
   // Get today's date and time
@@ -197,11 +205,23 @@ function countDownTimer(){
   + minutes + "Mints: " + seconds + "Sec";
 
   // If the count down is over, write some text
-  if (distance < 0) {
-    clearInterval(x);
-    document.getElementById("the-final-countdown").innerHTML = "EXPIRED";
+  if (distance < 0) {     
+    //   limit++;
+      clearInterval(x);
+    //   console.log(limit);
+    //   if(limit <= 6)
+    //   {
+        //   console.log('true');
+            //   localStorage.clear();
+        //   countDownTimer;
+
+    //   }else{
+         document.getElementById("the-final-countdown").innerHTML = "EXPIRED";
+    //   }
+    
+    
   }
 };
-setInterval("countDownTimer()",1000);
+    var x =  setInterval("countDownTimer()",1000);
 </script>
 @endpush

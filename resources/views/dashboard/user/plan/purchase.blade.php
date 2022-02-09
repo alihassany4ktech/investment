@@ -28,6 +28,16 @@
                         <form action="{{route('user.plan.purchase.store')}}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <input type="hidden" name="plan_id" value="{{$plan->id}}">
+
+                         @if ($plan->id == 4)
+                              <div class="form-group">
+                                <label class="control-label">Price</label>
+                                <input type="number" min="1" name="price" value="{{$plan->price}}" class="form-control" >
+                                 @error('price')
+                                    <small class="text-danger">{{ $message }}</small>
+                              @enderror
+                            </div>
+                         @endif
                             <div class="form-group">
                                 <label class="control-label">Wallet Address</label>
                                 <input type="email" name="wallet_address" value="{{$walletAddress->wallet_address}}" class="form-control" >

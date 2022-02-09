@@ -77,6 +77,7 @@
                                         <th>Plan Title</th>
                                         <th>Transaction Url</th>
                                         <th>Screenshot</th>
+                                        <th>Price</th>
                                         <th>Status</th>
                                         <th style="text-align: center">Action</th>
                                     </tr>
@@ -94,6 +95,11 @@
 </a>
 
                                           </td>
+                                          @if($row->plan_id = 4)
+                                          <td>${{$row->price}}</td>
+                                          @else
+                                          <th>NaN</th>
+                                          @endif
                                           <td style="width:15%">
                                             <select id="{{$row->id}}" class="form-control bg-light statusChange" name="status">
                                                 <option value="Approved" {{$row->status == 'Approved'? 'selected': ''}}>Approved</option>
