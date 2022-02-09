@@ -96,7 +96,7 @@
                                           <td>{{$row->plan->title}}</td>
                                           <td>${{$row->available_balance}}</td>
                                           <td>{{$row->wallet_address}}</td>
-                                          <td>{{$row->request_payment}}</td>
+                                          <td>${{$row->request_payment}}</td>
                                           <td>{{$row->created_at->format('d-m-Y')}}</td>
                                           <td>
                                                 <select id="{{$row->id}}" class="form-control bg-light statusChange" name="status">

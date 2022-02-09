@@ -14,15 +14,14 @@ class ClientController extends Controller
     public function clientArea()
     {
         $purchasedPlan = PurchasedPlan::where('user_id', '=', Auth::guard('web')->user()->id)->first();
-        $withdraAmount = round(Withdrawal::where('user_id', '=', Auth::guard('web')->user()->id)->sum('request_payment'));
-        $plans = PurchasedPlan::where('referral_code', '=', Auth::guard('web')->user()->refferal_code)->
-        where('referral_payment_status', '=',  1)->get();
+        $withdraAmount = round(Withdrawal::where('user_id', '=', Auth::guard('web')->user()->id)->where('status', '=', 'Approved')->sum('request_payment'));
+        $plans = PurchasedPlan::where('referral_code', '=', Auth::guard('web')->user()->refferal_code)->where('referral_payment_status', '=',  1)->get();
 
         $refferalAmount = ($purchasedPlan->plan->price * $purchasedPlan->plan->referral_commission) / 100;
 
 
 
-        return view('dashboard.user.client.area', compact('purchasedPlan', 'withdraAmount', 'plans' , 'refferalAmount'));
+        return view('dashboard.user.client.area', compact('purchasedPlan', 'withdraAmount', 'plans', 'refferalAmount'));
     }
 
     public function withdrawal()
@@ -30,18 +29,17 @@ class ClientController extends Controller
         $paymentMethods = PaymentMethod::all();
         $withdrawals = Withdrawal::where('user_id', '=', Auth::guard('web')->user()->id)->where('status', '=', 'Approved')->get();
         $totalWithdrawals = count($withdrawals);
-
-
         $purchasedPlan = PurchasedPlan::where('user_id', '=', Auth::guard('web')->user()->id)->first();
 
         $profit = ($purchasedPlan->plan->price * $purchasedPlan->plan->commission) / 100;
         $totalDays = $purchasedPlan->plan->withdraw * 6;
         $dailyProfit = ($profit + $purchasedPlan->plan->price) / $totalDays;
-//        $availabeAmountForWithdrawal = $dailyProfit * $purchasedPlan->plan->withdraw;
+        //        $availabeAmountForWithdrawal = $dailyProfit * $purchasedPlan->plan->withdraw;
         $availabeAmountForWithdrawal = 0;
-        $withdraAmount = round(Withdrawal::where('user_id', '=', Auth::guard('web')->user()->id)->sum('request_payment'));
-        $refferalUser = count(PurchasedPlan::where('referral_code', '=', Auth::guard('web')->user()->refferal_code)->
-        where('referral_payment_status', '=',  1)->get());
+
+        $withdraAmount = round(Withdrawal::where('user_id', '=', Auth::guard('web')->user()->id)->where('status', '=', 'Approved')->sum('request_payment'));
+        $refferalUser = count(PurchasedPlan::where('referral_code', '=', Auth::guard('web')->user()->refferal_code)->where('referral_payment_status', '=',  1)->get());
+
 
         $availabeBalanceForWithdrawal = round(($availabeAmountForWithdrawal + ($refferalUser * round(($purchasedPlan->plan->price * $purchasedPlan->plan->referral_commission) / 100)))) - $withdraAmount;
         return view('dashboard.user.client.withdrawal', compact('paymentMethods', 'totalWithdrawals', 'availabeBalanceForWithdrawal'));
@@ -61,10 +59,9 @@ class ClientController extends Controller
         }
 
         $withdrawal = new Withdrawal();
-        $plans = PurchasedPlan::where('referral_code', '=', Auth::guard('web')->user()->refferal_code)->
-        where('referral_payment_status', '=',  1)->get();
+        $plans = PurchasedPlan::where('user_id', '=', Auth::guard('web')->user()->id)->where('referral_payment_status', '=',  1)->first();
         $withdrawal->user_id = Auth::guard('web')->user()->id;
-        $withdrawal->plan_id = 1;
+        $withdrawal->plan_id = $plans->plan_id;
         $withdrawal->available_balance = $request->available_balance;
         $withdrawal->wallet_address = $request->wallet_address;
         $withdrawal->request_payment = $request->request_payment;

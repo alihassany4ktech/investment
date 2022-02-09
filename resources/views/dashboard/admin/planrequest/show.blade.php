@@ -215,7 +215,7 @@
                                                 <td>{{$row->plan->title}}</td>
                                                 <td>${{$row->available_balance}}</td>
                                                 <td>{{$row->wallet_address}}</td>
-                                                <td>{{$row->request_payment}}</td>
+                                                <td>${{$row->request_payment}}</td>
                                                 <td>{{$row->payment_method}}</td>
                                                 <td>{{$row->updated_at->format('d-m-Y')}}</td>
                                                 <td>{{$row->status}}</td>
@@ -240,7 +240,7 @@
                                                 <th>User Name</th>
                                                 <th>User Email</th>
                                                 <th>Phone</th>
-                                                <th>Referral Amount</th>
+                                                {{-- <th>Referral Amount</th> --}}
                                             </tr>
                                         </thead>
                                         <tbody>

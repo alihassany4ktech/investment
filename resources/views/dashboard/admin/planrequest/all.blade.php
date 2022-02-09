@@ -95,7 +95,7 @@
 </a>
 
                                           </td>
-                                          @if($row->plan_id = 4)
+                                          @if($row->plan_id == 4)
                                           <td>${{$row->price}}</td>
                                           @else
                                           <th>NaN</th>

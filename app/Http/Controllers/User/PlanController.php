@@ -30,11 +30,6 @@ class PlanController extends Controller
             'screenshot' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4098',
             'term_and_condition' => 'required'
         ]);
-        if ($request->plan_id = 4) {
-            $request->validate([
-                'price' => 'required',
-            ]);
-        }
         $addproved = PurchasedPlan::where('user_id', '=', Auth::user()->id)->where('status', 'Approved')->exists();
         if ($addproved == true) {
             $notification = array(
