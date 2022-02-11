@@ -56,6 +56,9 @@ Route::prefix('admin')->name('admin.')->group(
                 Route::post('/change/plan/status', [App\Http\Controllers\Admin\RequestController::class, 'changeStatus'])->name('change.plan.status');
                 Route::get('/plan/request/detail/{id}', [App\Http\Controllers\Admin\RequestController::class, 'show'])->name('plan.request.show');
 
+                // contacts 
+                // setting
+                Route::get('/contacts', [App\Http\Controllers\Admin\ContactController::class, 'contacts'])->name('contacts');
                 // setting
                 Route::get('/setting', [App\Http\Controllers\Admin\SettingController::class, 'setting'])->name('setting');
                 Route::post('/setting/update', [App\Http\Controllers\Admin\SettingController::class, 'settingUpdate'])->name('setting.update');
@@ -68,6 +71,9 @@ Route::prefix('admin')->name('admin.')->group(
 
 // User Route 
 Route::get('/', [App\Http\Controllers\User\UserController::class, 'home'])->name('index');
+Route::get('/contact-us', [App\Http\Controllers\User\UserController::class, 'contactUs'])->name('contactUs');
+Route::post('/contact-us/store', [App\Http\Controllers\User\UserController::class, 'contactUsStore'])->name('contactus.store');
+
 Route::prefix('user')->name('user.')->group(function () {
     Route::middleware(['guest:web',])->group(function () {
         Route::get('/login', [App\Http\Controllers\User\UserController::class, 'showLoginForm'])->name('login');
@@ -91,14 +97,16 @@ Route::prefix('user')->name('user.')->group(function () {
         Route::get('/client/area', [App\Http\Controllers\User\ClientController::class, 'clientArea'])->name('client.area');
         Route::get('/client/withdrawal/', [App\Http\Controllers\User\ClientController::class, 'withdrawal'])->name('client.withdrawal');
         // plans 
-        ROute::get('/plans', [App\Http\Controllers\User\PlanController::class, 'plans'])->name('plans')->middleware('EmailVerify', 'PhoneVerify');
+        Route::get('/plans', [App\Http\Controllers\User\PlanController::class, 'plans'])->name('plans')->middleware('EmailVerify', 'PhoneVerify');
         Route::get('/purchase/plan/{id}', [App\Http\Controllers\User\PlanController::class, 'purchase'])->name('purchase.plan');
         Route::post('/purchase/plan/store', [App\Http\Controllers\User\PlanController::class, 'purchaseStore'])->name('plan.purchase.store');
         Route::get('/plan/purchase/success', [App\Http\Controllers\User\PlanController::class, 'planPurchaseSuccess'])->name('plan.purchase.success');
         // refferal code 
         ROute::get('/refferal-code', [App\Http\Controllers\User\UserController::class, 'refferalCode'])->name('refferal.code');
         // transaction history
-        ROute::get('/transaction-history', [App\Http\Controllers\User\TransactionHistoryController::class, 'history'])->name('transaction.history');
+        Route::get('/transaction-history', [App\Http\Controllers\User\TransactionHistoryController::class, 'history'])->name('transaction.history');
+
+        Route::post('/restart/countdown', [App\Http\Controllers\User\UserController::class, 'restartCountdown'])->name('restart.countdown');
     });
 });
 

@@ -27,6 +27,7 @@ class CreatePurchasedPlansTable extends Migration
             $table->boolean('referral_payment_status')->default(0);
             $table->string('screenshot')->nullable();
             $table->boolean('term_and_condition')->nullable();
+            $table->integer('limit')->default(1);
             $table->timestamps();
         });
     }

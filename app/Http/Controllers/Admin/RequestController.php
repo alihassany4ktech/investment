@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Carbon\Carbon;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\PurchasedPlan;
@@ -24,8 +25,14 @@ class RequestController extends Controller
             $plan = PurchasedPlan::find($request->id);
             $plan->status = $request->status;
             $plan->referral_payment_status = 1;
+            if ($request->status == 'Approved') {
+                $currentDate = Carbon::now();
+                $date = Carbon::parse($currentDate)->addDays($plan->plan->withdraw);
+                $plan->countdown = $date;
+            }
             $plan->update();
             if ($request->status == "Approved") {
+
                 $user = User::find($plan->user_id);
                 $refferal_code = '2EC' . $user->id . '-' . mt_rand(10000, 99999);
                 $msg = 'And Your Refferal Code is ' . $refferal_code;
@@ -48,7 +55,7 @@ class RequestController extends Controller
     public function show($id)
     {
         $planRequest = PurchasedPlan::find($id);
-        if($planRequest->referral_code != Null){
+        if ($planRequest->referral_code != Null) {
             $plans = PurchasedPlan::where('referral_code', '=', $planRequest->user->refferal_code)->get();
         }
 

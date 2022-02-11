@@ -74,6 +74,9 @@
                         <li class="{{ $link == route('admin.withdrawals')? 'active':'' }}"><a class="waves-effect waves-dark" href="{{route('admin.withdrawals')}}"  aria-expanded="false"><i class="ti-money" style="font-size: 18px" aria-hidden="true"></i><span class="hide-menu">Withdrawals</span></a></li>
                         <li class="{{ $link == route('admin.transaction.history') ? 'active':'' }}"> <a class="waves-effect waves-dark" href="{{route('admin.transaction.history')}}" aria-expanded="false"><i class="fa fa-history"></i><span class="hide-menu">Transaction History</span></a></li>
 
+                        {{-- contact --}}
+                        <li class="{{ $link == route('admin.contacts')? 'active':'' }}"><a class="waves-effect waves-dark" href="{{route('admin.contacts')}}"  aria-expanded="false"><i class="mdi mdi-account-star" style="font-size: 18px" aria-hidden="true"></i><span class="hide-menu">Contact</span></a></li>
+
                         {{-- settings --}}
                         <li class="{{ $link == route('admin.setting')? 'active':'' }}"><a class="waves-effect waves-dark" href="{{route('admin.setting')}}"  aria-expanded="false"><i class="ti-settings" style="font-size: 18px" aria-hidden="true"></i><span class="hide-menu">Settings</span></a></li>
                     </ul>

@@ -31,9 +31,9 @@
                         $availabeAmountForWithdrawal = $dailyProfit * $purchasedPlan->plan->withdraw;
                         $totalAmount = ($purchasedPlan->plan->price + $profit);
 
-                        $date = Carbon\Carbon::parse( $purchasedPlan->updated_at)->addDays($purchasedPlan->plan->withdraw)
+                        $date = $purchasedPlan->countdown;
                     ?>
-                    {{-- {{dd($date)}} --}}
+                    {{-- {{dd($purchasedPlan->limit)}} --}}
 {{-- {                 --}}
                     <input type="hidden" value="{{$date}}" id="updatedDate">
                     <div class="card-body">
@@ -165,63 +165,61 @@
 
 @push('clientarea-page-script')
 <script>
-    // localStorage.clear();
-// limit = 0
-        // $newlimit = localStorage.getItem('limit');
-        // console.log('newlimit');
+    var limit = {{$purchasedPlan->limit}}
+// Set the date we're counting down to
+ var someDate =  $('#updatedDate').val();
+// var countDownDate = new Date(someDate).getTime();
+var countDownDate = new Date("February 10 2022 12:29:30").getTime();
 
-        var someDate =  $('#updatedDate').val();
-        var numberOfDaysToAdd = {{$purchasedPlan->plan->withdraw}};
-        if(localStorage.getItem('remaining_time'))
-        {
-            var countDownDate = localStorage.getItem('remaining_time');
-            console.log('old');
 
-        }else{
-             console.log('new');
-            var updated = someDate;
-            var countDownDate = new Date(updated).getTime();
-            // var countDownDate = new Date("February 09 2022 10:21:00").getTime();
 
-        }
 // Update the count down every 1 second
- function countDownTimer(){
-     var remaining_time = countDownDate-1;
-     localStorage.setItem('remaining_time',remaining_time);
+var x = setInterval(function() {
+
   // Get today's date and time
   var now = new Date().getTime();
-
+    
   // Find the distance between now and the count down date
   var distance = countDownDate - now;
-
+    
   // Time calculations for days, hours, minutes and seconds
   var days = Math.floor(distance / (1000 * 60 * 60 * 24));
   var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
   var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
   var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-  // Output the result in an element with id="the-final-countdown"
-  document.getElementById("the-final-countdown").innerHTML = days + "Day: " + hours + "HourS: "
-  + minutes + "Mints: " + seconds + "Sec";
-
-  // If the count down is over, write some text
-  if (distance < 0) {     
-    //   limit++;
-      clearInterval(x);
-    //   console.log(limit);
-    //   if(limit <= 6)
-    //   {
-        //   console.log('true');
-            //   localStorage.clear();
-        //   countDownTimer;
-
-    //   }else{
-         document.getElementById("the-final-countdown").innerHTML = "EXPIRED";
-    //   }
     
+  // Output the result in an element with id="demo"
+  document.getElementById("the-final-countdown").innerHTML = days + "Day " + hours + "Hours "
+  + minutes + "Mints " + seconds + "Sec ";
     
+  // If the count down is over, write some text 
+  if (distance < 0) {
+
+        if(limit <= 7)
+        {
+        var planId = {{$purchasedPlan->id}}
+        var withdrawal = {{$purchasedPlan->plan->withdraw}}
+             $.ajax({
+                url: "{{ route('user.restart.countdown') }}",
+                method: "POST",
+                dataType: "json",
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    withdrawal: withdrawal,
+                    planId: planId,
+                },
+                success: function (data) {
+                    console.log(data);
+                    
+                }
+            });
+        }else{
+                clearInterval(x);
+    document.getElementById("the-final-countdown").innerHTML = "EXPIRED";
+
+        }        
   }
-};
-    var x =  setInterval("countDownTimer()",1000);
+}, 1000);
 </script>
+
 @endpush

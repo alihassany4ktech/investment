@@ -9,6 +9,8 @@ class PurchasedPlan extends Model
 {
     use HasFactory;
 
+    protected $dates = ['countdown'];
+
     public function plan()
     {
         return $this->belongsTo(Plan::class, 'plan_id');

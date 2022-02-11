@@ -29,11 +29,13 @@
 
 
 <body>
-
+         <?php
+        $setting = App\Models\Setting::where('id','=',1)->first();
+    ?>
     <div class="container">
         <div class="row justify-content-center mt-5">
             <div class="col-md-8 bg-light p-4">
-                <h3>Sign Up</h3>
+                <h3>Sign Up | {{$setting->company_name}}</h3>
                 <form action="{{route('user.signup')}}" class="form-horizontal form-material" method="POST">
                     @csrf
                         <div class="form-row">

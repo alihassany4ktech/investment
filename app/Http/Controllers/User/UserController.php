@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
+use Carbon\Carbon;
 use App\Models\Plan;
 use App\Models\User;
 use App\Models\Country;
@@ -11,10 +12,14 @@ use Illuminate\Http\Request;
 use App\Models\PurchasedPlan;
 use Nexmo\Laravel\Facade\Nexmo;
 use App\Http\Controllers\Controller;
+use App\Models\Admin;
+use App\Models\Contact;
+use App\Notifications\ContactNotification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Notifications\SendEmailVerifivationNotification;
+use PhpParser\Node\Expr\FuncCall;
 
 class UserController extends Controller
 {
@@ -165,9 +170,12 @@ class UserController extends Controller
         $purchasedPlan = PurchasedPlan::where('user_id', '=', Auth::guard('web')->user()->id)->first();
         $plans = Plan::all();
         $totalPlans = count($plans);
-        if ($purchasedPlan->plan != Null) {
-            return redirect()->route('user.client.area');
+        if ($purchasedPlan != null) {
+            if ($purchasedPlan->plan != Null) {
+                return redirect()->route('user.client.area');
+            }
         }
+
 
         return view('dashboard.user.home', compact('totalPlans'));
     }
@@ -225,5 +233,47 @@ class UserController extends Controller
         $commission = $purchasedPlan->plan->referral_commission;
         $refferalAmount = ($purchasedPlan->plan->price * $purchasedPlan->plan->referral_commission) / 100;
         return view('dashboard.user.refferalcode.show', compact('plans', 'commission', 'refferalAmount'));
+    }
+
+    // restartCountdown 
+
+    public function restartCountdown(Request $request)
+    {
+        if ($request->ajax()) {
+            $PurchasedPlan = PurchasedPlan::find($request->planId);
+            $oldDate = $PurchasedPlan->countdown;
+
+            $newDate = Carbon::parse($oldDate)->addDays($request->withdrawal);
+            $PurchasedPlan->limit++;
+            $PurchasedPlan->countdown = $newDate;
+            $PurchasedPlan->update();
+            return response()->json(['success' => 'True']);
+        }
+    }
+
+    // contactUs 
+
+
+    public function contactUs()
+    {
+        return view('contactus');
+    }
+
+    public function contactUsStore(Request $request)
+    {
+
+        $contact = new Contact();
+        $contact->name = $request->name;
+        $contact->email = $request->email;
+        $contact->number = $request->number;
+        $contact->message = $request->message;
+        $contact->save();
+        $name = $request->name;
+        $email = $request->email;
+        $number = $request->number;
+        $message = $request->message;
+        $admin = Admin::where('id', '=', 1)->first();
+        $admin->notify(new ContactNotification($name, $email, $number, $message));
+        return redirect()->back()->with(['success' => 'Submitted Successfully']);
     }
 }

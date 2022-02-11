@@ -15,7 +15,7 @@
     ?>
     <!-- Favicon icon -->
   <link rel="icon" type="image/png" sizes="16x16" href="{{asset($setting->company_favicon)}}" >
-    <title>User Login</title>
+    <title>User Login | {{$setting->company_name}}</title>
     <!-- Bootstrap Core CSS -->
     <link href="{{asset('assets/plugins/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
     <!-- Custom CSS -->
