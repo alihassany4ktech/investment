@@ -23,7 +23,7 @@
 						<div class="hero-copy">
                              <h1 class="mb-3">
 							<a href="{{route('index')}}">
-								<img class="header-logo-image" src="{{asset('assets/sold/dist/images/logo.svg')}}" alt="Logo">
+								<img class="header-logo-image" src="{{asset($setting->company_logo)}}" width="70" height="70" alt="Logo">
                             </a>
                         </h1>
 	                        <p class="hero-paragraph" style="color: black">We offer Partnership Plans for Non-Expert traders and investors, 100% earning with 0% loss short term plan opportunity for everyone. We Registered in US, UK, China, India & Pakistan
