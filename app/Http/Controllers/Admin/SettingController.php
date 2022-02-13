@@ -30,7 +30,7 @@ class SettingController extends Controller
             }
             $logo = $request->file('company_logo');
             $name = time() . 'logo' . '.' . $logo->getClientOriginalExtension();
-            $destinationPath = 'company_logo/';
+            $destinationPath = 'public/company_logo/';
             $logo->move($destinationPath, $name);
             $setting->company_logo = 'company_logo/' . $name;
         }
@@ -42,7 +42,7 @@ class SettingController extends Controller
             }
             $logo = $request->file('company_favicon');
             $name = time() . 'icon' . '.' . $logo->getClientOriginalExtension();
-            $destinationPath = 'company_favicon/';
+            $destinationPath = 'public/company_favicon/';
             $logo->move($destinationPath, $name);
             $setting->company_favicon = 'company_favicon/' . $name;
         }

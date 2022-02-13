@@ -56,7 +56,7 @@ class PlanController extends Controller
             if ($request->hasfile('screenshot')) {
                 $plan_screenshot = $request->file('screenshot');
                 $name = time() . 'screenshot' . '.' . $plan_screenshot->getClientOriginalExtension();
-                $destinationPath = 'plan_screenshot/';
+                $destinationPath = 'public/plan_screenshot/';
                 $plan_screenshot->move($destinationPath, $name);
                 $purchasedPlan->screenshot = 'plan_screenshot/' . $name;
             }

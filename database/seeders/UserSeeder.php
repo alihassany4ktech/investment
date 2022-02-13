@@ -24,7 +24,6 @@ class UserSeeder extends Seeder
                 'city'  => 'Lahore',
                 'region'  => 'Punjab',
                 'postal_or_zip_code'  => '12345',
-
                 'phone'  => '1112223334',
                 'is_plus_eighteen'  => 1,
                 'national_id'  => '1234512345123',

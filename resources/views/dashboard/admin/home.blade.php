@@ -31,7 +31,7 @@
                                     <div class="round round-sm align-self-center round-info"><i class="fa fa-paper-plane"></i></div>
                                     <div class="m-l-10 align-self-center">
                                         <h3 class="m-b-0 font-light">Total Plans</h3>
-                                        <h5 class="text-muted m-b-0">{{$totalPlans}}</h3></div>
+                                        <h5 class="text-muted m-b-0">{{$totalPlans}}</h5></div>
                                 </div>
                                </a>
                             </div>
@@ -86,20 +86,20 @@
                         </div>
                     </div>
                     <!-- Column -->
-                  
+
                 </div>
                 <div class="row">
                     <div class="col-lg-3 col-md-6">
                         <div class="card">
                             <div class="card-body">
-                          
+
                                  <div class="d-flex flex-row">
                                     <div class="round round-sm align-self-center round-success"><i class="fa fa-users"></i></div>
                                     <div class="m-l-10 align-self-center">
                                         <h3 class="m-b-0 font-light">Total Visitors</h3>
                                         <h5 class="text-muted m-b-0">{{$totalVisitors}}</h5></div>
                                 </div>
-                            
+
                             </div>
                         </div>
                     </div>
