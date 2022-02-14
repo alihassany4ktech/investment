@@ -40,74 +40,75 @@
                          @endif
                             <div class="form-group">
                                 <label class="control-label">Wallet Address</label>
-                                <input type="email" name="wallet_address" value="{{$walletAddress->wallet_address}}" class="form-control" >
-                                 @error('wallet_address')
-                                    <small class="text-danger">{{ $message }}</small>
-                              @enderror
-                            </div>
+{{--                                <input type="email" name="wallet_address" value="{{$walletAddress->wallet_address}}" class="form-control" >--}}
+{{--                                 @error('wallet_address')--}}
+{{--                                    <small class="text-danger">{{ $message }}</small>--}}
+{{--                              @enderror--}}
+                                <textarea name="wallet_address"  class="form-control" cols="30" rows="5">{{$walletAddress->wallet_address}}</textarea>
+                               </div>
 
-                            <div class="form-group">
-                                <label class="control-label">Transaction URL</label>
-                                <input type="url" pattern="https://.*" size="30" name="transaction_url" class="form-control"
-                                    placeholder="https://">
-                              @error('transaction_url')
-                                    <small class="text-danger">{{ $message }}</small>
-                              @enderror
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label">Referral Code</label>
-                                <input type="text" name="referral_code" class="form-control" placeholder="Optional">
-                                 @error('referral_code')
-                                    <small class="text-danger">{{ $message }}</small>
-                              @enderror
-                            </div>
+                               <div class="form-group">
+                                   <label class="control-label">Transaction URL</label>
+                                   <input type="url" pattern="https://.*" size="30" name="transaction_url" class="form-control"
+                                       placeholder="https://">
+                                 @error('transaction_url')
+                                       <small class="text-danger">{{ $message }}</small>
+                                 @enderror
+                               </div>
+                               <div class="form-group">
+                                   <label class="control-label">Referral Code</label>
+                                   <input type="text" name="referral_code" class="form-control" placeholder="Optional">
+                                    @error('referral_code')
+                                       <small class="text-danger">{{ $message }}</small>
+                                 @enderror
+                               </div>
 
-                            <div class="form-group">
-                                <label for="input-file-now-custom-3">Upload The Screenshot </label>
-                                <input type="file" name="screenshot" id="input-file-now-custom-3" class="dropify"
-                                    data-height="200"
-                                    data-default-file="" />
-                                    @error('screenshot')
-                                    <small class="text-danger">{{ $message }}</small>
-                              @enderror
-                            </div>
-                             <div class="form-row">
-                              <div class="col-md-12 mb-3" style="margin-top: 46px">
-                                    <input type="checkbox" id="md_checkbox_3" class="chk-col-indigo" name="term_and_condition"/>
-                                  <label for="md_checkbox_3" class="text-info">I have read all the term and condition and I am agree with that</label> <br>
-                                    @error('term_and_condition')
-                                    <small class="text-danger">{{ $message }}</small>
-                              @enderror
-                              </div>
-                             </div>
+                               <div class="form-group">
+                                   <label for="input-file-now-custom-3">Upload The Screenshot </label>
+                                   <input type="file" name="screenshot" id="input-file-now-custom-3" class="dropify"
+                                       data-height="200"
+                                       data-default-file="" />
+                                       @error('screenshot')
+                                       <small class="text-danger">{{ $message }}</small>
+                                 @enderror
+                               </div>
+                                <div class="form-row">
+                                 <div class="col-md-12 mb-3" style="margin-top: 46px">
+                                       <input type="checkbox" id="md_checkbox_3" class="chk-col-indigo" name="term_and_condition"/>
+                                     <label for="md_checkbox_3" class="text-info">I have read all the term and condition and I am agree with that</label> <br>
+                                       @error('term_and_condition')
+                                       <small class="text-danger">{{ $message }}</small>
+                                 @enderror
+                                 </div>
+                                </div>
 
-                            <div>
-                                <button type="submit" class="btn btn-info float-right">Next</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-                <!-- ============================================================== -->
-            </div>
-            <!-- ============================================================== -->
-            <!-- End Container fluid  -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- footer -->
-            <!-- ============================================================== -->
-                    <?php
-                        $setting = App\Models\Setting::where('id','=',1)->first();
-                    ?>
-            <footer class="footer">
-                © 2022 {{$setting->company_name}}
-            </footer>
-            <!-- ============================================================== -->
-            <!-- End footer -->
-            <!-- ============================================================== -->
-        </div>
-        <!-- ============================================================== -->
-        <!-- End Page wrapper  -->
-        <!-- ============================================================== -->
-        @endsection
+                               <div>
+                                   <button type="submit" class="btn btn-info float-right">Next</button>
+                               </div>
+                           </form>
+                       </div>
+                   </div>
+               </div>
+           </div>
+                   <!-- ============================================================== -->
+               </div>
+               <!-- ============================================================== -->
+               <!-- End Container fluid  -->
+               <!-- ============================================================== -->
+               <!-- ============================================================== -->
+               <!-- footer -->
+               <!-- ============================================================== -->
+                       <?php
+                           $setting = App\Models\Setting::where('id','=',1)->first();
+                       ?>
+               <footer class="footer">
+                   © 2022 {{$setting->company_name}}
+               </footer>
+               <!-- ============================================================== -->
+               <!-- End footer -->
+               <!-- ============================================================== -->
+           </div>
+           <!-- ============================================================== -->
+           <!-- End Page wrapper  -->
+           <!-- ============================================================== -->
+           @endsection

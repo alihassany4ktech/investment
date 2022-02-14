@@ -76,7 +76,7 @@
                         </div>
                     </div>
                 </div>
-      
+
                   <!-- Start Page Content -->
 
                   <div class="row">
@@ -150,16 +150,18 @@
                                                       </div>
                                                       <div class="form-row mb-5">
                                                             <div class="col-md-12">
-                                                                  <label for="validationDefault03">Company Website</label>
-                                                                  <input type="url" name="company_website_link" class="form-control"  pattern="https://.*" size="30" id="validationDefault03"  value="{{$setting->company_website_link}}" >
+                                                                  <label for="validationDefault03">Company Email</label>
+                                                                  <input type="" name="company_website_link" class="form-control"  pattern="https://.*" size="30" id="validationDefault03"  value="{{$setting->company_website_link}}" >
+{{--                                                                <textarea name="company_website_link" id="validationDefault03" class="form-control" cols="30"--}}
+{{--                                                                          rows="10">{{$setting->company_website_link}}</textarea>--}}
                                                                   @error('company_website_link')
                                                                   <small class="text-danger">{{ $message }}</small>
                                                                   @enderror
                                                             </div>
-                                                         
+
                                                       </div>
-                                                 
-                                                    
+
+
                                                       <br>
                                                     <button class="btn btn-success" type="submit">Update</button>
                                                 </form>

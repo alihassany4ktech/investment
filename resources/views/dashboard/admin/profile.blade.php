@@ -37,8 +37,10 @@
                             </div>
                              <div class="form-group">
                                 <label class="control-label">Wallet Address</label>
-                                <input type="text" name="wallet_address" class="form-control"
-                                    value="{{Auth::guard('admin')->user()->wallet_address}}">
+{{--                                <input type="text" name="wallet_address" class="form-control"--}}
+{{--                                    value="{{Auth::guard('admin')->user()->wallet_address}}">--}}
+                                 <textarea name="wallet_address" class="form-control" cols="30"
+                                           rows="10">{{Auth::guard('admin')->user()->wallet_address}}</textarea>
                             </div>
                             <div class="form-group">
                                 <label for="input-file-now-custom-3">Profile Image</label>
@@ -54,8 +56,8 @@
                 </div>
             </div>
         </div>
-            
-                
+
+
                 <!-- ============================================================== -->
             </div>
             <!-- ============================================================== -->
