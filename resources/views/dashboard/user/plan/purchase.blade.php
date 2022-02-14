@@ -32,7 +32,7 @@
                          @if ($plan->id == 4)
                               <div class="form-group">
                                 <label class="control-label">Price</label>
-                                <input type="number" min="1" name="price" value="{{$plan->price}}" class="form-control" required>
+                                <input type="number" min="500" name="price" value="{{$plan->price}}" class="form-control" required>
                                  @error('price')
                                     <small class="text-danger">{{ $message }}</small>
                               @enderror

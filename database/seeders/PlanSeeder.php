@@ -44,7 +44,7 @@ class PlanSeeder extends Seeder
             ],
             [
                 'title'  => 'Plan 4',
-                'price' => '501',
+                'price' => '500',
                 'return_price' => '0',
                 'commission' => '85',
                 'daily_earning' => '0',
