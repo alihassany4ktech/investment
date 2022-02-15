@@ -25,10 +25,10 @@
             <div class="col-lg-12 col-xlg-9 col-md-7">
                 <div class="card">
                     <?php
-                        $profit = ($purchasedPlan->plan->price*$purchasedPlan->plan->commission)/100; //ok
-                        $totalDays = $purchasedPlan->plan->withdraw * 6; //ok
-                        $dailyProfit = ($profit + $purchasedPlan->plan->price) / $totalDays; //ok
-                        $availabeAmountForWithdrawal = $dailyProfit * $purchasedPlan->plan->withdraw;
+                        // $profit = ($purchasedPlan->plan->price*$purchasedPlan->plan->commission)/100; //ok
+                        // $totalDays = $purchasedPlan->plan->withdraw * 6; //ok
+                        // $dailyProfit = ($profit + $purchasedPlan->plan->price) / $totalDays; //ok
+                        // $availabeAmountForWithdrawal = $dailyProfit * $purchasedPlan->plan->withdraw;
                         $totalAmount = ($purchasedPlan->plan->price + $profit);
 
                         $date = $purchasedPlan->countdown;
@@ -85,9 +85,9 @@
                                             <h4 class="card-title bg-light p-3">
                                                 $0
                                             </h4>
-{{--                                            <h4 class="card-title bg-light p-3">--}}
-                                            {{--                                                ${{round($availabeAmountForWithdrawal)}}--}}
-                                            {{--                                            </h4>  need to fix this balance show after count down finish--}}
+                                           {{-- <h4 class="card-title bg-light p-3">
+                        ${{round($availabeAmountForWithdrawal)}}
+                                                            </h4>  need to fix this balance show after count down finish --}}
                                         </td>
                                     </tr>
                                       <tr>
@@ -161,15 +161,16 @@
 
 </div>
 <!-- End Page wrapper  -->
+{{-- {{dd($availabeAmountForWithdrawal)}} --}}
 @endsection
 
 @push('clientarea-page-script')
 <script>
     var limit = {{$purchasedPlan->limit}}
-// Set the date we're counting down to
+    var availabeAmountForWithdrawal = {{$availabeAmountForWithdrawal}}
  var someDate =  $('#updatedDate').val();
-// var countDownDate = new Date(someDate).getTime();
-var countDownDate = new Date("February 10 2022 12:29:30").getTime();
+var countDownDate = new Date(someDate).getTime();
+// var countDownDate = new Date("February 10 2022 12:29:30").getTime();
 
 
 
