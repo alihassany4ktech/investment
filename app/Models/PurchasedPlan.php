@@ -9,7 +9,7 @@ class PurchasedPlan extends Model
 {
     use HasFactory;
 
-    protected $dates = ['countdown'];
+    // protected $dates = ['countdown'];
 
     public function plan()
     {

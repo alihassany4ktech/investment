@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\PurchasedPlan;
 use App\Http\Controllers\Controller;
+use App\Models\Payment;
 use Illuminate\Support\Facades\Auth;
 use App\Notifications\PlanRequestNotification;
 
@@ -21,14 +22,17 @@ class RequestController extends Controller
     public function changeStatus(Request $request)
     {
         if ($request->ajax()) {
-
             $plan = PurchasedPlan::find($request->id);
             $plan->status = $request->status;
             $plan->referral_payment_status = 1;
             if ($request->status == 'Approved') {
                 $currentDate = Carbon::now();
                 $date = Carbon::parse($currentDate)->addDays($plan->plan->withdraw);
-                $plan->countdown = $date;
+                $plan->countdown = $date->addHours(5);
+                $payment = new Payment();
+                $payment->user_id = $plan->user_id;
+                $payment->plan_id = $request->id;
+                $payment->save();
             }
             $plan->update();
             if ($request->status == "Approved") {

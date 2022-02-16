@@ -5,21 +5,22 @@ namespace App\Http\Controllers\User;
 use Carbon\Carbon;
 use App\Models\Plan;
 use App\Models\User;
+use App\Models\Admin;
+use App\Models\Contact;
 use App\Models\Country;
+use App\Models\Payment;
 use App\Models\Visitor;
 use App\Models\Withdrawal;
 use Illuminate\Http\Request;
 use App\Models\PurchasedPlan;
 use Nexmo\Laravel\Facade\Nexmo;
+use PhpParser\Node\Expr\FuncCall;
 use App\Http\Controllers\Controller;
-use App\Models\Admin;
-use App\Models\Contact;
-use App\Notifications\ContactNotification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use App\Notifications\ContactNotification;
 use App\Notifications\SendEmailVerifivationNotification;
-use PhpParser\Node\Expr\FuncCall;
 
 class UserController extends Controller
 {
@@ -247,7 +248,22 @@ class UserController extends Controller
             $PurchasedPlan->limit++;
             $PurchasedPlan->countdown = $newDate;
             $PurchasedPlan->update();
-            return response()->json(['success' => 'True']);
+            if ($PurchasedPlan->limit == 2) {
+                $payment = Payment::where('user_id', '=', $PurchasedPlan->user_id)->first();
+                $payment->balance = $request->availabeBalanceForWithdrawal;
+                $payment->update();
+                return response()->json(['balance' => $request->availabeBalanceForWithdrawal]);
+            } else {
+                // dd($request->balance);
+                $payment = Payment::where('user_id', '=', $PurchasedPlan->user_id)->first();
+                $actualBalance = $request->balance;
+                $actualBalance += $request->availabeAmountForWithdrawal;
+                $payment->balance = $actualBalance;
+                $payment->update();
+                $balance = $payment->balance;
+
+                return response()->json(['balance' => $balance]);
+            }
         }
     }
 

@@ -47,7 +47,7 @@ input[type=number] {
                                                 <h4 class="card-title  bg-light p-2">Available Balance </h4>
                                             </td>
                                             <td style="width:400px;text-align: center">
-                                                <input type="number" readonly value="{{$availabeBalanceForWithdrawal}}" min="0" name="available_balance" class="form-control">
+                                                <input type="number" readonly value="{{$balance}}" min="0" name="available_balance" class="form-control">
                                     @error('available_balance')
                                     <small class="text-danger">{{ $message }}</small>
                                     @enderror

@@ -14,7 +14,7 @@ class AddCountdownColumnInPurchasedPlan extends Migration
     public function up()
     {
         Schema::table('purchased_plans', function (Blueprint $table) {
-            $table->date('countdown')->nullable()->after('term_and_condition');
+            $table->string('countdown')->nullable()->after('term_and_condition');
         });
     }
 

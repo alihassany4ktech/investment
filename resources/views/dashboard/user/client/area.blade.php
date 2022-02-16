@@ -35,6 +35,7 @@
                     ?>
                     {{-- {{dd($purchasedPlan->limit)}} --}}
 {{-- {                 --}}
+
                     <input type="hidden" value="{{$date}}" id="updatedDate">
                     <div class="card-body">
                         <h3 class="card-title bg-success p-3 text-white" style="text-align: center">Client Area</h3>
@@ -82,12 +83,23 @@
                                             <h4 class="card-title  bg-light p-3">Available amount for withdrawal </h4>
                                         </td>
                                         <td style="width:400px;text-align: center">
-                                            <h4 class="card-title bg-light p-3">
+                                            {{-- <h4 class="card-title bg-light p-3">
                                                 $0
-                                            </h4>
-                                           {{-- <h4 class="card-title bg-light p-3">
-                        ${{round($availabeAmountForWithdrawal)}}
-                                                            </h4>  need to fix this balance show after count down finish --}}
+                                            </h4> --}}
+                                            {{-- $availabeBalanceForWithdrawal --}}
+                                         
+                                          
+                                               @if($purchasedPlan->limit < 7)
+                                                <h4 class="card-title bg-light p-3 balance">
+                                                        $0     
+                                                        </h4>   
+                                                        @else
+                                                              <h4 class="card-title bg-light p-3">
+                                                        ${{$balance}}     
+                                                        </h4>
+                                                        @endif
+                                                    
+                                                      need to fix this balance show after count down finish
                                         </td>
                                     </tr>
                                       <tr>
@@ -149,6 +161,7 @@
         <!-- End PAge Content -->
     </div>
     <!-- footer -->
+    {{-- {{dd($availabeAmountForWithdrawal)}} --}}
 
                     <?php
                         $setting = App\Models\Setting::where('id','=',1)->first();
@@ -168,9 +181,11 @@
 <script>
     var limit = {{$purchasedPlan->limit}}
     var availabeAmountForWithdrawal = {{$availabeAmountForWithdrawal}}
+    var availabeBalanceForWithdrawal= {{$availabeBalanceForWithdrawal}}
+    
  var someDate =  $('#updatedDate').val();
-var countDownDate = new Date(someDate).getTime();
-// var countDownDate = new Date("February 10 2022 12:29:30").getTime();
+// var countDownDate = new Date(someDate).getTime(); // orignal
+var countDownDate = new Date("February 16 2022 8:36:00 pm").getTime();  // duumy
 
 
 
@@ -195,11 +210,12 @@ var x = setInterval(function() {
     
   // If the count down is over, write some text 
   if (distance < 0) {
-
-        if(limit <= 7)
+clearInterval(x);
+        if(limit < 7)
         {
         var planId = {{$purchasedPlan->id}}
         var withdrawal = {{$purchasedPlan->plan->withdraw}}
+        var balance = {{$balance}}
              $.ajax({
                 url: "{{ route('user.restart.countdown') }}",
                 method: "POST",
@@ -208,15 +224,19 @@ var x = setInterval(function() {
                     _token: "{{ csrf_token() }}",
                     withdrawal: withdrawal,
                     planId: planId,
+                    availabeBalanceForWithdrawal:availabeBalanceForWithdrawal,
+                    availabeAmountForWithdrawal:availabeAmountForWithdrawal,
+                    balance:balance,
                 },
                 success: function (data) {
-                    console.log(data);
+                    console.log(data.balance);
+                    $('.balance').html('$'+data.balance);
                     
                 }
             });
         }else{
                 clearInterval(x);
-    document.getElementById("the-final-countdown").innerHTML = "EXPIRED";
+                document.getElementById("the-final-countdown").innerHTML = "EXPIRED";
 
         }        
   }

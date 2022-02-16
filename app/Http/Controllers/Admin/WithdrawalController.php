@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Payment;
 use App\Models\Withdrawal;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Models\PurchasedPlan;
-use App\Notifications\WithdrawalNotification;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Notifications\WithdrawalNotification;
 
 class WithdrawalController extends Controller
 {
@@ -21,14 +22,16 @@ class WithdrawalController extends Controller
     {
         if ($request->ajax()) {
             $plan = Withdrawal::find($request->id);
+
+
             $plan->status = $request->status;
             $plan->update();
             $purchasedPlan = PurchasedPlan::where('user_id', '=', $plan->user->id)->first();
             $withdrawals = Withdrawal::where('user_id', '=', $plan->user->id)->where('status', '=', 'Approved')->get();
-//            $referral_amount_status = PurchasedPlan::where('referral_code', '=', $plan->user->id->refferal_code)->
-//            where('referral_payment_status', '=',  1)->get();
-//            $referral_amount_status->referral_payment_status =  0;
-//            $referral_amount_status->update();
+            //            $referral_amount_status = PurchasedPlan::where('referral_code', '=', $plan->user->id->refferal_code)->
+            //            where('referral_payment_status', '=',  1)->get();
+            //            $referral_amount_status->referral_payment_status =  0;
+            //            $referral_amount_status->update();
             $totalWithdrawals = count($withdrawals);
             if ($totalWithdrawals == 6) {
                 $purchasedPlan->status = 'Pending';
@@ -36,8 +39,13 @@ class WithdrawalController extends Controller
             }
             if ($request->status == "Approved") {
 
-                $message = 'Admin Approved Your Withdrawal.';
+                // payment 
+                $payment = Payment::where('user_id', '=', $plan->user->id)->first();
+                $remainingBalance = $payment->balance - $plan->request_payment;
+                $payment->balance = $remainingBalance;
+                $payment->update();
 
+                $message = 'Admin Approved Your Withdrawal.';
             } elseif ($request->status == "Pending") {
                 $message = 'Admin put  Your Withdrawal in pending';
             } else {

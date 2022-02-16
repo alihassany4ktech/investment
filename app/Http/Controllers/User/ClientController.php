@@ -2,23 +2,27 @@
 
 namespace App\Http\Controllers\User;
 
+use DateTime;
+use Carbon\Carbon;
+use App\Models\Withdrawal;
 use Illuminate\Http\Request;
+use App\Models\PaymentMethod;
 use App\Models\PurchasedPlan;
 use App\Http\Controllers\Controller;
-use App\Models\PaymentMethod;
-use App\Models\Withdrawal;
+use App\Models\Payment;
 use Illuminate\Support\Facades\Auth;
 
 class ClientController extends Controller
 {
     public function clientArea()
     {
+        $payment = Payment::where('user_id', '=', Auth::guard('web')->user()->id)->first();
+        $balance = $payment->balance;
         $purchasedPlan = PurchasedPlan::where('user_id', '=', Auth::guard('web')->user()->id)->first();
         $withdraAmount = round(Withdrawal::where('user_id', '=', Auth::guard('web')->user()->id)->where('status', '=', 'Approved')->sum('request_payment'));
         $plans = PurchasedPlan::where('referral_code', '=', Auth::guard('web')->user()->refferal_code)->where('referral_payment_status', '=',  1)->get();
 
         $refferalAmount = ($purchasedPlan->plan->price * $purchasedPlan->plan->referral_commission) / 100;
-
         // new
         $profit = ($purchasedPlan->plan->price * $purchasedPlan->plan->commission) / 100; //ok
         $totalDays = $purchasedPlan->plan->withdraw * 6; //ok
@@ -26,8 +30,12 @@ class ClientController extends Controller
 
         $availabeAmountForWithdrawal = round($dailyProfit * $purchasedPlan->plan->withdraw);
 
+        $refferalUser = count(PurchasedPlan::where('referral_code', '=', Auth::guard('web')->user()->refferal_code)->where('referral_payment_status', '=',  1)->get());
 
-        return view('dashboard.user.client.area', compact('purchasedPlan', 'profit', 'totalDays', 'availabeAmountForWithdrawal', 'withdraAmount', 'plans', 'refferalAmount'));
+        $availabeBalanceForWithdrawal = round(($availabeAmountForWithdrawal + ($refferalUser * round(($purchasedPlan->plan->price * $purchasedPlan->plan->referral_commission) / 100)))) - $withdraAmount;
+
+
+        return view('dashboard.user.client.area', compact('balance', 'purchasedPlan', 'profit', 'totalDays', 'availabeAmountForWithdrawal', 'withdraAmount', 'plans', 'refferalAmount', 'availabeBalanceForWithdrawal'));
     }
 
     public function withdrawal()
@@ -48,7 +56,12 @@ class ClientController extends Controller
 
 
         $availabeBalanceForWithdrawal = round(($availabeAmountForWithdrawal + ($refferalUser * round(($purchasedPlan->plan->price * $purchasedPlan->plan->referral_commission) / 100)))) - $withdraAmount;
-        return view('dashboard.user.client.withdrawal', compact('paymentMethods', 'totalWithdrawals', 'availabeBalanceForWithdrawal'));
+
+
+        $payment = Payment::where('user_id', '=', Auth::guard('web')->user()->id)->first();
+        $balance = $payment->balance;
+
+        return view('dashboard.user.client.withdrawal', compact('balance', 'paymentMethods', 'totalWithdrawals', 'availabeBalanceForWithdrawal'));
     }
 
     public function withdrawalStore(Request $request)
