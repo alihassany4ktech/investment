@@ -37,6 +37,14 @@
                                     <small class="text-danger">{{ $message }}</small>
                               @enderror
                             </div>
+                            @else
+                                <div class="form-group">
+                                    <label class="control-label">Price</label>
+                                    <input type="number" min="" name="price" value="{{$plan->price}}" class="form-control" readonly required>
+                                    @error('price')
+                                    <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
                          @endif
                             <div class="form-group">
                                 <label class="control-label">Wallet Address</label>
@@ -44,7 +52,7 @@
 {{--                                 @error('wallet_address')--}}
 {{--                                    <small class="text-danger">{{ $message }}</small>--}}
 {{--                              @enderror--}}
-                                <textarea name="wallet_address"  class="form-control" cols="30" rows="5">{{$walletAddress->wallet_address}}</textarea>
+                                <textarea name="wallet_address" disabled class="form-control" cols="30" rows="5">{{$walletAddress->wallet_address}}</textarea>
                                </div>
 
                                <div class="form-group">

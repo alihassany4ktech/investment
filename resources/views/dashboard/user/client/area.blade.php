@@ -29,7 +29,14 @@
                         // $totalDays = $purchasedPlan->plan->withdraw * 6; //ok
                         // $dailyProfit = ($profit + $purchasedPlan->plan->price) / $totalDays; //ok
                         // $availabeAmountForWithdrawal = $dailyProfit * $purchasedPlan->plan->withdraw;
+                    if($purchasedPlan->plan->id == 4){
+                        $totalAmount = ($purchasedPlan->price + $profit);
+                    }
+                    else{
                         $totalAmount = ($purchasedPlan->plan->price + $profit);
+                    }
+
+
 
                         $date = $purchasedPlan->countdown;
                     ?>
@@ -59,7 +66,7 @@
                                         </td>
                                         <td style="width:400px;text-align: center">
                                             <h4 class="card-title bg-light p-3">
-                                                ${{$purchasedPlan == null ? '': $purchasedPlan->plan->price}}</h4>
+                                                ${{$purchasedPlan == null ? '': $purchasedPlan->price}}</h4>
                                         </td>
                                     </tr>
                                      <tr>
@@ -87,19 +94,19 @@
                                                 $0
                                             </h4> --}}
                                             {{-- $availabeBalanceForWithdrawal --}}
-                                         
-                                          
+
+
                                                @if($purchasedPlan->limit < 7)
                                                 <h4 class="card-title bg-light p-3 balance">
-                                                        $0     
-                                                        </h4>   
+                                                        $0
+                                                        </h4>
                                                         @else
                                                               <h4 class="card-title bg-light p-3">
-                                                        ${{$balance}}     
+                                                        ${{$balance}}
                                                         </h4>
                                                         @endif
-                                                    
-                                                      need to fix this balance show after count down finish
+
+
                                         </td>
                                     </tr>
                                       <tr>
@@ -182,10 +189,10 @@
     var limit = {{$purchasedPlan->limit}}
     var availabeAmountForWithdrawal = {{$availabeAmountForWithdrawal}}
     var availabeBalanceForWithdrawal= {{$availabeBalanceForWithdrawal}}
-    
+
  var someDate =  $('#updatedDate').val();
-// var countDownDate = new Date(someDate).getTime(); // orignal
-var countDownDate = new Date("February 16 2022 8:36:00 pm").getTime();  // duumy
+var countDownDate = new Date(someDate).getTime(); // orignal
+// var countDownDate = new Date("February 16 2022 8:36:00 pm").getTime();  // duumy
 
 
 
@@ -194,21 +201,21 @@ var x = setInterval(function() {
 
   // Get today's date and time
   var now = new Date().getTime();
-    
+
   // Find the distance between now and the count down date
   var distance = countDownDate - now;
-    
+
   // Time calculations for days, hours, minutes and seconds
   var days = Math.floor(distance / (1000 * 60 * 60 * 24));
   var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
   var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
   var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-    
+
   // Output the result in an element with id="demo"
   document.getElementById("the-final-countdown").innerHTML = days + "Day " + hours + "Hours "
   + minutes + "Mints " + seconds + "Sec ";
-    
-  // If the count down is over, write some text 
+
+  // If the count down is over, write some text
   if (distance < 0) {
 clearInterval(x);
         if(limit < 7)
@@ -231,14 +238,14 @@ clearInterval(x);
                 success: function (data) {
                     console.log(data.balance);
                     $('.balance').html('$'+data.balance);
-                    
+
                 }
             });
         }else{
                 clearInterval(x);
                 document.getElementById("the-final-countdown").innerHTML = "EXPIRED";
 
-        }        
+        }
   }
 }, 1000);
 </script>

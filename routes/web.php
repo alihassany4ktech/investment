@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-// Admin route 
+// Admin route
 
 Route::prefix('admin')->name('admin.')->group(
     function () {
@@ -24,6 +24,7 @@ Route::prefix('admin')->name('admin.')->group(
         });
         Route::middleware(['auth:admin'])->group(
             function () {
+                Route::post('change-password', [\App\Http\Controllers\Admin\AdminController::class , 'changepassword'])->name('change.password');
                 Route::get('/', [App\Http\Controllers\Admin\AdminController::class, 'index'])->name('dashboard');
                 Route::post('/logout', [App\Http\Controllers\Admin\AdminController::class, 'logout'])->name('logout');
                 // profile
@@ -37,7 +38,7 @@ Route::prefix('admin')->name('admin.')->group(
                 Route::get('/edit/plan/{id}', [App\Http\Controllers\Admin\PlanController::class, 'edit'])->name('plan.edit');
                 Route::post('/update/plan', [App\Http\Controllers\Admin\PlanController::class, 'update'])->name('plan.update');
                 Route::get('/delete/plan/{id}', [App\Http\Controllers\Admin\PlanController::class, 'delete'])->name('plan.delete');
-                // users 
+                // users
                 Route::get('/users', [App\Http\Controllers\Admin\UserController::class, 'users'])->name('users');
                 Route::get('/show/user/{id}', [App\Http\Controllers\Admin\UserController::class, 'show'])->name('user.show');
                 Route::get('/ban/user/{id}', [App\Http\Controllers\Admin\UserController::class, 'banUser'])->name('user.ban');
@@ -56,7 +57,7 @@ Route::prefix('admin')->name('admin.')->group(
                 Route::post('/change/plan/status', [App\Http\Controllers\Admin\RequestController::class, 'changeStatus'])->name('change.plan.status');
                 Route::get('/plan/request/detail/{id}', [App\Http\Controllers\Admin\RequestController::class, 'show'])->name('plan.request.show');
 
-                // contacts 
+                // contacts
                 // setting
                 Route::get('/contacts', [App\Http\Controllers\Admin\ContactController::class, 'contacts'])->name('contacts');
                 // setting
@@ -69,7 +70,7 @@ Route::prefix('admin')->name('admin.')->group(
 
 
 
-// User Route 
+// User Route
 Route::get('/', [App\Http\Controllers\User\UserController::class, 'home'])->name('index');
 Route::get('/contact-us', [App\Http\Controllers\User\UserController::class, 'contactUs'])->name('contactUs');
 Route::post('/contact-us/store', [App\Http\Controllers\User\UserController::class, 'contactUsStore'])->name('contactus.store');
@@ -91,17 +92,17 @@ Route::prefix('user')->name('user.')->group(function () {
         // profile
         Route::get('/profile', [App\Http\Controllers\User\UserController::class, 'profile'])->name('profile');
         Route::post('/profile/update', [App\Http\Controllers\User\UserController::class, 'profileUpdate'])->name('profile.update');
-        // withdrawal 
+        // withdrawal
         Route::post('/withdrawal/store', [App\Http\Controllers\User\ClientController::class, 'withdrawalStore'])->name('withdrawal.store');
         // clent area
         Route::get('/client/area', [App\Http\Controllers\User\ClientController::class, 'clientArea'])->name('client.area');
         Route::get('/client/withdrawal/', [App\Http\Controllers\User\ClientController::class, 'withdrawal'])->name('client.withdrawal');
-        // plans 
+        // plans
         Route::get('/plans', [App\Http\Controllers\User\PlanController::class, 'plans'])->name('plans')->middleware('EmailVerify', 'PhoneVerify');
         Route::get('/purchase/plan/{id}', [App\Http\Controllers\User\PlanController::class, 'purchase'])->name('purchase.plan');
         Route::post('/purchase/plan/store', [App\Http\Controllers\User\PlanController::class, 'purchaseStore'])->name('plan.purchase.store');
         Route::get('/plan/purchase/success', [App\Http\Controllers\User\PlanController::class, 'planPurchaseSuccess'])->name('plan.purchase.success');
-        // refferal code 
+        // refferal code
         ROute::get('/refferal-code', [App\Http\Controllers\User\UserController::class, 'refferalCode'])->name('refferal.code');
         // transaction history
         Route::get('/transaction-history', [App\Http\Controllers\User\TransactionHistoryController::class, 'history'])->name('transaction.history');

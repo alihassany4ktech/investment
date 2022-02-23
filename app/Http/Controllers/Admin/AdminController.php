@@ -10,6 +10,8 @@ use App\Http\Controllers\Controller;
 use App\Models\PurchasedPlan;
 use App\Models\Visitor;
 use App\Models\Withdrawal;
+use App\Rules\MatchOldPassword;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
@@ -33,7 +35,7 @@ class AdminController extends Controller
         $creds = $request->only('email', 'password');
 
         if (Auth::guard('admin')->attempt($creds)) {
-            return redirect()->route('admin.dashboard')->with('success', 'Singin Successfully');
+            return redirect()->route('admin.dashboard')->with('success', 'Signing Successfully');
         } else {
             return redirect()->route('admin.login')->with('fail', 'Incorrect credentials');
         }
@@ -93,4 +95,27 @@ class AdminController extends Controller
             ]);
         }
     }
+    public function changepassword(Request $request)
+    {
+
+        $request->validate([
+            'current_password' => ['required', new MatchOldPassword],
+            'new_password' => ['required'],
+            'new_confirm_password' => ['same:new_password'],
+        ]);
+
+
+        $user = User::find(auth()->user()->id);
+
+        $update = $user->update(['password'=> Hash::make($request->new_password)]);
+
+        if ($update){
+            return redirect()->route('admin.profile')->with('success', 'Password Updated Successfully');
+        }
+        else{
+            return redirect()->route('admin.profile')->with('danger', 'Password not Updated ');
+        }
+
+    }
+
 }

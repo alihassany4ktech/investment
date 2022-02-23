@@ -18,21 +18,46 @@ class ClientController extends Controller
     {
         $payment = Payment::where('user_id', '=', Auth::guard('web')->user()->id)->first();
         $balance = $payment->balance;
-        $purchasedPlan = PurchasedPlan::where('user_id', '=', Auth::guard('web')->user()->id)->first();
+        $purchasedPlan = PurchasedPlan::where('user_id', '=', Auth::guard('web')->user()->id)->where('status' , '=' , 'Approved')->first();
         $withdraAmount = round(Withdrawal::where('user_id', '=', Auth::guard('web')->user()->id)->where('status', '=', 'Approved')->sum('request_payment'));
         $plans = PurchasedPlan::where('referral_code', '=', Auth::guard('web')->user()->refferal_code)->where('referral_payment_status', '=',  1)->get();
+        if ($purchasedPlan->plan->id == 4) {
+            $refferalAmount = ($purchasedPlan->price * $purchasedPlan->plan->referral_commission) / 100;
+            // new
+            $profit = ($purchasedPlan->price * $purchasedPlan->plan->commission) / 100; //ok
 
-        $refferalAmount = ($purchasedPlan->plan->price * $purchasedPlan->plan->referral_commission) / 100;
-        // new
-        $profit = ($purchasedPlan->plan->price * $purchasedPlan->plan->commission) / 100; //ok
-        $totalDays = $purchasedPlan->plan->withdraw * 6; //ok
-        $dailyProfit = ($profit + $purchasedPlan->plan->price) / $totalDays; //ok
 
-        $availabeAmountForWithdrawal = round($dailyProfit * $purchasedPlan->plan->withdraw);
+            $totalDays = $purchasedPlan->plan->withdraw * 6; //ok
 
-        $refferalUser = count(PurchasedPlan::where('referral_code', '=', Auth::guard('web')->user()->refferal_code)->where('referral_payment_status', '=',  1)->get());
 
-        $availabeBalanceForWithdrawal = round(($availabeAmountForWithdrawal + ($refferalUser * round(($purchasedPlan->plan->price * $purchasedPlan->plan->referral_commission) / 100)))) - $withdraAmount;
+            $dailyProfit = ($profit + $purchasedPlan->plan->price) / $totalDays; //ok
+
+
+            $availabeAmountForWithdrawal = round($dailyProfit * $purchasedPlan->plan->withdraw);
+
+
+            $refferalUser = count(PurchasedPlan::where('referral_code', '=', Auth::guard('web')->user()->refferal_code)->where('referral_payment_status', '=',  1)->get());
+
+            $availabeBalanceForWithdrawal = round(($availabeAmountForWithdrawal + ($refferalUser * round(($purchasedPlan->price * $purchasedPlan->plan->referral_commission) / 100)))) - $withdraAmount;
+
+        }
+        else{
+
+            $refferalAmount = ($purchasedPlan->plan->price * $purchasedPlan->plan->referral_commission) / 100;
+            // new
+            $profit = ($purchasedPlan->plan->price * $purchasedPlan->plan->commission) / 100; //ok
+            $totalDays = $purchasedPlan->plan->withdraw * 6; //ok
+
+            $dailyProfit = ($profit + $purchasedPlan->plan->price) / $totalDays; //ok
+
+            $availabeAmountForWithdrawal = round($dailyProfit * $purchasedPlan->plan->withdraw);
+
+            $refferalUser = count(PurchasedPlan::where('referral_code', '=', Auth::guard('web')->user()->refferal_code)->where('referral_payment_status', '=',  1)->get());
+
+            $availabeBalanceForWithdrawal = round(($availabeAmountForWithdrawal + ($refferalUser * round(($purchasedPlan->plan->price * $purchasedPlan->plan->referral_commission) / 100)))) - $withdraAmount;
+
+
+        }
 
 
         return view('dashboard.user.client.area', compact('balance', 'purchasedPlan', 'profit', 'totalDays', 'availabeAmountForWithdrawal', 'withdraAmount', 'plans', 'refferalAmount', 'availabeBalanceForWithdrawal'));

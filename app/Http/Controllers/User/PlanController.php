@@ -40,14 +40,13 @@ class PlanController extends Controller
         } else {
             $purchasedPlan = new PurchasedPlan();
             $purchasedPlan->user_id = Auth::guard('web')->user()->id;
-            if ($request->price) {
-                $purchasedPlan->price = $request->price;
-            }
+
+            $purchasedPlan->price = $request->price;
             $purchasedPlan->plan_id = $request->plan_id;
             $purchasedPlan->wallet_address = $request->wallet_address;
             $purchasedPlan->transaction_url = $request->transaction_url;
             $purchasedPlan->referral_code = $request->referral_code;
-            if ($request->term_and_condition) {
+            if ($request->term_and_condition ) {
                 $purchasedPlan->term_and_condition = 1;
             } else {
                 $purchasedPlan->term_and_condition = 0;
